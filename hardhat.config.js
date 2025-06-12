@@ -2,3 +2,6 @@
 module.exports = {
   solidity: "0.8.28",
 };
+
+require("@nomiclabs/hardhat-ethers");
+require("@nomiclabs/hardhat-waffle");
