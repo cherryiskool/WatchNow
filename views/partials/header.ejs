@@ -1,0 +1,23 @@
+<header>
+    <nav>
+        <a href="/">Home</a>
+        <!-- if this variable doesnt exist it means the user is not logged in
+         there may be a cleaner/ more proper way to do this -->
+        <% if (!locals.username) { %>
+            <a href="/register">Register</a>
+            <a href="/login/">Login</a>
+        <% } %>
+        <a href="/videos/">Popular Videos</a>
+        <a href="/videos/upload">Upload Videos</a>
+        <!-- if the user is logged in then display the profile page -->
+        <% if (locals.username) { %>
+            <a href="/myprofile/<%= locals.username %>">Profile for <%= locals.username %></a>
+            <form action="/logout" method="post"> 
+                <button class="logout" type="submit">Log Out</button>
+            </form>
+        <% } %>
+
+
+
+    </nav>
+</header>

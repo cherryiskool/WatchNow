@@ -1,1 +1,5 @@
 .env
+node_modules
+public/videos
+sessions.db
+users.db

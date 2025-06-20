@@ -1,0 +1,9 @@
+<h1>Videos</h1>
+<% for(let i = 0;i < row.length; i++) { %>
+    <a href="/videos/watch/<%= row[i].fileName%>">
+        <h3><%= row[i].title%>"></h3>
+        <video height="400" width="400">
+            <source src="/videos/<%= row[i].fileName %>">
+        </video>
+    </a>
+<% } %>
