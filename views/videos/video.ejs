@@ -72,9 +72,9 @@
     {
       "inputs": [
         {
-          "internalType": "address payable",
-          "name": "_to",
-          "type": "address"
+          "internalType": "address payable[]",
+          "name": "_addresses",
+          "type": "address[]"
         }
       ],
       "name": "sendEth",
@@ -101,7 +101,7 @@
       "type": "function"
     }
   ];
-            const Address = "0xe88435700A6cFc89f298E546a502e95dCBA5673b"; // Contract Address
+            const Address = "0x3d8333310BbFbD0a3107D69a28D464Eca87dDf0d"; // Contract Address
             window.web3 =  await new Web3(window.ethereum);
             window.contract =  new window.web3.eth.Contract(ABI, Address);
             document.getElementById("contractArea").innerHTML = "Connected to Contract"; // calling the elementID above
@@ -112,7 +112,7 @@
         const sendEth = async () => {
             const amount = document.getElementById("depositInput").value *1000000000000000000; // have to multiply by this much
             // console.log(amount, '%= walletAddresses %>')
-            receivingWallets = '<%= walletAddresses %>'
+            receivingWallets = '<%= walletAddresses %>'.split(",")
             console.log('The receiving address is anything after this :',receivingWallets);
             console.log('The from wallet address is anything after this:', account)
             await window.contract.methods.sendEth(receivingWallets).send({from: account, value: amount});

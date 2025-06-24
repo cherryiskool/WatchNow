@@ -26,17 +26,17 @@ contract Token {
     // VINCENT CODE
 
 
-    // function sendEth(address payable[] memory _addresses) public payable{
-    //     // uint[] storage reactedToCreators;
-    //     for (uint i = 0; i < _addresses.length; i++) {
-    //         _addresses[i].transfer(msg.value/_addresses.length);
-    //     }
+    function sendEth(address payable[] memory _addresses) public payable{
+        // uint[] storage reactedToCreators;
+        for (uint i = 0; i < _addresses.length; i++) {
+            _addresses[i].transfer(msg.value/_addresses.length);
+        }
 
-    // }
+    }
 
     // function to send ether to someone
-    function sendEth(address payable _to, uint _amount) public payable{
-        _to.transfer(msg.value);
-    }
+    // function sendEth(address payable _to, uint _amount) public payable{
+    //     _to.transfer(msg.value);
+    // }
 //
 }
