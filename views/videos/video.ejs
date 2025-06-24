@@ -1,6 +1,121 @@
- <%= title %>
+<!-- imports Web3 -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.2.7-rc.0/web3.min.js"></script>
+
+<!-- video title -->
+<%= title %><br>
+
 <video width="200" controls>
     <source src="/videos/<%= filename %>">
-</video>
-<a href="/viewprofile/<%= creatorUsername %>"><%= creatorUsername %></a> 
- <%= walletAddress %>
+</video><br>
+<!-- video creator's profile link -->
+<a href="/viewprofile/<%= creatorUsername %>"><%= creatorUsername %></a><br> 
+
+<!-- button that allows user to connect to metamask/ prompts metamask to connect to the page -->
+<button onclick="connectMetamask()">CONNECT TO METAMASK</button><br><br>
+
+<!-- basic donation functionality button -->
+<button onclick="sendEth()">Send ether to <%= creatorUsername %></button><br><br>
+<input type="number" id="depositInput" placeholder="Enter Amount"><br> <br>
+
+<!-- connects the user to the contract -->
+<button onclick="connectContract()">CONNECT TO CONTRACT</button>
+<p id="contractArea">Status: Not connected to Contract</p>
+ <script> // the below script code is convention in web3 in forming the communication with Web
+        let account;
+
+        const connectMetamask = async () => {
+            if(window.ethereum !== "undefined") {
+                const accounts = await ethereum.request({method: "eth_requestAccounts"});
+                // this automatically checks the users wallet
+                // may cause a bug if they have not entered one (will be fixed later)
+                account = '<%= viewerWalletAddress %>';
+                console.log(account, "hi");
+                // document.getElementById("userArea").innerHTML = `User Account: ${account}`;
+            }
+        }
+
+        const connectContract = async () => {
+            const ABI = [
+    {
+      "inputs": [],
+      "name": "deposit",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getAddress",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getBalance",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address payable",
+          "name": "_to",
+          "type": "address"
+        }
+      ],
+      "name": "sendEth",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address payable",
+          "name": "_to",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "withdraw",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ];
+            const Address = "0xe88435700A6cFc89f298E546a502e95dCBA5673b"; // Contract Address
+            window.web3 =  await new Web3(window.ethereum);
+            window.contract =  new window.web3.eth.Contract(ABI, Address);
+            document.getElementById("contractArea").innerHTML = "Connected to Contract"; // calling the elementID above
+        }
+
+        // send eth function
+        // takes amount and multiplies it (to send Eth rather than Wei)
+        const sendEth = async () => {
+            const amount = document.getElementById("depositInput").value *1000000000000000000; // have to multiply by this much
+            // console.log(amount, '%= walletAddresses %>')
+            receivingWallets = '<%= walletAddresses %>'
+            console.log('The receiving address is anything after this :',receivingWallets);
+            console.log('The from wallet address is anything after this:', account)
+            await window.contract.methods.sendEth(receivingWallets).send({from: account, value: amount});
+        }
+
+    </script>

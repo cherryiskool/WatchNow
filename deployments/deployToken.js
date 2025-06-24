@@ -1,3 +1,5 @@
+// code used from Sean Heeney
+
 const main = async () => {
 
     const initialSupply = ethers.utils.parseEther("100000");

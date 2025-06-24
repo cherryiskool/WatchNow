@@ -45,8 +45,9 @@ app.use(session({
 }))
 
 
-// 
+// initialise passport
 app.use(passport.initialize());
+// update user info - req.user
 app.use(passport.session())
 
 // this allows all ejs pages to access the username associated with the user passport created in auth.js
@@ -55,12 +56,14 @@ app.use(function(req, res, next) {
   console.log('server app ', req.user)
   try {
     res.locals.username = req.user.username
+    res.locals.userWallet = req.user.walletAddress
   } catch {
     console.log('user is not logged in')
   }
   next();
 })
 
+// what each routes url should begin with
 app.use('/', indexRouter);
 app.use('/', authRouter);
 app.use('/videos', videosRouter);

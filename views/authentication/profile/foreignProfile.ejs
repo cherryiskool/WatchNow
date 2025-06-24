@@ -1,4 +1,6 @@
 <h1>Videos</h1>
+<!-- loops over all videos (since multiple videos would cause multiple user rows)
+ creates a link for each of them and displays info corresponing to each video -->
 <% for(let i = 0;i < row.length; i++) { %>
     <a href="/videos/watch/<%= row[i].fileName%>">
         <h3><%= row[i].title%>"></h3>

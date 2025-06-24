@@ -56,6 +56,7 @@ passport.serializeUser(function(user, cb) {
 });
 
 // function that uses the id from serialize user to get the user object
+// allows me to call req.user.walletAddress etc.
 passport.deserializeUser(function(id, cb) {
   // console.log(id);
   db.get('SELECT * FROM users WHERE id = ?', [ id.id ], function(err, user) {
@@ -142,12 +143,13 @@ router.post('/myprofile/:username', (req, res) => {
   res.redirect('/')
 })
 
+// allows user to view a channels page, for now this only shows their videos
 router.get('/viewprofile/:username', (req, res) => {
   username = req.params.username;
   db.all('SELECT * FROM users JOIN videos ON users.id = videos.uploaderId WHERE users.username = ?',[
     username
   ], (req, row) => {
-    console.log('yup',row);
+    // send basically all user info to the page, will remove sending the hashed password though for obvious security reasons
     res.render('authentication/profile/foreignProfile', {row: row});
   })
 

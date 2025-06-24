@@ -23,6 +23,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({storage: storage});
 
+// for now videos just shares all the videos on the server
 router.get('/', (req, res) => {
     fs.readdir('./public/videos', (err, files) => {
         console.log(files);
@@ -30,6 +31,7 @@ router.get('/', (req, res) => {
     })
 
 });
+
 
 router.get('/upload', (req, res) => {
     if (req.isAuthenticated() == false) {
@@ -41,28 +43,63 @@ router.get('/upload', (req, res) => {
 });
 
 router.post('/upload', upload.single('video'), (req, res) => {
-    const video = req.file;
-    console.log("Attempt to log video", video);
-    db.run('INSERT INTO videos (title, uploaderId, fileName) VALUES (?, ?, ?)', [
+    let video = req.file;
+    // console.log("Attempt to log video", video);
+
+    let indexOfUrl = req.body.reactedTo.indexOf("watch/");
+    // console.log('hopefully file name', req.body.reactedTo.slice(indexOfUrl + 6));
+    let reactedToFileName = req.body.reactedTo.slice(indexOfUrl + 6);
+    // put video details into database to query later
+    db.run('INSERT INTO videos (title, uploaderId, fileName, reactedTo) VALUES (?, ?, ?, ?)', [
         req.body.videoTitle,
         req.user.id,
-        video.filename
+        video.filename,
+        reactedToFileName
     ]);
+    // console.log(req.user.id);
     res.send('Video Upload Successful');
     // res.redirect('/videos/upload');
 });
 
+// page to watch a video, has the ability to donate to creator on this
 router.get('/watch/:filename', (req, res) => {
 
     filename = req.params.filename
-    console.log(filename);
-    db.get('SELECT * FROM videos JOIN users ON videos.uploaderId = users.id WHERE fileName = ?', [ filename ], (req, row) => {
-        console.log('row 0', row)
-        title = row.title;
-        username = row.username;
-        walletAddress = row.walletAddress;
+
+    // will cause a bug if user is not signed in - will update later
+
+    // console.log('req.user.wallet',req.user.walletAddress);
+
+    // use the url to get all video data to populate video page, also needs to have hashedpassword removed for security later
+    db.get('SELECT * FROM videos JOIN users ON videos.uploaderId = users.id WHERE fileName = ?', [ filename ], (requ, row) => {
+        // console.log('row 0', row)
+        let title = row.title;
+        let username = row.username;
+        let walletAddress = row.walletAddress;
+        let reactedTo = row.reactedTo;
+        // console.log("reacted to",reactedTo);
+        // console.log(req.user);
+        if (reactedTo === ''){
+            let walletAddresses = [walletAddress];
+            res.render('videos/video', {title: title, creatorUsername: username, walletAddresses: walletAddresses,
+                    filename: filename, viewerWalletAddress: req.user.walletAddress});
+        } else {
+            // if the person reacted to a video in their video get the reacted to video creators wallet address as well
+            db.get('SELECT * FROM users JOIN videos ON users.id = videos.uploaderId WHERE fileName = ?', [ reactedTo ], (requ, row) => {
+                
+                // if the video is a react video or not essentially, row.walletAddress would return an error if not a react video
+                
+                // console.log("row", row);
+                
+              
+                let walletAddresses = [walletAddress, row.walletAddress];
+                res.render('videos/video', {title: title, creatorUsername: username, walletAddresses: walletAddresses,
+                filename: filename, viewerWalletAddress: req.user.walletAddress});
+            
+            })
+        }
+
         
-        res.render('videos/video', {title: title, creatorUsername: username, walletAddress: walletAddress, filename: filename});
     })
     
 

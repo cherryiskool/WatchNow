@@ -1,52 +1,42 @@
-// SPDX-License-Identifier: LGPL-3.0-only
-pragma solidity >=0.8.0 <0.9.0;
+//SPDX-License-Identifier: GPL-3.0
 
-/**
- * @title Token - a simple example (non - ERC-20 compliant) token contract.
- */
+pragma solidity >=0.8.0;
+
 contract Token {
-    address private owner;
 
-    string public constant name = "MyToken";
+    // SEAN CODE
 
-    uint256 private totalSupply;
-
-    mapping(address => uint256) private balances;
-
-    /**
-     * @param _totalSupply total supply to ever exist.
-     */
-    constructor(uint256 _totalSupply) {
-        owner = msg.sender;
-        totalSupply = _totalSupply;
-        balances[owner] += totalSupply;
+    //Address --> Contract -- deposit
+    function deposit() public payable {
     }
 
-    /**
-     * @param _amount amount to transfer. Needs to be less than balances of the msg.sender.
-     * @param _to address receiver.
-     */
-    function transfer(uint256 _amount, address _to) external {
-        require(balances[msg.sender] >= _amount, "Not enough funds");
-        balances[msg.sender] -= _amount;
-        balances[_to] += _amount;
+    //Contract --> Address  -- withdrawal
+    function withdraw(address payable _to, uint _amount) public {
+        _to.transfer(_amount);
     }
 
-    /**
-     * @param _address address to view the balance.
-     */
-    function balanceOf(address _address)
-        external
-        view
-        returns (uint256 result)
-    {
-        result = balances[_address];
+    function getBalance() external view returns(uint) {
+        return address(this).balance;
     }
 
-    /**
-     * @notice returns the total supply.
-     */
-    function getTotalSupply() external view returns (uint256 _totalSupply) {
-        _totalSupply = totalSupply;
+    function getAddress() external view returns(address) {
+        return address(this);
     }
+
+    // VINCENT CODE
+
+
+    // function sendEth(address payable[] memory _addresses) public payable{
+    //     // uint[] storage reactedToCreators;
+    //     for (uint i = 0; i < _addresses.length; i++) {
+    //         _addresses[i].transfer(msg.value/_addresses.length);
+    //     }
+
+    // }
+
+    // function to send ether to someone
+    function sendEth(address payable _to, uint _amount) public payable{
+        _to.transfer(msg.value);
+    }
+//
 }
