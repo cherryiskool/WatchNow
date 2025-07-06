@@ -4,17 +4,18 @@
     hx-target="#editFormContainer">edit</button>
 <!-- have to change this to PUT -->
 
-<img src="">
+<img src="/profilePictures/<%= user.pfp %>">
 
-<img src="">
+<img src="/banners/<%= user.banner %>">
 
 
 
 <h2>Wallet Address</h2>
+<p><%= user.walletAddress %></p>
 
 
 <h2>Biography</h2>
-<p></p>
+<p><%= user.bio %></p>
 
 <div id="editFormContainer">
 

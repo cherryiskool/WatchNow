@@ -40,7 +40,9 @@ router.get('/myprofile/:username', (req, res) => {
     if (req.isAuthenticated()) {
       db.get('SELECT * FROM users WHERE id = ?',[ req.user.id ], (err, user) => {
         if (user.username === req.params.username) {
-          res.render('profile/index', req.user);
+          console.log('req.user check meme',req.user)
+          res.render('profile/index', {user: req.user});
+          
         } else {
           res.redirect('/')
         }
@@ -58,11 +60,19 @@ router.post('/myprofile/:username', upload.fields([
 
   (req, res) => {
   
-    console.log('req for the profile edit', req.files.pfp[0])
+    // console.log('req for the profile edit', req.files[0].pfp)
 
+    let bannerFileName;
+    let pfpFileName;
+    // there may be a better way to do this
+    // this makes sure not to set user details as empty if they did not want to change anything
     walletAddress = req.body.walletAddress;
-    pfpFileName = req.files.pfp[0].filename;
-    bannerFileName = req.files.banner[0].filename;
+    if(!req.files.pfp) {
+      pfpFileName = req.user.pfp;
+    }
+    if (!req.files.banner) {
+      bannerFileName = req.user.banner;
+    }
     bio = req.body.bio
   
     db.run('UPDATE users SET walletAddress = ?, bio = ?, banner = ?, pfp = ? WHERE id = ?', [
@@ -73,7 +83,7 @@ router.post('/myprofile/:username', upload.fields([
       req.user.id
     ]);
 
-  res.redirect('/')
+  res.redirect(`/myprofile/${req.user.username}`)
   // req.flash('Wallet updated to', walletAddress, 'successfully');
 
 })
@@ -95,7 +105,7 @@ router.get('/myprofile/:username/edit', (req, res) => {
   if (req.isAuthenticated()) {
     db.get('SELECT * FROM users WHERE id = ?',[ req.user.id ], (err, user) => {
       if (user.username === req.params.username) {
-        res.render("partials/editProfileForm", {layout: false});
+        res.render("partials/editProfileForm", {layout: false, user: req.user});
       } else {
         res.redirect('/')
       }

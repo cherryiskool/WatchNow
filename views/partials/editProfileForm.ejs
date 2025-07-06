@@ -2,16 +2,16 @@
 <div id="editProfileForm">
     <form action='/myprofile/<%= locals.username %>' method="POST" enctype="multipart/form-data">
         <label for="pfp">Upload Profile Picture</label>
-        <input type="file" name="pfp">
+        <input type="file" name="pfp" value="<%= user.pfp %>">
 
         <label for="banner">Upload Banner</label>
-        <input type="file" name="banner">
+        <input type="file" name="banner" value="/profilePictures/<%= user.banner %>">
 
         <label for="bio">Update your Bio</label>
-        <input id="bio" type="text" name="bio">
+        <input id="bio" type="text" name="bio" value="<%= user.bio %>">
         <br>
         <label for="walletAddress" id="editWalletAddress">Input/Update your Wallet Address Below</label>
-        <input id="walletAddress" type="text" name="walletAddress">
+        <input id="walletAddress" type="text" name="walletAddress" value="<%= user.walletAddress %>">
 
         <button type="submit">Submit</button>
     </form>
