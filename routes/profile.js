@@ -37,7 +37,18 @@ const upload = multer({storage: storage});
 
 // this gets the current users profile
 router.get('/myprofile/:username', (req, res) => {
-  res.render('profile/index', req.user);
+    if (req.isAuthenticated()) {
+      db.get('SELECT * FROM users WHERE id = ?',[ req.user.id ], (err, user) => {
+        if (user.username === req.params.username) {
+          res.render('profile/index', req.user);
+        } else {
+          res.redirect('/')
+        }
+      })
+  } else {
+    res.redirect('/login/');
+  }
+  // res.render('profile/index', req.user);
 });
 
 //will change this to update later
@@ -79,12 +90,35 @@ router.get('/viewprofile/:username', (req, res) => {
 
 })
 
+// get request for form
 router.get('/myprofile/:username/edit', (req, res) => {
-  res.render("partials/editProfileForm", {layout: false})
+  if (req.isAuthenticated()) {
+    db.get('SELECT * FROM users WHERE id = ?',[ req.user.id ], (err, user) => {
+      if (user.username === req.params.username) {
+        res.render("partials/editProfileForm", {layout: false});
+      } else {
+        res.redirect('/')
+      }
+    })
+  } else {
+    res.redirect('/login/');
+  }
+  // res.render("partials/editProfileForm", {layout: false})
 })
 
-
+// delete request for form
 router.delete('/myprofile/:username/removeForm', (req, res) => {
-  res.send('');
+    if (req.isAuthenticated()) {
+    db.get('SELECT * FROM users WHERE id = ?',[ req.user.id ], (err, user) => {
+      if (user.username === req.params.username) {
+          res.send('');
+      } else {
+        res.redirect('/')
+      }
+    })
+  } else {
+    res.redirect('/login/');
+  }
+  // res.send('');
 })
 module.exports = router;
