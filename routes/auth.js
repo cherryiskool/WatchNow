@@ -50,6 +50,8 @@ passport.use(new LocalStrategy({usernameField: 'email'}, function verify(email, 
   });
 }));
 
+
+
 // function that is called when a login occurs, i told it to just store the user id in the session
 passport.serializeUser(function(user, cb) {
   cb(null, {id: user.id})
@@ -127,33 +129,7 @@ router.post('/logout', (req, res) => {
   })
 });
 
-// this gets the current users profile
-router.get('/myprofile/:username', (req, res) => {
-  res.render('authentication/profile');
-});
 
-//will change this to update later
-router.post('/myprofile/:username', (req, res) => {
-  walletAddress = req.body.walletAddress;
-  db.run('UPDATE users SET walletAddress = ? WHERE id = ?', [
-    walletAddress,
-    req.user.id
-  ]);
-  // req.flash('Wallet updated to', walletAddress, 'successfully');
-  res.redirect('/')
-})
-
-// allows user to view a channels page, for now this only shows their videos
-router.get('/viewprofile/:username', (req, res) => {
-  username = req.params.username;
-  db.all('SELECT * FROM users JOIN videos ON users.id = videos.uploaderId WHERE users.username = ?',[
-    username
-  ], (req, row) => {
-    // send basically all user info to the page, will remove sending the hashed password though for obvious security reasons
-    res.render('authentication/profile/foreignProfile', {row: row});
-  })
-
-})
 
 
 module.exports = router;

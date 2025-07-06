@@ -20,6 +20,8 @@
 <!-- connects the user to the contract -->
 <button onclick="connectContract()">CONNECT TO CONTRACT</button>
 <p id="contractArea">Status: Not connected to Contract</p>
+ 
+ 
  <script> // the below script code is convention in web3 in forming the communication with Web
         let account;
 
@@ -29,8 +31,6 @@
                 // this automatically checks the users wallet
                 // may cause a bug if they have not entered one (will be fixed later)
                 account = '<%= viewerWalletAddress %>';
-                console.log(account, "hi");
-                // document.getElementById("userArea").innerHTML = `User Account: ${account}`;
             }
         }
 

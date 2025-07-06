@@ -11,7 +11,10 @@ db.serialize(function() {
         username TEXT UNIQUE, \
         email TEXT UNIQUE, \
         hashedPassword TEXT, \
-        walletAddress TEXT \
+        walletAddress TEXT, \
+        bio TEXT, \
+        banner TEXT, \
+        pfp TEXT \
     )");
     
     // here the videos table

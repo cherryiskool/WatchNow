@@ -1,0 +1,23 @@
+<h1><%= locals.username %></h1>
+
+<button hx-get="/myprofile/<%= locals.username %>/edit"
+    hx-target="#editFormContainer">edit</button>
+<!-- have to change this to PUT -->
+
+<img src="">
+
+<img src="">
+
+
+
+<h2>Wallet Address</h2>
+
+
+<h2>Biography</h2>
+<p></p>
+
+<div id="editFormContainer">
+
+</div>
+
+<script type="text/javascript" src="/scripts/profile.js"></script>

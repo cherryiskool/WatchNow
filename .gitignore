@@ -3,3 +3,7 @@ node_modules
 public/videos
 sessions.db
 users.db
+artifacts
+artifacts/build-info
+profilePictures
+banners

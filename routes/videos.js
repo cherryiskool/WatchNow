@@ -11,7 +11,7 @@ const db = require('../models/db');
 // this is used to determine twhere the file is to be stored,
 // additionally it also determines the naming scheme for the file - in this case being the date 
 // (the path.extname makes sure the extension is the same)
-const storage = multer.diskStorage({
+const videoStorage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, './public/videos')
     },
@@ -21,7 +21,7 @@ const storage = multer.diskStorage({
     }
 })
 
-const upload = multer({storage: storage});
+const upload = multer({storage: videoStorage});
 
 // for now videos just shares all the videos on the server
 router.get('/', (req, res) => {
@@ -63,13 +63,8 @@ router.post('/upload', upload.single('video'), (req, res) => {
 
 // page to watch a video, has the ability to donate to creator on this
 router.get('/watch/:filename', (req, res) => {
-
     filename = req.params.filename
-
     // will cause a bug if user is not signed in - will update later
-
-    // console.log('req.user.wallet',req.user.walletAddress);
-
     // use the url to get all video data to populate video page, also needs to have hashedpassword removed for security later
     db.get('SELECT * FROM videos JOIN users ON videos.uploaderId = users.id WHERE fileName = ?', [ filename ], (requ, row) => {
         // console.log('row 0', row)
@@ -79,6 +74,7 @@ router.get('/watch/:filename', (req, res) => {
         let reactedTo = row.reactedTo;
         // console.log("reacted to",reactedTo);
         // console.log(req.user);
+        // if the video is a react video or not essentially, row.walletAddress would return an error if not a react video
         if (reactedTo === ''){
             let walletAddresses = [walletAddress];
             res.render('videos/video', {title: title, creatorUsername: username, walletAddresses: walletAddresses,
@@ -86,12 +82,7 @@ router.get('/watch/:filename', (req, res) => {
         } else {
             // if the person reacted to a video in their video get the reacted to video creators wallet address as well
             db.get('SELECT * FROM users JOIN videos ON users.id = videos.uploaderId WHERE fileName = ?', [ reactedTo ], (requ, row) => {
-                
-                // if the video is a react video or not essentially, row.walletAddress would return an error if not a react video
-                
-                // console.log("row", row);
-                
-              
+
                 let walletAddresses = [walletAddress, row.walletAddress];
                 res.render('videos/video', {title: title, creatorUsername: username, walletAddresses: walletAddresses,
                 filename: filename, viewerWalletAddress: req.user.walletAddress});

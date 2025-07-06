@@ -14,6 +14,7 @@ const SQLiteStore = require('connect-sqlite3')(session)
 const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth');
 const videosRouter = require('./routes/videos');
+const profileRouter = require('./routes/profile')
 
 // will be used later to have PUT and UPDATE 
 const methodOverride = require('method-override');
@@ -67,6 +68,7 @@ app.use(function(req, res, next) {
 app.use('/', indexRouter);
 app.use('/', authRouter);
 app.use('/videos', videosRouter);
+app.use('/', profileRouter);
 
 // allows for there to be a set port or for it to be set to 3000 by default
 app.listen(process.env.PORT || 3000);

@@ -1,0 +1,22 @@
+
+<div id="editProfileForm">
+    <form action='/myprofile/<%= locals.username %>' method="POST" enctype="multipart/form-data">
+        <label for="pfp">Upload Profile Picture</label>
+        <input type="file" name="pfp">
+
+        <label for="banner">Upload Banner</label>
+        <input type="file" name="banner">
+
+        <label for="bio">Update your Bio</label>
+        <input id="bio" type="text" name="bio">
+        <br>
+        <label for="walletAddress" id="editWalletAddress">Input/Update your Wallet Address Below</label>
+        <input id="walletAddress" type="text" name="walletAddress">
+
+        <button type="submit">Submit</button>
+    </form>
+    <button 
+        hx-delete="/myprofile/<%= locals.username %>/removeForm"
+        hx-target="#editProfileForm"  
+        hx-swap="outerHTML">X</button>
+</div>

@@ -33,10 +33,4 @@ contract Token {
         }
 
     }
-
-    // function to send ether to someone
-    // function sendEth(address payable _to, uint _amount) public payable{
-    //     _to.transfer(msg.value);
-    // }
-//
 }
