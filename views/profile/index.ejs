@@ -4,9 +4,14 @@
     hx-target="#editFormContainer">edit</button>
 <!-- have to change this to PUT -->
 
-<img src="/profilePictures/<%= user[0].pfp %>">
+<% if (user[0].pfp) { %>
+    <img src="/profilePictures/<%= user[0].pfp %>">
+<% } %>
 
-<img src="/banners/<%= user[0].banner %>">
+<% if (user[0].banner) { %>
+    <img src="/banners/<%= user[0].banner %>">
+<% } %>
+
 
 
 
@@ -17,15 +22,18 @@
 <h2>Biography</h2>
 <p><%= user[0].bio %></p>
 
-<h2>Videos</h2>'
+<h2>Videos</h2>
 
 <!--  -->
+
+<% if (user[0].filename) { %>
 <% for(let i = 0;i < user.length; i++) { %>
     <a href="/videos/watch/<%= user[i].filename%>">
         <video height="400" width="400">
             <source src="/videos/<%= user[i].filename %>">
         </video>
     </a>
+<% } %>
 <% } %>
 
 <div id="editFormContainer">
