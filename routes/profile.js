@@ -42,11 +42,11 @@ router.get('/myprofile/:username', (req, res) => {
       // has to be left join in the case that the user has no videos
       db.all('SELECT users.id as "userId", users.username as "username", users.walletAddress as "walletAddress", users.bio as "bio", users.banner as "banner", users.pfp as "pfp", videos.id as "videoID", videos.title as "title", videos.filename as "filename" FROM users LEFT JOIN videos ON users.id = videos.uploaderId WHERE users.id = ?',[ req.user.id ], (err, user) => {
         
-        console.log('user user user',user, req.user.id);
+        console.log('user user user',user);
         
         if (user[0].username === req.params.username) {
           console.log('req.user check meme',req.user)
-          res.render('profile/index', {user: req.user, videos: user});
+          res.render('profile/index', {user: user});
           
         } else {
           res.redirect('/')
