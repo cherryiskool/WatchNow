@@ -50,11 +50,12 @@ router.post('/upload', upload.single('video'), (req, res) => {
     // console.log('hopefully file name', req.body.reactedTo.slice(indexOfUrl + 6));
     let reactedToFileName = req.body.reactedTo.slice(indexOfUrl + 6);
     // put video details into database to query later
-    db.run('INSERT INTO videos (title, uploaderId, fileName, reactedTo) VALUES (?, ?, ?, ?)', [
+    db.run('INSERT INTO videos (title, uploaderId, fileName, reactedTo, description) VALUES (?, ?, ?, ?, ?)', [
         req.body.videoTitle,
         req.user.id,
         video.filename,
-        reactedToFileName
+        reactedToFileName,
+        req.body.description
     ]);
     // console.log(req.user.id);
     res.send('Video Upload Successful');
@@ -67,19 +68,30 @@ router.get('/watch/:filename', (req, res) => {
     console.log(filename)
     // will cause a bug if user is not signed in - will update later
     // use the url to get all video data to populate video page, also needs to have hashedpassword removed for security later
-    db.get('SELECT videos.id as "videoId", videos.title as "title", videos.reactedTo as "reactedTo", users.username as "username", users.walletAddress as "walletAddress"  FROM videos JOIN users ON videos.uploaderId = users.id WHERE fileName = ?', [ filename ], (requ, row) => {
+    db.get('SELECT videos.id as "videoId", videos.title as "title", videos.reactedTo as "reactedTo", videos.description as "description", users.username as "username", users.walletAddress as "walletAddress"  FROM videos JOIN users ON videos.uploaderId = users.id WHERE fileName = ?', [ filename ], (requ, row) => {
         console.log('row 0', row)
+
+
+        // if there are no rows for the video asked for (this is if people try to search the video by url)
+        if (!row) {
+            console.log("entered this hoie")
+            res.redirect('/')
+        } else {
+
         let title = row.title;
         let username = row.username;
         let walletAddress = row.walletAddress;
         let reactedTo = row.reactedTo;
+        let description = row.description;
         // console.log("reacted to",reactedTo);
         // console.log(req.user);
         // if the video is a react video or not essentially, row.walletAddress would return an error if not a react video
+
+
         if (reactedTo === ''){
             let walletAddresses = [walletAddress];
             res.render('videos/video', {title: title, creatorUsername: username, walletAddresses: walletAddresses,
-                    filename: filename, viewerWalletAddress: req.user.walletAddress});
+                    filename: filename, viewerWalletAddress: req.user.walletAddress, description: description});
         } else {
             // if the person reacted to a video in their video get the reacted to video creators wallet address as well
             db.get('SELECT * FROM users JOIN videos ON users.id = videos.uploaderId WHERE fileName = ?', [ reactedTo ], (requ, row) => {
@@ -90,6 +102,7 @@ router.get('/watch/:filename', (req, res) => {
             
             })
         }
+    }
 
         
     })

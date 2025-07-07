@@ -1,9 +1,11 @@
 <!-- POST form to upload video -->
 
 <form method="POST" action="/videos/upload" enctype="multipart/form-data">
+    <input type="file" name="video" required> 
     <label for="videoTitle">Video Title</label>
     <input type="text" name="videoTitle" required>
-    <input type="file" name="video" required>
+    <label for="description">Description</label>
+    <input type="text" name="description">
     <label for="reactedTo">Reacted to</label>
     <input type="text" name="reactedTo">
     <input type="submit">
