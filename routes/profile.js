@@ -42,7 +42,7 @@ router.get('/myprofile/:username', (req, res) => {
       // has to be left join in the case that the user has no videos
       db.all('SELECT users.id as "userId", users.username as "username", users.walletAddress as "walletAddress", users.bio as "bio", users.banner as "banner", users.pfp as "pfp", videos.id as "videoID", videos.title as "title", videos.filename as "filename" FROM users LEFT JOIN videos ON users.id = videos.uploaderId WHERE users.id = ?',[ req.user.id ], (err, user) => {
         
-        console.log('user user user',user);
+        console.log('user user user',user[0]);
         
         if (user[0].username === req.params.username) {
           console.log('req.user check meme',req.user)
@@ -72,14 +72,25 @@ router.post('/myprofile/:username', upload.fields([
     // there may be a better way to do this
     // this makes sure not to set user details as empty if they did not want to change anything
     walletAddress = req.body.walletAddress;
+
+    // if the file upload is empty then set the new pfp to be the old one
     if(!req.files.pfp) {
       pfpFileName = req.user.pfp;
+    } else {
+      pfpFileName = req.files.pfp[0].filename
     }
+    // same as above
     if (!req.files.banner) {
       bannerFileName = req.user.banner;
+    } else {
+      bannerFileName = req.files.banner[0].filename
     }
     bio = req.body.bio
-  
+    
+    console.log('pfpFilename', pfpFileName);
+    console.log('bannerFilename', bannerFileName);
+
+    console.log('bannerrrrrrrrrrrrrrr', req.files.banner)
     db.run('UPDATE users SET walletAddress = ?, bio = ?, banner = ?, pfp = ? WHERE id = ?', [
       walletAddress,
       bio,
