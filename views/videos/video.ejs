@@ -2,26 +2,22 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.2.7-rc.0/web3.min.js"></script>
 
 <!-- video title -->
-<%= title %><br>
+
 
 <video width="200" controls>
     <source src="/videos/<%= filename %>">
 </video><br>
+<%= title %>
 <!-- video creator's profile link -->
 <a href="/viewprofile/<%= creatorUsername %>"><%= creatorUsername %></a><br> 
 
-<!-- button that allows user to connect to metamask/ prompts metamask to connect to the page -->
-<button onclick="connectMetamask()">CONNECT TO METAMASK</button><br><br>
+<button hx-get="/videos/watch/<%= filename %>/donate"
+  hx-target="#donateFormContainer">Donate</button>
 
-<!-- basic donation functionality button -->
-<button onclick="sendEth()">Send ether to <%= creatorUsername %></button><br><br>
-<input type="number" id="depositInput" placeholder="Enter Amount"><br> <br>
+<div id="donateFormContainer">
 
-<!-- connects the user to the contract -->
-<button onclick="connectContract()">CONNECT TO CONTRACT</button>
-<p id="contractArea">Status: Not connected to Contract</p>
- 
- 
+</div>
+
  <script> // the below script code is convention in web3 in forming the communication with Web
         let account;
 

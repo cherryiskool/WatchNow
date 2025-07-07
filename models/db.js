@@ -24,6 +24,7 @@ db.serialize(function() {
         uploaderId INTEGER, \
         fileName TEXT UNIQUE, \
         reactedTo TEXT, \
+        description, \
         FOREIGN KEY(uploaderId) references users(id) \
     )");
 

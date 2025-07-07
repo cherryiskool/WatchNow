@@ -1,5 +1,6 @@
 <h1><%= locals.username %></h1>
 
+<!-- button that GETs the form -->
 <button hx-get="/myprofile/<%= locals.username %>/edit"
     hx-target="#editFormContainer">edit</button>
 <!-- have to change this to PUT -->

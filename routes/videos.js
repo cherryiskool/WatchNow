@@ -64,10 +64,11 @@ router.post('/upload', upload.single('video'), (req, res) => {
 // page to watch a video, has the ability to donate to creator on this
 router.get('/watch/:filename', (req, res) => {
     filename = req.params.filename
+    console.log(filename)
     // will cause a bug if user is not signed in - will update later
     // use the url to get all video data to populate video page, also needs to have hashedpassword removed for security later
-    db.get('SELECT * FROM videos JOIN users ON videos.uploaderId = users.id WHERE fileName = ?', [ filename ], (requ, row) => {
-        // console.log('row 0', row)
+    db.get('SELECT videos.id as "videoId", videos.title as "title", videos.reactedTo as "reactedTo", users.username as "username", users.walletAddress as "walletAddress"  FROM videos JOIN users ON videos.uploaderId = users.id WHERE fileName = ?', [ filename ], (requ, row) => {
+        console.log('row 0', row)
         let title = row.title;
         let username = row.username;
         let walletAddress = row.walletAddress;
@@ -95,5 +96,31 @@ router.get('/watch/:filename', (req, res) => {
     
 
 })
+
+// get request for donate form - not really a form but it opens a window to allow donations
+router.get('/watch/:filename/donate', (req, res) => {
+    filename = req.params.filename;
+    if(req.isAuthenticated()) {
+        db.get('SELECT videos.id as "videoId", videos.title as "title", videos.reactedTo as "reactedTo", users.username as "username", users.walletAddress as "walletAddress"  FROM videos JOIN users ON videos.uploaderId = users.id WHERE fileName = ?', [ filename ], (requ, row) => {
+                let title = row.title;
+        let username = row.username;
+        let walletAddress = row.walletAddress;
+        let reactedTo = row.reactedTo;
+        walletAddresses = [walletAddress]
+            res.render("partials/donateForm",{title: title, creatorUsername: username, walletAddresses: walletAddresses,
+                    filename: filename, viewerWalletAddress: req.user.walletAddress, layout:false})
+        
+        })
+
+
+    } else {
+        // here I have to send alerts for login/register error
+    }
+})
+
+router.delete('/watch/:filename/removeDonateForm', (req, res) => {
+    res.send('')
+})
+
 
 module.exports = router;
