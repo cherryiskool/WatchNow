@@ -17,6 +17,17 @@
 <h2>Biography</h2>
 <p><%= user.bio %></p>
 
+<h2>Videos</h2>'
+
+<%= videos[0].filename %>
+<% for(let i = 0;i < videos.length; i++) { %>
+    <a href="/videos/watch/<%= videos[i].filename%>">
+        <video height="400" width="400">
+            <source src="/videos/<%= videos[i].filename %>">
+        </video>
+    </a>
+<% } %>
+
 <div id="editFormContainer">
 
 </div>

@@ -37,11 +37,16 @@ const upload = multer({storage: storage});
 
 // this gets the current users profile
 router.get('/myprofile/:username', (req, res) => {
+
     if (req.isAuthenticated()) {
-      db.get('SELECT * FROM users WHERE id = ?',[ req.user.id ], (err, user) => {
-        if (user.username === req.params.username) {
+      // has to be left join in the case that the user has no videos
+      db.all('SELECT users.id as "userId", users.username as "username", users.walletAddress as "walletAddress", users.bio as "bio", users.banner as "banner", users.pfp as "pfp", videos.id as "videoID", videos.title as "title", videos.filename as "filename" FROM users LEFT JOIN videos ON users.id = videos.uploaderId WHERE users.id = ?',[ req.user.id ], (err, user) => {
+        
+        console.log('user user user',user, req.user.id);
+        
+        if (user[0].username === req.params.username) {
           console.log('req.user check meme',req.user)
-          res.render('profile/index', {user: req.user});
+          res.render('profile/index', {user: req.user, videos: user});
           
         } else {
           res.redirect('/')
@@ -95,7 +100,7 @@ router.get('/viewprofile/:username', (req, res) => {
     username
   ], (req, row) => {
     // send basically all user info to the page, will remove sending the hashed password though for obvious security reasons
-    res.render('/profile/foreignProfile', {row: row});
+    res.render('profile/foreignProfile', {user: row});
   })
 
 })
