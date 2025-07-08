@@ -50,7 +50,7 @@ router.post('/upload', upload.single('video'), (req, res) => {
     // console.log('hopefully file name', req.body.reactedTo.slice(indexOfUrl + 6));
     let reactedToFileName = req.body.reactedTo.slice(indexOfUrl + 6);
     // put video details into database to query later
-    db.run('INSERT INTO videos (title, uploaderId, fileName, reactedTo, description, views) VALUES (?, ?, ?, ?, ?, 0)', [
+    db.run('INSERT INTO videos (title, uploaderId, fileName, reactedTo, description, views, dateOfUpload) VALUES (?, ?, ?, ?, ?, 0, datetime("now"))', [
         req.body.videoTitle,
         req.user.id,
         video.filename,

@@ -26,6 +26,7 @@ db.serialize(function() {
         reactedTo TEXT, \
         description TEXT, \
         views INTEGER, \
+        dateOfUpload TEXT, \
         FOREIGN KEY(uploaderId) references users(id) \
     )");
 
