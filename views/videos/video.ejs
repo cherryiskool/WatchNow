@@ -27,7 +27,8 @@
                 const accounts = await ethereum.request({method: "eth_requestAccounts"});
                 // this automatically checks the users wallet
                 // may cause a bug if they have not entered one (will be fixed later)
-                account = '<%= viewerWalletAddress %>';
+                account = accounts[0];
+                document.getElementById("userArea").innerHTML = `User Account: ${account}`;
             }
         }
 
