@@ -1,9 +1,23 @@
+<h1><%= user[0].username %></h1>
+
+ <% if (user[0].pfp) { %>
+    <img src="/profilePictures/<%= user[0].pfp %>">
+<% } %>
+
+<% if (user[0].banner) { %>
+    <img src="/banners/<%= user[0].banner %>">
+<% } %>
+
+<h2>Biography</h2>
+<p><%= user[0].bio %></p>
+
 <h1>Videos</h1>
 <!-- loops over all videos (since multiple videos would cause multiple user rows)
  creates a link for each of them and displays info corresponing to each video -->
-<% for(let i = 0;i < user.length; i++) { %>
+
+ <% for(let i = 0;i < user.length; i++) { %>
     <a href="/videos/watch/<%= user[i].fileName%>">
-        <h3><%= user[i].title%>"></h3>
+        <h3><%= user[i].title %></h3>
         <video height="400" width="400">
             <source src="/videos/<%= user[i].fileName %>">
         </video>
