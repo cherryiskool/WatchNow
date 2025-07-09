@@ -11,16 +11,7 @@
 <%= views %>
 
 <!-- subscribe button -->
-<% if(subbed == false) { %>
-    <form action="/subscribe/<%= user[0].username %>" method="POST">
-        <button type="submit">Sub</button>
-    </form>
-
-<% } else { %>
-    <form action="/unsubscribe/<%= user[0].username %>" method="POST">
-        <button type="submit">UnSub</button>
-    </form>
-<% } %>
+<%- include('../partials/subscribeButton.ejs') %>
 
 <!--  -->
 <%= description %>

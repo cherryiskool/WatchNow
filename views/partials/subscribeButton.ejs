@@ -1,0 +1,12 @@
+<!-- button to subscribe/unsubscribe 
+ (was an extreme pain figuring how to do this without making a route specifically for foreign profile viewer) -->
+<% if(subbed == false) { %>
+    <form action="/subscribe/<%= user[0].username %>" method="POST">
+        <button type="submit">Sub</button>
+    </form>
+
+<% } else { %>
+    <form action="/unsubscribe/<%= user[0].username %>" method="POST">
+        <button type="submit">UnSub</button>
+    </form>
+<% } %>

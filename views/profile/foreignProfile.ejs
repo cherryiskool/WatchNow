@@ -16,18 +16,7 @@
 <h2>Biography</h2>
 <p><%= user[0].bio %></p>
 
-<!-- button to subscribe/unsubscribe 
- (was an extreme pain figuring how to do this without making a route specifically for foreign profile viewer) -->
-<% if(subbed == false) { %>
-    <form action="/subscribe/<%= user[0].username %>" method="POST">
-        <button type="submit">Sub</button>
-    </form>
-
-<% } else { %>
-    <form action="/unsubscribe/<%= user[0].username %>" method="POST">
-        <button type="submit">UnSub</button>
-    </form>
-<% } %>
+<%- include('../partials/subscribeButton.ejs') %>
 
 <h1>Videos</h1>
 <!-- loops over all videos (since multiple videos would cause multiple user rows)
