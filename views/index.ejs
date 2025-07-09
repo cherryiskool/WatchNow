@@ -1,15 +1,29 @@
 
 <h1>Popular</h1>
 <!-- iterate over the all the files sent and create a thumbnail for each video which links to the actual video -->
-<!-- % for(let i = 0;i < files.length; i++) { %>
-    <a href="/videos/watch/%= files[i]%>">
+<% for(let i = 0;i < popularVideos.length; i++) { %>
+    <a href="/videos/watch/<%= popularVideos[i].fileName %>">
         <video height="400" width="400">
-            <source src="/videos/%= files[i] %>">
+            <source src="/videos/<%= popularVideos[i].fileName %>">
         </video>
     </a>
-% } %> -->
+<% } %>
 
 <h1>Recommended</h1>
-
+<% for(let i = 0; i < subbedVideos.length; i++) { %>
+    <a href="/videos/watch/<%= subbedVideos[i].fileName %>">
+        <video height="400" width="400">
+            <source src="/videos/<%= subbedVideos[i].fileName %>">
+        </video>
+    </a>
+<% } %>
 
 <h1>New Uploads</h1>
+
+<% for(let i = 0; i < newestVideos.length; i++) { %>
+    <a href="/videos/watch/<%= newestVideos[i].fileName %>">
+        <video height="400" width="400">
+            <source src="/videos/<%= newestVideos[i].fileName %>">
+        </video>
+    </a>
+<% } %>

@@ -25,14 +25,7 @@ const storage = multer.diskStorage({
     }
 })
 
-
-
-
 const upload = multer({storage: storage});
-
-
-
-
 
 
 // this gets the current users profile
@@ -104,14 +97,85 @@ router.post('/myprofile/:username', upload.fields([
 
 })
 
+// route to subscribe
+router.post('/subscribe/:username', (req, res) => {
+  backURL = req.header('Referer') || '/'
+  if (req.isAuthenticated()) {
+    subscribedTo = req.params.username;
+    console.log('subsub', subscribedTo)
+    // get the id of the user that the protagonist wants to subscribe to
+    db.get('SELECT * FROM users WHERE username = ?', [ subscribedTo ], (requ, row) => {
+      // set that they are subscribed only if it does not violate the necessity for both values to be unique as stated in db.js
+      db.run('INSERT OR IGNORE INTO subscribed (subscriberId, subscribedToId) VALUES (?, ?)',[req.user.id, row.id])
+      
+      // console.log('subsubsub', req.user.id, row.id)
+      
+      res.redirect(backURL)
+    })
+  } 
+// need to display error message if they are not subscribed
+  else {
+
+  }
+})
+
+
+// route to unsub
+router.post('/unsubscribe/:username', (req, res) => {
+  backURL = req.header('Referer') || '/'
+  if (req.isAuthenticated()) {
+    subscribedTo = req.params.username;
+    db.get('SELECT * FROM users WHERE username = ?', [ subscribedTo ], (requ, row) => {
+      db.run('DELETE FROM subscribed WHERE subscriberId = ? and subscribedToId = ?', [req.user.id, row.id])
+
+      res.redirect(backURL)
+
+    })
+  }
+  // need to send an error to say they need to be logged in
+  else {
+
+  }
+
+})
+
 // allows user to view a channels page, for now this only shows their videos
 router.get('/viewprofile/:username', (req, res) => {
   username = req.params.username;
+
+  // get all rows (same user but all their videos) from user ':username'
   db.all('SELECT * FROM users JOIN videos ON users.id = videos.uploaderId WHERE users.username = ?',[
     username
-  ], (req, row) => {
+  ], (requ, row) => {
+
+    // get a row from subscribed based on the current user and profile user
+    // this is to check if the protagonist user is subscribed
+    db.get('SELECT * FROM subscribed WHERE subscriberId = ? and subscribedToId = ?', [req.user.id, row[0].id], (requ, subRow) => {
+      
+      // console.log('checking id match',req.user.id, row.id)
+      let subbed;
+      // console.log("subrowsubrow")
+
+      // if this row exists it must mean that the user is subscribed
+      if (subRow) {
+        console.log('subrow exists!')
+
+        // return orignal row of the profile user details as well as all their videos
+        // return subbed to be false (protagonist user is  subscribed to profile user)
+        res.render('profile/foreignProfile', {user: row, subbed: true});
+      } 
+      
+      // if the row does not exist then the user is not subscribed
+      else {
+        // console.log('subrow does not exist!')
+        // return orignal row of the profile user details as well as all their videos
+        // return subbed to be false (protagonist user is  subscribed to profile user)
+        res.render('profile/foreignProfile', {user: row, subbed: false});
+      }
+
+    })
     // send basically all user info to the page, will remove sending the hashed password though for obvious security reasons
-    res.render('profile/foreignProfile', {user: row});
+
   })
 
 })

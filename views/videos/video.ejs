@@ -9,6 +9,20 @@
 </video><br>
 <%= title %>
 <%= views %>
+
+<!-- subscribe button -->
+<% if(subbed == false) { %>
+    <form action="/subscribe/<%= user[0].username %>" method="POST">
+        <button type="submit">Sub</button>
+    </form>
+
+<% } else { %>
+    <form action="/unsubscribe/<%= user[0].username %>" method="POST">
+        <button type="submit">UnSub</button>
+    </form>
+<% } %>
+
+<!--  -->
 <%= description %>
 <!-- video creator's profile link -->
 <a href="/viewprofile/<%= creatorUsername %>"><%= creatorUsername %></a><br> 

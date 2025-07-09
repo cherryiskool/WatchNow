@@ -30,7 +30,16 @@ db.serialize(function() {
         FOREIGN KEY(uploaderId) references users(id) \
     )");
 
-    
+    db.run("CREATE TABLE IF NOT EXISTS subscribed ( \
+        subscriberId INTEGER, \
+        subscribedToId INTEGER, \
+        UNIQUE(subscriberId, subscribedToId) \
+    )");
+
+    db.run("CREATE TABLE IF NOT EXISTS reactedTo ( \
+        reactId INTEGER, \
+        originalId INTEGER \
+    )");
 });
 
 // allows other files to access/run this one
