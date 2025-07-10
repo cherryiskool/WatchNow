@@ -50,6 +50,8 @@ app.use(session({
 app.use(passport.initialize());
 // update user info - req.user
 app.use(passport.session())
+require('./config/passport');
+
 
 // this allows all ejs pages to access the username associated with the user passport created in auth.js
 // in headers.ejs i use it to make dynamic navbar links (checks that youre signed in etc.)
