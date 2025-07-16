@@ -21,26 +21,51 @@ exports.uploadVideo = async (req, res) => {
     let video = req.file;
     // console.log("Attempt to log video", video);
 
-    let indexOfUrl = req.body.reactedTo.indexOf("watch/");
-    let reactedToFileName = req.body.reactedTo.slice(indexOfUrl + 6);
-    // put video details into database to query later
+    // console.log('Set of things not working properly',req.body.videoTitle,
+    //     req.user.id,
+    //     video.filename,
+    //     req.body.description)
     await videoModel.saveVideoToDB(
         req.body.videoTitle,
         req.user.id,
         video.filename,
-        reactedToFileName,
-        req.body.description)
-    res.send('Video Upload Successful');
+        req.body.description);
+    
+    console.log(req.body.reactedTo)
+    if(req.body.reactedTo) {
+
+        for(i in req.body.reactedTo) {
+            let indexOfUrl = req.body.reactedTo[i].indexOf("watch/");
+            let reactedToFileName = req.body.reactedTo[i].slice(indexOfUrl + 6);
+            console.log('reactedFileName', reactedToFileName)
+            videoJustSavedID = await videoModel.getVideoIDByFileName(video.filename);
+            reactVideoID = await videoModel.getVideoIDByFileName(reactedToFileName);
+            console.log('video just saved',videoJustSavedID.videoID, reactVideoID);
+
+            await videoModel.saveReactedToVideo(videoJustSavedID.videoID, reactVideoID.videoID);
+        }
+    }
+
+    res.send('Upload Successful')
+    console.log('req.body.filename',req.body.reactedTo)
+    // put video details into database to query later
+
+    
+
+
+
+
+    // res.send('Video Upload Successful');
     // res.redirect('/videos/upload');
     
 }
 
 exports.watchVideo = async (req, res) => {
     filename = req.params.filename
-    // console.log(filename)
+    console.log(filename)
 
     vUser = await videoModel.getVideoAndUserByFileName(filename);
-
+    console.log(vUser)
     // get all video data as well as data of user who uploaded the video
 
     // if there are no rows for the video asked for (this is if people try to search the video by url)
@@ -134,5 +159,21 @@ exports.getDonationForm = async (req, res) => {
 }
 
 exports.removeDonationForm = (req, res) => {
-        res.send('')
+    res.send('');
+}
+
+exports.getReactedToInputForm = (req, res) => {
+    res.render('partials/reactedToInputForm', {layout: false});
+}
+
+exports.revertReactedToInputForm = (req, res) => {
+    res.render('partials/defaultReactedToInput', {layout: false});
+}
+
+exports.getReactedToInput = (req, res) => {
+    res.render('partials/reactedToInput', {layout: false});
+}
+
+exports.deleteReactedToInput = (req, res) => {
+    res.send('');
 }

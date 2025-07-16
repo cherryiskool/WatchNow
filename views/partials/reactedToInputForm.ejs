@@ -1,0 +1,16 @@
+<label for="reactedTo" >Reacted to</label>
+<input type="text" name="reactedTo" id="reactedTo">
+<!-- button to delete this form -->
+<button hx-delete="/videos/upload/reactedToInputForm"
+hx-target="#reactedToInputFormLocation"
+hx-swap="innerHTML">X</button>
+<div id="uploadForm">
+    <!-- button to decrease inputs down to 1 -->
+    <button hx-delete="/videos/upload/reactedToInput"
+    hx-target="previous"
+    hx-swap="outerHTML">-</button>
+    <!-- button to increase inputs -->
+    <button hx-get="/videos/upload/reactedToInput"
+    hx-target="#uploadForm"
+    hx-swap="afterbegin">+</button>
+</div>

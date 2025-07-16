@@ -41,71 +41,80 @@
         const connectContract = async () => {
             const ABI = [
     {
-      "inputs": [],
-      "name": "deposit",
-      "outputs": [],
-      "stateMutability": "payable",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "getAddress",
-      "outputs": [
-        {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "getBalance",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
       "inputs": [
         {
-          "internalType": "address payable[]",
-          "name": "_addresses",
-          "type": "address[]"
-        }
-      ],
-      "name": "sendEth",
-      "outputs": [],
-      "stateMutability": "payable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address payable",
-          "name": "_to",
-          "type": "address"
+          "internalType": "string",
+          "name": "_videoTitle",
+          "type": "string"
         },
         {
+          "internalType": "address payable[]",
+          "name": "_reactedToContracts",
+          "type": "address[]"
+        },
+        {
+          "internalType": "uint8[]",
+          "name": "_reactedToContractsPercentageCuts",
+          "type": "uint8[]"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [],
+      "name": "applyContractTermsToDonation",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "percentageCut",
+      "outputs": [
+        {
+          "internalType": "uint8",
+          "name": "",
+          "type": "uint8"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
           "internalType": "uint256",
-          "name": "_amount",
+          "name": "",
           "type": "uint256"
         }
       ],
-      "name": "withdraw",
-      "outputs": [],
-      "stateMutability": "nonpayable",
+      "name": "reactedToContractsPercentageCuts",
+      "outputs": [
+        {
+          "internalType": "uint8",
+          "name": "",
+          "type": "uint8"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "videoTitle",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
       "type": "function"
     }
   ];
-            const Address = "0x3d8333310BbFbD0a3107D69a28D464Eca87dDf0d"; // Contract Address
+            const Address = "0xF3645F7dE75E3A6e61aB2Fabdc831239C242f95c"; // Contract Address
             window.web3 =  await new Web3(window.ethereum);
             window.contract =  new window.web3.eth.Contract(ABI, Address);
             document.getElementById("contractArea").innerHTML = "Connected to Contract"; // calling the elementID above
@@ -113,13 +122,13 @@
 
         // send eth function
         // takes amount and multiplies it (to send Eth rather than Wei)
-        const sendEth = async () => {
+        const applyContractTermsToDonation = async () => {
             const amount = document.getElementById("depositInput").value *1000000000000000000; // have to multiply by this much
             // console.log(amount, '%= walletAddresses %>')
             receivingWallets = '<%= walletAddresses %>'.split(",")
             console.log('The receiving address is anything after this :',receivingWallets);
             console.log('The from wallet address is anything after this:', account)
-            await window.contract.methods.sendEth(receivingWallets).send({from: account, value: amount});
+            await window.contract.methods.applyContractTermsToDonation().send({from: account, value: amount});
         }
 
     </script>

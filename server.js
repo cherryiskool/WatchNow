@@ -56,12 +56,12 @@ require('./config/passport');
 // this allows all ejs pages to access the username associated with the user passport created in auth.js
 // in headers.ejs i use it to make dynamic navbar links (checks that youre signed in etc.)
 app.use(function(req, res, next) {
-  console.log('server app ', req.user)
   try {
     res.locals.username = req.user.username
     res.locals.userWallet = req.user.walletAddress
+    console.log('User Logged In', req.user)
   } catch {
-    console.log('user is not logged in')
+    console.log('User Not Logged In')
   }
   next();
 })

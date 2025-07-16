@@ -1,10 +1,10 @@
 db = require('./db');
 
-exports.saveVideoToDB = (videoTitle, userID, videoFilename, reactedToFileName, description) => {
+exports.saveVideoToDB = (videoTitle, userID, videoFilename, description) => {
     return new Promise((resolve, reject) => {
-        db.run('INSERT INTO videos (title, uploaderId, fileName, reactedTo, description,\
-             views, dateOfUpload) VALUES (?, ?, ?, ?, ?, 0, datetime("now"))', 
-            [videoTitle, userID, videoFilename, reactedToFileName, description], (err, row) => {
+        db.run('INSERT INTO videos (title, uploaderId, fileName, description,\
+             views, dateOfUpload) VALUES (?, ?, ?, ?, 0, datetime("now"))', 
+            [videoTitle, userID, videoFilename, description], (err, row) => {
                 // failure check
                 resolve(row);
             })
@@ -14,7 +14,7 @@ exports.saveVideoToDB = (videoTitle, userID, videoFilename, reactedToFileName, d
 exports.getVideoAndUserByFileName = (filename) => {
     return new Promise((resolve, reject) => {
         db.get('SELECT videos.id as "videoId", videos.title as "title",\
-            videos.reactedTo as "reactedTo", videos.description as "description",\
+            videos.description as "description",\
             videos.views as "views", users.id as "userId", users.username as "username",\
             users.walletAddress as "walletAddress"  \
             FROM videos \
@@ -48,5 +48,26 @@ exports.getReactedToVideoData = (reactedToFileName) => {
             // failure check
             resolve(video);
         })
+    })
+}
+
+exports.getVideoIDByFileName = (filename) => {
+    return new Promise ((resolve, reject) => {
+        db.get('SELECT videos.id as "videoID" FROM videos WHERE fileName = ?',
+            [ filename ], (err, video) => {
+                // failure check
+                resolve(video);
+            }
+        )
+    })
+}
+
+exports.saveReactedToVideo = (reactID, originalID) => {
+    return new Promise((resolve, reject) => {
+        db.run('INSERT OR IGNORE into reactedTo (reactId, originalId) VALUES (?, ?)', 
+            [ reactID, originalID ], (err, row) => {
+                // failure check
+                resolve(row);
+            })
     })
 }

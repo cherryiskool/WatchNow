@@ -8,13 +8,11 @@
 <p id="contractArea">Status: Not connected to Contract</p>
 
 <!-- basic donation functionality button -->
-<button onclick="sendEth()">Send ether to <%= creatorUsername %></button><br><br>
+<button onclick="applyContractTermsToDonation()">Send ether to <%= creatorUsername %></button><br><br>
 <input type="number" id="depositInput" placeholder="Enter Amount"><br> <br>
 
 <button 
     hx-delete="/videos/watch/<%= filename %>/removeDonateForm"
     hx-target="#donateForm"
     hx-swap="outerHTML">X</button>
-
-
 </div>

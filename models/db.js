@@ -23,10 +23,10 @@ db.serialize(function() {
         title TEXT, \
         uploaderId INTEGER, \
         fileName TEXT UNIQUE, \
-        reactedTo TEXT, \
         description TEXT, \
         views INTEGER, \
         dateOfUpload TEXT, \
+        contractAddress TEXT, \
         FOREIGN KEY(uploaderId) references users(id) \
     )");
 
@@ -38,7 +38,8 @@ db.serialize(function() {
 
     db.run("CREATE TABLE IF NOT EXISTS reactedTo ( \
         reactId INTEGER, \
-        originalId INTEGER \
+        originalId INTEGER, \
+        UNIQUE(reactId, originalId) \
     )");
 });
 

@@ -10,20 +10,6 @@ const upload = require('../config/video')
 // runs the db file which creates the database
 const db = require('../models/db');
 videoController = require('../controllers/videoController');
-// this is used to determine twhere the file is to be stored,
-// additionally it also determines the naming scheme for the file - in this case being the date 
-// (the path.extname makes sure the extension is the same)
-// const videoStorage = multer.diskStorage({
-//     destination: (req, file, cb) => {
-//         cb(null, './public/videos')
-//     },
-//     filename: (req, file, cb) => {
-//         console.log(file);
-//         cb(null, Date.now() + path.extname(file.originalname))
-//     }
-// })
-
-// const upload = multer({storage: videoStorage});
 
 // for now videos just shares all the videos on the server
 router.get('/', 
@@ -34,8 +20,10 @@ router.get('/',
 
 });
 
+// gets page for video upload
 router.get('/upload', videoController.getUploadPage)
 
+// video upload router
 router.post('/upload', upload.single('video'), videoController.uploadVideo);
 
 // page to watch a video, has the ability to donate to creator on this
@@ -46,5 +34,14 @@ router.get('/watch/:filename/donate', videoController.getDonationForm)
 
 // router to remove form
 router.delete('/watch/:filename/removeDonateForm', videoController.removeDonationForm)
+
+// gets the entire reacted to form
+router.get('/upload/reactedToInputForm', videoController.getReactedToInputForm)
+// reverts the entire reacted to form
+router.delete('/upload/reactedToInputForm', videoController.revertReactedToInputForm)
+// adds another input for multiple reacts
+router.get('/upload/reactedToInput', videoController.getReactedToInput)
+// removes an input from the form
+router.delete('/upload/reactedToInput', videoController.deleteReactedToInput)
 
 module.exports = router;
