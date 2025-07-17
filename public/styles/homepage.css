@@ -1,0 +1,24 @@
+.videoPanorama {
+   display: flex; 
+   justify-content: space-around;
+   gap: 5vh;
+}
+
+@media (max-width: 900px) {
+    .videoPanorama {
+        flex-wrap: wrap;
+    }
+}
+
+.videoCard {
+    flex-shrink: 1;
+    padding-left: 10px;
+    padding-right: 10px;
+    flex-grow: 1;
+}
+
+.videoThumbnail {
+    height: auto;
+    width: 100%;
+    /* max-width: 400px; */
+}

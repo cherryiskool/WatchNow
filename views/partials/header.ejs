@@ -1,19 +1,19 @@
 <header>
     <nav>
-        <a href="/">Home</a>
+        <a href="/" class="navbarLinks">Home</a>
         <!-- if this variable doesnt exist it means the user is not logged in
          there may be a cleaner/ more proper way to do this -->
         <% if (!locals.username) { %>
-            <a href="/register">Register</a>
-            <a href="/login/">Login</a>
+            <a href="/register"class="navbarLinks">Register</a>
+            <a href="/login/"class="navbarLinks">Login</a>
         <% } %>
-        <a href="/videos/">Popular Videos</a>
-        <a href="/videos/upload">Upload Videos</a>
+        <a href="/videos/"class="navbarLinks">Popular</a>
+        <a href="/videos/upload"class="navbarLinks">Upload</a>
         <!-- if the user is logged in then display the profile page -->
         <% if (locals.username) { %>
-            <a href="/myprofile/<%= locals.username %>">Profile for <%= locals.username %></a>
+            <a href="/myprofile/<%= locals.username %>"class="navbarLinks">Profile</a>
             <form action="/logout" method="post"> 
-                <button class="logout" type="submit">Log Out</button>
+                <button class="logout" type="submit"class="navbarLinks" id="logOutButton">Log Out</button>
             </form>
         <% } %>
 

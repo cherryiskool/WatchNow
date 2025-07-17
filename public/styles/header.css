@@ -1,0 +1,43 @@
+nav {
+    background-color: #392F5A;
+    color: white;
+    /* height of banner */
+    height: auto;
+    /* ensures that the navbar stays at the top when scrolling */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    /* ensures it overlaps everything */
+    z-index: 9999;
+    /* makes it a flexbox container */
+    display: flex;
+    /* puts the links at the end */
+    justify-content: flex-end;
+    align-items: center;
+    padding: 10px;
+    margin-right: 10px;
+    border-bottom: 1px solid grey;
+    gap: 10px;
+
+    font-size: 16px;
+}
+
+.navbarLinks {
+    text-decoration: none;
+    color: white;
+    font-weight: bolder;
+}
+
+#logOutButton {
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-weight: bolder;
+    font-size: 16px;
+
+}
+
+#logOutButton:hover {
+    cursor: pointer;
+}
