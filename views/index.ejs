@@ -3,18 +3,23 @@
 <!-- iterate over the all the files sent and create a thumbnail for each video which links to the actual video -->
 
 <div class="videoPanorama">
-    <% for(let i = 0;i < 3; i++) { %>
-        <div class="videoCard">
-            <a href="/videos/watch/<%= popularVideos[i].fileName %>">
-                <video height="400" width="400" class="videoThumbnail">
-                    <source src="/videos/<%= popularVideos[i].fileName %>">
-                </video>
-            </a>
-            <p><%= popularVideos[i].title %></p>
-            <img src="/profilePictures/<%= popularVideos[i].pfp %>" class="pfpUnderVideo" ></img>
-            <p><%= popularVideos[i].username %></p>
-            <p>Views <%= popularVideos[i].views %></p>
-        </div>
+    <!-- have to figure out why popular videos returns an empty array rather than nothing -->
+    <% if(popularVideos.length > 0) {%>
+        <% for(let i = 0;i < 3; i++) { %>
+            <div class="videoCard">
+                <a href="/videos/watch/<%= popularVideos[i].fileName %>">
+                    <video height="400" width="400" class="videoThumbnail">
+                        <source src="/videos/<%= popularVideos[i].fileName %>">
+                    </video>
+                </a>
+                <p><%= popularVideos[i].title %></p>
+                <div class="pfpAndUsername">
+                    <img src="/profilePictures/<%= popularVideos[i].pfp %>" class="pfpUnderVideo" ></img>
+                    <p><%= popularVideos[i].username %></p>
+                </div>
+                <p>Views <%= popularVideos[i].views %></p>
+            </div>
+        <% } %>
     <% } %>
 </div>
 
@@ -30,6 +35,7 @@
                     </video>
                 </a>
                 <p><%= subbedVideos[i].title %></p>
+                <img src="/profilePictures/<%= subbedVideos[i].pfp %>" class="pfpUnderVideo" ></img>
                 <p><%= subbedVideos[i].username %></p>
                 <p>Views <%= subbedVideos[i].views %></p>
             </div>
@@ -40,16 +46,19 @@
 <h1>New Uploads</h1>
 
 <div class="videoPanorama">
-    <% for(let i = 0; i < 3; i++) { %>
-        <div class="videoCard">
-            <a href="/videos/watch/<%= newestVideos[i].fileName %>">
-                <video height="400" width="400" class="videoThumbnail">
-                    <source src="/videos/<%= newestVideos[i].fileName %>">
-                </video>
-            </a>
-            <p><%= newestVideos[i].title %></p>
-            <p><%= newestVideos[i].username %></p>
-            <p>Views <%= newestVideos[i].views %></p>
-        </div>
+    <% if(newestVideos.length > 0) { %>
+        <% for(let i = 0; i < 3; i++) { %>
+            <div class="videoCard">
+                <a href="/videos/watch/<%= newestVideos[i].fileName %>">
+                    <video height="400" width="400" class="videoThumbnail">
+                        <source src="/videos/<%= newestVideos[i].fileName %>">
+                    </video>
+                </a>
+                <p><%= newestVideos[i].title %></p>
+                <img src="/profilePictures/<%= popularVideos[i].pfp %>" class="pfpUnderVideo" ></img>
+                <p><%= newestVideos[i].username %></p>
+                <p>Views <%= newestVideos[i].views %></p>
+            </div>
+        <% } %>
     <% } %>
 </div>

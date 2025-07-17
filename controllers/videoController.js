@@ -1,13 +1,6 @@
 const videoModel = require('../models/videoModel');
 const profileModel = require('../models/profileModel')
 
-
-
-
-
-
-
-
 exports.getUploadPage = (req, res) => {
     if (req.isAuthenticated() == false) {
         res.redirect('/login')
@@ -19,12 +12,12 @@ exports.getUploadPage = (req, res) => {
 
 exports.uploadVideo = async (req, res) => {
     let video = req.file;
-    // console.log("Attempt to log video", video);
+    console.log("Attempt to log video", video);
 
-    // console.log('Set of things not working properly',req.body.videoTitle,
-    //     req.user.id,
-    //     video.filename,
-    //     req.body.description)
+    console.log('Set of things not working properly',req.body.videoTitle,
+        req.user.id,
+        video.filename,
+        req.body.description)
     await videoModel.saveVideoToDB(
         req.body.videoTitle,
         req.user.id,
