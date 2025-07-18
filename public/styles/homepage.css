@@ -1,3 +1,13 @@
+body {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.subsectionTitles {
+    border-bottom: 1px solid grey;
+    border-top: 1px solid grey;
+}
+
 .videoPanorama {
    display: flex; 
    justify-content: space-around;
@@ -10,15 +20,61 @@
     }
 }
 
+.backAndForwardButton {
+    align-self: center;
+}
+
 .videoCard {
     flex-shrink: 1;
     padding-left: 10px;
     padding-right: 10px;
     flex-grow: 1;
+
+    /* made this a flex box just so i could have a gap in between the divs */
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    /* just some space from the popular, recommended and new upload titles*/
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.videoCardPairs {
 }
 
 .videoThumbnail {
     height: auto;
     width: 100%;
-    /* max-width: 400px; */
+    border-radius: 25px;
+    flex-shrink: 1;
+    overflow: hidden;
+}
+
+.homePageVideoTitle {
+    font-weight:550;
+}
+
+.usernameUnderVideo{
+    font-weight: lighter;
+    font-size: 15px;
+}
+
+.homepageViewsAndDate {
+    font-size: 14px;
+}
+
+.videoCardPairs {
+    display: flex;
+    gap: 5px;
+}
+
+.pfpUnderVideo {
+    width: 25px;
+    height: 25px;
+    border-radius: 50px;
+}
+
+.usernameUnderVideo {
+    align-self: center;
 }

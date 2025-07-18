@@ -8,6 +8,7 @@ nav {
     top: 0;
     left: 0;
     width: 100%;
+    height: 50px;
     /* ensures it overlaps everything */
     z-index: 9999;
     /* makes it a flexbox container */

@@ -1,0 +1,37 @@
+<div class="videoPanorama" id="recommendedPanorama">
+
+        <!-- button to go back on panorama -->
+    <button class="backAndForwardButton" 
+    hx-get="/recommended/backward/<%= subIndex %>"
+    hx-target="#recommendedPanorama"
+    hx-swap="outerHTML swap: 1s" 
+    >&lt</button>
+
+    <% if(subbedVideos) { %>
+        <% for(let i = subIndex; i < subIndex + 3; i++) { %>
+            <div class="videoCard">
+                <a href="/videos/watch/<%= subbedVideos[i].fileName %>">
+                    <video height="400" width="400" class="videoThumbnail">
+                        <source src="/videos/<%= subbedVideos[i].fileName %>">
+                    </video>
+                </a>
+                <p class="homePageVideoTitle"><%= subbedVideos[i].title %></p>
+                <div class="videoCardPairs">
+                    <img src="/profilePictures/<%= subbedVideos[i].pfp %>" class="pfpUnderVideo" ></img>
+                    <p class="usernameUnderVideo"><%= subbedVideos[i].username %></p>
+                </div>
+                <div class="videoCardPairs">
+                    <p class="homepageViewsAndDate">Views: <%= subbedVideos[i].views %></p>
+                    <p class="homepageViewsAndDate">Date Uploaded: <%= subbedVideos[i].dateOfUpload %></p>
+                </div>
+            </div>
+        <% } %>
+    <% } %>
+
+    <!-- button to go forward on panorama -->
+    <button class="backAndForwardButton" 
+    hx-get="/recommended/forward/<%= subIndex %>"
+    hx-target="#recommendedPanorama"
+    hx-swap="outerHTML swap: 1s">&gt</button>
+
+</div>

@@ -1,64 +1,126 @@
 
-<h1>Popular</h1>
+<h1 class="subsectionTitles">Popular</h1>
 <!-- iterate over the all the files sent and create a thumbnail for each video which links to the actual video -->
+<div class="videoPanorama" id="popularPanorama">
 
-<div class="videoPanorama">
+    <!-- button to go back on panorama -->
+    <button class="backAndForwardButton" 
+    hx-get="/popular/backward/<%= popIndex %>"
+    hx-target="#popularPanorama"
+    hx-swap="outerHTML swap: 1s" 
+    >&lt</button>
+
     <!-- have to figure out why popular videos returns an empty array rather than nothing -->
     <% if(popularVideos.length > 0) {%>
-        <% for(let i = 0;i < 3; i++) { %>
+        <% for(let i = popIndex;i < popIndex + 3; i++) { %>
             <div class="videoCard">
+                <div class="blackBars"></div>
                 <a href="/videos/watch/<%= popularVideos[i].fileName %>">
                     <video height="400" width="400" class="videoThumbnail">
                         <source src="/videos/<%= popularVideos[i].fileName %>">
                     </video>
                 </a>
-                <p><%= popularVideos[i].title %></p>
-                <div class="pfpAndUsername">
+                <p class="homePageVideoTitle"><%= popularVideos[i].title %></p>
+                <div class="videoCardPairs">
                     <img src="/profilePictures/<%= popularVideos[i].pfp %>" class="pfpUnderVideo" ></img>
-                    <p><%= popularVideos[i].username %></p>
+                    <p class="usernameUnderVideo"><%= popularVideos[i].username %></p>
                 </div>
-                <p>Views <%= popularVideos[i].views %></p>
+                <div class="videoCardPairs">
+                    <p class="homepageViewsAndDate">Views: <%= popularVideos[i].views %></p>
+                    <p class="homepageViewsAndDate">| Date Uploaded: <%= popularVideos[i].dateOfUpload %></p>
+                </div>
+                <div class="blackBars"></div>
             </div>
         <% } %>
     <% } %>
+
+    <!-- button to go forward on panorama -->
+    <button class="backAndForwardButton" 
+    hx-get="/popular/forward/<%= popIndex %>"
+    hx-target="#popularPanorama"
+    hx-swap="outerHTML swap: 1s">&gt</button>
+
 </div>
 
-<h1>Recommended</h1>
+<h1 class="subsectionTitles">Recommended</h1>
 
-<div class="videoPanorama">
+<div class="videoPanorama" id="recommendedPanorama">
+
+        <!-- button to go back on panorama -->
+    <button class="backAndForwardButton" 
+    hx-get="/recommended/backward/<%= subIndex %>"
+    hx-target="#recommendedPanorama"
+    hx-swap="outerHTML swap: 1s" 
+    >&lt</button>
+
     <% if(subbedVideos) { %>
-        <% for(let i = 0; i < 3; i++) { %>
+        <% for(let i = subIndex; i < subIndex + 3; i++) { %>
             <div class="videoCard">
                 <a href="/videos/watch/<%= subbedVideos[i].fileName %>">
                     <video height="400" width="400" class="videoThumbnail">
                         <source src="/videos/<%= subbedVideos[i].fileName %>">
                     </video>
                 </a>
-                <p><%= subbedVideos[i].title %></p>
-                <img src="/profilePictures/<%= subbedVideos[i].pfp %>" class="pfpUnderVideo" ></img>
-                <p><%= subbedVideos[i].username %></p>
-                <p>Views <%= subbedVideos[i].views %></p>
+                <p class="homePageVideoTitle"><%= subbedVideos[i].title %></p>
+                <div class="videoCardPairs">
+                    <img src="/profilePictures/<%= subbedVideos[i].pfp %>" class="pfpUnderVideo" ></img>
+                    <p class="usernameUnderVideo"><%= subbedVideos[i].username %></p>
+                </div>
+                <div class="videoCardPairs">
+                    <p class="homepageViewsAndDate">Views: <%= subbedVideos[i].views %></p>
+                    <p class="homepageViewsAndDate">Date Uploaded: <%= subbedVideos[i].dateOfUpload %></p>
+                </div>
             </div>
         <% } %>
     <% } %>
+
+    <!-- button to go forward on panorama -->
+    <button class="backAndForwardButton" 
+    hx-get="/recommended/forward/<%= subIndex %>"
+    hx-target="#recommendedPanorama"
+    hx-swap="outerHTML swap: 1s">&gt</button>
+
 </div>
 
-<h1>New Uploads</h1>
+<h1 class="subsectionTitles">New Uploads</h1>
 
-<div class="videoPanorama">
+<div class="videoPanorama" id="newPanorama">
+
+        <!-- button to go back on panorama -->
+    <button class="backAndForwardButton" 
+    hx-get="/new/backward/<%= newIndex %>"
+    hx-target="#newPanorama"
+    hx-swap="outerHTML swap: 1s" 
+    >&lt</button>
+
     <% if(newestVideos.length > 0) { %>
-        <% for(let i = 0; i < 3; i++) { %>
+        <% for(let i = newIndex; i < newIndex + 3; i++) { %>
             <div class="videoCard">
+                <div class="blackBars"></div>
+
                 <a href="/videos/watch/<%= newestVideos[i].fileName %>">
                     <video height="400" width="400" class="videoThumbnail">
                         <source src="/videos/<%= newestVideos[i].fileName %>">
                     </video>
                 </a>
-                <p><%= newestVideos[i].title %></p>
-                <img src="/profilePictures/<%= popularVideos[i].pfp %>" class="pfpUnderVideo" ></img>
-                <p><%= newestVideos[i].username %></p>
-                <p>Views <%= newestVideos[i].views %></p>
+                <p class="homePageVideoTitle"><%= newestVideos[i].title %></p>
+                <div class="videoCardPairs">
+                    <img src="/profilePictures/<%= popularVideos[i].pfp %>" class="pfpUnderVideo" ></img>
+                    <p class="usernameUnderVideo"><%= newestVideos[i].username %></p>
+                </div>
+                <div class="videoCardPairs">
+                    <p class="homepageViewsAndDate">Views: <%= newestVideos[i].views %></p>
+                    <p class="homepageViewsAndDate">Date Uploaded: <%= newestVideos[i].dateOfUpload %></p>
+                </div>
+                <div class="blackBars"></div>
             </div>
         <% } %>
     <% } %>
+
+    <!-- button to go forward on panorama -->
+    <button class="backAndForwardButton" 
+    hx-get="/new/forward/<%= newIndex %>"
+    hx-target="#newPanorama"
+    hx-swap="outerHTML swap: 1s">&gt</button>
+
 </div>

@@ -1,0 +1,36 @@
+<div class="videoPanorama" id="popularPanorama">
+
+    <!-- button to go back on panorama -->
+    <button class="backAndForwardButton" 
+    hx-get="/popular/backward/<%= popIndex %>"
+    hx-target="#popularPanorama"
+    hx-swap="outerHTML swap: 1s" 
+    >&lt</button>
+
+    <!-- have to figure out why popular videos returns an empty array rather than nothing -->
+    <% if(popularVideos.length > 0) {%>
+        <% for(let i = popIndex;i < popIndex + 3; i++) { %>
+            <div class="videoCard">
+                <div class="blackBars"></div>
+                <a href="/videos/watch/<%= popularVideos[i].fileName %>">
+                    <video height="400" width="400" class="videoThumbnail">
+                        <source src="/videos/<%= popularVideos[i].fileName %>">
+                    </video>
+                </a>
+                <p class="homePageVideoTitle"><%= popularVideos[i].title %></p>
+                <div class="videoCardPairs">
+                    <img src="/profilePictures/<%= popularVideos[i].pfp %>" class="pfpUnderVideo" ></img>
+                    <p class="usernameUnderVideo"><%= popularVideos[i].username %></p>
+                </div>
+                <div class="videoCardPairs">
+                    <p class="homepageViewsAndDate">Views: <%= popularVideos[i].views %></p>
+                    <p class="homepageViewsAndDate">| Date Uploaded: <%= popularVideos[i].dateOfUpload %></p>
+                </div>
+                <div class="blackBars"></div>
+            </div>
+        <% } %>
+    <% } %>
+    <button class="backAndForwardButton" 
+    hx-get="/popular/forward/<%= popIndex %>"
+    hx-target="#popularPanorama"
+    hx-swap="outerHTML swap: 1s">&gt</button>
