@@ -1,22 +1,33 @@
 
 <div id="editProfileForm">
+
     <form class="editProfileFormLabelsAndInputs" action='/myprofile/<%= locals.username %>' method="POST" enctype="multipart/form-data">
+        <div>
         <label for="pfp">Upload Profile Picture</label>
-        <input type="file" name="pfp" value="<%= user.pfp %>">
+        <input class="editProfileFormInputs" type="file" name="pfp" value="<%= user.pfp %>">
+        </div>
 
+        <div>
         <label for="banner">Upload Banner</label>
-        <input type="file" name="banner" value="/profilePictures/<%= user.banner %>">
+        <input class="editProfileFormInputs" type="file" name="banner" value="/profilePictures/<%= user.banner %>">
+        </div>
 
+        <div>
         <label for="bio">Update your Bio</label>
-        <input id="bio" type="text" name="bio" value="<%= user.bio %>">
-        <br>
-        <label for="walletAddress" id="editWalletAddress">Input/Update your Wallet Address Below</label>
-        <input id="walletAddress" type="text" name="walletAddress" value="<%= user.walletAddress %>">
+        <input class="editProfileFormInputs" id="bio" type="text" name="bio" value="<%= user.bio %>">
+        </div>
 
+
+        <div class="editProfileFormSubmitButton">
         <button type="submit">Submit</button>
+        </div>
+
     </form>
+
     <button 
-        hx-delete="/myprofile/<%= locals.username %>/removeForm"
-        hx-target="#editProfileForm"  
-        hx-swap="outerHTML">X</button>
+    hx-delete="/myprofile/<%= locals.username %>/removeForm"
+    hx-target="#editProfileForm"  
+    hx-swap="outerHTML"
+    class="editProfileFormXButton">X</button>
+
 </div>

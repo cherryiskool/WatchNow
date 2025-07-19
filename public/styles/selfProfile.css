@@ -27,16 +27,47 @@
 }
 
 #editFormContainer {
-    display: flex;
-    flex-direction: column;
-    z-index: 10;
-    align-self: center;
-    -ms-flex-align: end;
+    /* display: flex; */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* width: 100%; */
+    /* justify-content: center; */
+
 }
 
-#editForm {
+#editProfileForm {
+    display: flex;
+    /* z-index: 10; */
+    justify-content: center;
+    gap: 40px;
+        border: 1px solid grey;
+        border-radius: 50px;
+    background-color: white;
+    padding: 25px;
+}
+
+.editProfileFormLabelsAndInputs {
     display: flex;
     flex-direction: column;
-    z-index: 10;
+    gap: 50px;
+}
+
+.editProfileFormInputs {
+    border: none;
+    border-radius: 50px;
+    background-color: lightgrey;
+    margin-right: 0;
+    margin-left: auto;
+    font-size: 16px;
+    padding: 5px;
+}
+
+.editProfileFormSubmitButton {
     align-self: center;
+}
+
+.editProfileFormXButton {
+    align-self: flex-start;
 }
