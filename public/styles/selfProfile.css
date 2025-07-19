@@ -1,0 +1,27 @@
+/* videos/index.ejs */
+
+.profileRow {
+    display: flex;
+}
+
+.profileRightColumn {
+    margin-right: 0;
+    margin-left: auto;
+}
+
+.profilePicture {
+    height: 100px;
+    width: 100px;
+    border-radius: 15px;
+}
+
+.profileBioContainer {
+
+}
+
+.profileBio {
+    min-height: 100px;
+    /* border: 1px solid grey; */
+    border-radius: 25px;
+    min-width: 100%;
+}

@@ -7,5 +7,5 @@ homeController = require('../controllers/homeController');
 
 router.get('/', homeController.getHomePage);
 
-router.get('/:subsection/:direction/:index', homeController.forwardPopularVideos)
+router.get('/home/:subsection/:direction/:index', homeController.forwardPopularVideos)
 module.exports = router

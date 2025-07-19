@@ -2,7 +2,7 @@
 
     <!-- button to go back on panorama -->
     <button class="backAndForwardButton" 
-    hx-get="/popular/backward/<%= popIndex %>"
+    hx-get="/home/popular/backward/<%= popIndex %>"
     hx-target="#popularPanorama"
     hx-swap="outerHTML swap: 1s" 
     >&lt</button>
@@ -30,7 +30,11 @@
             </div>
         <% } %>
     <% } %>
+
+    <!-- button to go forward on panorama -->
     <button class="backAndForwardButton" 
-    hx-get="/popular/forward/<%= popIndex %>"
+    hx-get="/home/popular/forward/<%= popIndex %>"
     hx-target="#popularPanorama"
     hx-swap="outerHTML swap: 1s">&gt</button>
+
+</div>

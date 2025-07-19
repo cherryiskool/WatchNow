@@ -1,44 +1,70 @@
-<h1><%= locals.username %></h1>
+<!-- selfProfile.css -->
 
-<!-- button that GETs the form -->
-<button hx-get="/myprofile/<%= locals.username %>/edit"
-    hx-target="#editFormContainer">edit</button>
+<div class="profileRow">
+    <h1 class="leftColumn"><%= locals.username %></h1>
+
+    <!-- button that GETs the form -->
+    <button class="profileRightColumn" hx-get="/myprofile/<%= locals.username %>/edit"
+            hx-target="#editFormContainer"
+            >edit</button>
 <!-- have to change this to PUT -->
+</div>
 
+<div class="profileRow">
 <% if (user[0].pfp) { %>
-    <img src="/profilePictures/<%= user[0].pfp %>">
+    <img class="profilePicture" src="/profilePictures/<%= user[0].pfp %>">
 <% } %>
 
 <% if (user[0].banner) { %>
-    <img src="/banners/<%= user[0].banner %>">
+    <img class="rightColumn" src="/banners/<%= user[0].banner %>">
 <% } %>
+</div>
+
+<div class="profileBioContainer">
+    <h2>Biography</h2>
+    <p class="profileBio"><%= user[0].bio %></p>
+</div>
 
 
-<h2>Wallet Address</h2>
-<% if(user[0].walletAddress) {%>
-<p><%= user[0].walletAddress %></p>
-<% } else {%>
-<p>No Wallet Address Linked to this Account</p>
-<p>You will not be able to receive donations to your content</p>
-<% } %>
-
-
-<h2>Biography</h2>
-<p><%= user[0].bio %></p>
 
 <h2>Videos</h2>
 
 <!--  -->
-
+<div class="videoPanorama">
 <% if (user[0].filename) { %>
 <% for(let i = 0;i < user.length; i++) { %>
-    <a href="/videos/watch/<%= user[i].filename%>">
-        <video height="400" width="400">
-            <source src="/videos/<%= user[i].filename %>">
-        </video>
-    </a>
+            <div class="videoCard">
+                <div class="blackBars"></div>
+                <a href="/videos/watch/<%= user[i].filename %>">
+                    <video height="400" width="400" class="videoThumbnail">
+                        <source src="/videos/<%= user[i].filename %>">
+                    </video>
+                </a>
+                <p class="homePageVideoTitle"><%= user[i].title %></p>
+                <div class="videoCardPairs">
+                    <img src="/profilePictures/<%= user[i].pfp %>" class="pfpUnderVideo" ></img>
+                    <p class="usernameUnderVideo"><%= user[i].username %></p>
+                </div>
+                <div class="videoCardPairs">
+                    <p class="homepageViewsAndDate">Views: <%= user[i].views %></p>
+                    <p class="homepageViewsAndDate">| Date Uploaded: <%= user[i].dateOfUpload %></p>
+                </div>
+                <div class="blackBars"></div>
+            </div>
+
 <% } %>
 <% } %>
+</div>
+
+
+
+
+
+
+
+
+
+
 
 <div id="editFormContainer">
 

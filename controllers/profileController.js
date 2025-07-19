@@ -6,7 +6,9 @@ exports.getOwnProfile = async (req, res) => {
            
         user = await profileModel.getUserAndVidsByID(req.user.id)
         if (user[0].username === req.params.username) {
+
           console.log('req.user check meme',req.user)
+          console.log('User shiz', user)
           res.render('profile/index', {user: user});
           
         } else {

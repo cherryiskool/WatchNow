@@ -35,6 +35,7 @@ exports.forwardPopularVideos = async (req, res) => {
 
     // if the user clicked the forward button
     if(direction === 'forward') {
+        // if there are more than 3 videos left
         if(Videos.length - (3 + index) > 3) {
             index = index + 3;
         }
@@ -45,14 +46,17 @@ exports.forwardPopularVideos = async (req, res) => {
     } 
     // if the user clicked the backward button
     else {
-        if(index - 3 > 3) {
+        // if there are at least three videos left go back three
+        if(index - 3 >= 3) {
             index = index - 3;
-        } else {
+        } 
+        // if there arent then just go back to index 0
+        else {
             index = 0;
         }
     }
 
-
+    // used to render subsection specific data
     if(subsection === 'popular') {
         res.render('partials/popularPanorama', {popIndex: index, popularVideos: Videos, layout: false})
     }

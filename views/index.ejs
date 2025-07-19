@@ -5,7 +5,7 @@
 
     <!-- button to go back on panorama -->
     <button class="backAndForwardButton" 
-    hx-get="/popular/backward/<%= popIndex %>"
+    hx-get="/home/popular/backward/<%= popIndex %>"
     hx-target="#popularPanorama"
     hx-swap="outerHTML swap: 1s" 
     >&lt</button>
@@ -36,7 +36,7 @@
 
     <!-- button to go forward on panorama -->
     <button class="backAndForwardButton" 
-    hx-get="/popular/forward/<%= popIndex %>"
+    hx-get="/home/popular/forward/<%= popIndex %>"
     hx-target="#popularPanorama"
     hx-swap="outerHTML swap: 1s">&gt</button>
 
@@ -48,7 +48,7 @@
 
         <!-- button to go back on panorama -->
     <button class="backAndForwardButton" 
-    hx-get="/recommended/backward/<%= subIndex %>"
+    hx-get="/home/recommended/backward/<%= subIndex %>"
     hx-target="#recommendedPanorama"
     hx-swap="outerHTML swap: 1s" 
     >&lt</button>
@@ -76,7 +76,7 @@
 
     <!-- button to go forward on panorama -->
     <button class="backAndForwardButton" 
-    hx-get="/recommended/forward/<%= subIndex %>"
+    hx-get="/home/recommended/forward/<%= subIndex %>"
     hx-target="#recommendedPanorama"
     hx-swap="outerHTML swap: 1s">&gt</button>
 
@@ -88,7 +88,7 @@
 
         <!-- button to go back on panorama -->
     <button class="backAndForwardButton" 
-    hx-get="/new/backward/<%= newIndex %>"
+    hx-get="/home/new/backward/<%= newIndex %>"
     hx-target="#newPanorama"
     hx-swap="outerHTML swap: 1s" 
     >&lt</button>
@@ -105,7 +105,7 @@
                 </a>
                 <p class="homePageVideoTitle"><%= newestVideos[i].title %></p>
                 <div class="videoCardPairs">
-                    <img src="/profilePictures/<%= popularVideos[i].pfp %>" class="pfpUnderVideo" ></img>
+                    <img src="/profilePictures/<%= newestVideos[i].pfp %>" class="pfpUnderVideo" ></img>
                     <p class="usernameUnderVideo"><%= newestVideos[i].username %></p>
                 </div>
                 <div class="videoCardPairs">
@@ -119,7 +119,7 @@
 
     <!-- button to go forward on panorama -->
     <button class="backAndForwardButton" 
-    hx-get="/new/forward/<%= newIndex %>"
+    hx-get="/home/new/forward/<%= newIndex %>"
     hx-target="#newPanorama"
     hx-swap="outerHTML swap: 1s">&gt</button>
 
