@@ -1,33 +1,37 @@
 
 <div id="editProfileForm">
 
-    <form class="editProfileFormLabelsAndInputs" action='/myprofile/<%= locals.username %>' method="POST" enctype="multipart/form-data">
-        <div>
-        <label for="pfp">Upload Profile Picture</label>
-        <input class="editProfileFormInputs" type="file" name="pfp" value="<%= user.pfp %>">
-        </div>
-
-        <div>
-        <label for="banner">Upload Banner</label>
-        <input class="editProfileFormInputs" type="file" name="banner" value="/profilePictures/<%= user.banner %>">
-        </div>
-
-        <div>
-        <label for="bio">Update your Bio</label>
-        <input class="editProfileFormInputs" id="bio" type="text" name="bio" value="<%= user.bio %>">
-        </div>
-
-
-        <div class="editProfileFormSubmitButton">
-        <button type="submit">Submit</button>
-        </div>
-
-    </form>
-
     <button 
     hx-delete="/myprofile/<%= locals.username %>/removeForm"
     hx-target="#editProfileForm"  
     hx-swap="outerHTML"
     class="editProfileFormXButton">X</button>
+
+    <form class="editProfileFormLabelsAndInputs" id="formIDForButton" action='/myprofile/<%= locals.username %>' method="POST" enctype="multipart/form-data">
+        <div class="formRows">
+        <label for="pfp">Upload Profile Picture</label>
+        <input class="editProfileFormInputs" type="file" name="pfp" value="<%= user.pfp %>">
+        </div>
+
+        <div class="formRows">
+        <label for="banner">Upload Banner</label>
+        <input class="editProfileFormInputs" type="file" name="banner" value="/profilePictures/<%= user.banner %>">
+        </div>
+
+        <div class="formRows">
+        <label for="bio">Update your Bio</label>
+        <input class="editProfileFormInputs" id="bio" type="text" name="bio" value="<%= user.bio %>">
+        </div>
+
+
+
+
+    </form>
+
+    <div class="editProfileFormSubmitButtonContainer" form="formIDForButton">
+    <button class="editProfileFormSubmitButton" type="submit">Submit</button>
+    </div>
+
+
 
 </div>

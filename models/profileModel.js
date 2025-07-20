@@ -6,7 +6,7 @@ exports.getUserAndVidsByID = (id) => {
     db.all('SELECT users.id as "userId", users.username as "username",\
          users.walletAddress as "walletAddress", users.bio as "bio", \
          users.banner as "banner", users.pfp as "pfp", videos.id as "videoID",\
-          videos.title as "title", videos.filename as "filename" \
+          videos.title as "title", videos.filename as "filename", videos.views, videos.dateOfUpload \
           FROM users\
           LEFT JOIN videos ON users.id = videos.uploaderId \
           WHERE users.id = ?', [ id ], 

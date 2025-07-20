@@ -9,6 +9,18 @@
     margin-left: auto;
 }
 
+#editProfileButton {
+    border-radius: 25px;
+    border: none;
+    width: 50px;
+    font-weight: bold;
+}
+
+#editProfileButton:hover {
+    background-color: darkgrey;
+    cursor: pointer;
+}
+
 .profilePicture {
     height: 100px;
     width: 100px;
@@ -27,7 +39,7 @@
 }
 
 #editFormContainer {
-    /* display: flex; */
+    display: flex;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -39,6 +51,7 @@
 
 #editProfileForm {
     display: flex;
+    flex-direction: column;
     /* z-index: 10; */
     justify-content: center;
     gap: 40px;
@@ -54,20 +67,58 @@
     gap: 50px;
 }
 
+.formRows {
+    display: flex;
+    flex-direction: column;
+}
+
 .editProfileFormInputs {
     border: none;
     border-radius: 50px;
     background-color: lightgrey;
-    margin-right: 0;
-    margin-left: auto;
+    /* margin-right: 0;
+    margin-left: auto; */
     font-size: 16px;
     padding: 5px;
+    /* align-self: center; */
 }
 
-.editProfileFormSubmitButton {
+#bio {
+    height: fit-content;
+}
+
+.editProfileFormSubmitButtonContainer {
     align-self: center;
 }
 
+.editProfileFormSubmitButton {
+    border: none;
+    font-weight: bold;
+    padding: 5px;
+    border-radius: 25px;
+}
+
+.editProfileFormSubmitButton:hover {
+    background-color: darkgrey;
+    cursor: pointer;
+}
+
 .editProfileFormXButton {
-    align-self: flex-start;
+    align-self: flex-end;
+    font-weight: bold;
+    border-radius: 100px;
+    padding: 10px;
+    color: black;
+    contain: size layout;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+}
+
+.editProfileFormXButton:hover {
+    cursor: pointer;
+
+    background-color: darkgrey;
+    transition: 0.1s;
 }
