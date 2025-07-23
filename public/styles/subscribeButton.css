@@ -1,0 +1,14 @@
+.subscribeButton {
+    font-weight: bold;
+    background-color: darkgrey;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    padding: 5px;
+
+}
+
+.subscribeButton:hover {
+    cursor: pointer;
+    background-color: grey;
+}

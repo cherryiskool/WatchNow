@@ -5,7 +5,6 @@ pragma solidity >=0.8.0;
 contract VideoReactTerms {
     // saves the title of the video to the blockchain
     string public videoTitle;
-
     // whole number percentage cut as solidity cannot store decimals
     // public to allow solidity to automatically create a getter function
     // ^ will be used when this conctract is sent money from other contracts

@@ -44,4 +44,9 @@ router.get('/upload/reactedToInput', videoController.getReactedToInput)
 // removes an input from the form
 router.delete('/upload/reactedToInput', videoController.deleteReactedToInput)
 
+// gets the contract address of related video
+router.get('/upload/reactedToContractAddress/:filename', videoController.getContractAddressOfVideo)
+
+router.post('upload/reactedToContractAddress/:')
+
 module.exports = router;

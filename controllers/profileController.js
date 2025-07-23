@@ -7,8 +7,6 @@ exports.getOwnProfile = async (req, res) => {
         user = await profileModel.getUserAndVidsByID(req.user.id)
         if (user[0].username === req.params.username) {
 
-          console.log('req.user check meme',req.user)
-          console.log('User shiz', user)
           res.render('profile/index', {user: user});
           
         } else {
@@ -60,14 +58,9 @@ exports.subscribe = async (req, res) => {
     channelUser = await profileModel.getUserByUsername(subscribedTo)
     await profileModel.setSubDB(req.user.id, channelUser.id)
     // get the id of the user that the protagonist wants to subscribe to
-    // db.get('SELECT * FROM users WHERE username = ?', [ subscribedTo ], (requ, row) => {
-      // set that they are subscribed only if it does not violate the necessity for both values to be unique as stated in db.js
-    //   db.run('INSERT OR IGNORE INTO subscribed (subscriberId, subscribedToId) VALUES (?, ?)',[req.user.id, row.id])
-      
-    // console.log('subsubsub', req.user.id, row.id)
-      
+    // set that they are subscribed only if it does not violate the necessity for both values to be unique as stated in db.js
+   
     res.redirect(backURL)
-    // })
   } 
 // need to display error message if they are not subscribed
   else {
@@ -79,7 +72,7 @@ exports.unsubscribe = async (req, res) => {
   if (req.isAuthenticated()) {
     subscribedTo = req.params.username;
     channel = await profileModel.getUserAndVidsByUsername(subscribedTo);
-    await profileModel.unSetSub(req.user.id, channel[0].id);
+    await profileModel.unSetSub(req.user.id, channel[0].userId);
     res.redirect(backURL)
   }
   // need to send an error to say they need to be logged in
@@ -92,14 +85,10 @@ exports.getForeignProfile = async (req, res) => {
   username = req.params.username;
 
     foreignUser = await profileModel.getUserAndVidsByUsername(username);
-    console.log('foreign user',foreignUser)
-    subRow = await profileModel.checkSub(req.user.id, foreignUser[0].id)
 
-    let subbed;
+    subRow = await profileModel.checkSub(req.user.id, foreignUser[0].id)
     // if this row exists it must mean that the user is subscribed
     if (subRow) {
-    console.log('subrow exists!')
-
     // return orignal row of the profile user details as well as all their videos
     // return subbed to be false (protagonist user is  subscribed to profile user)
     res.render('profile/foreignProfile', {user: foreignUser, subbed: true});
@@ -116,7 +105,6 @@ exports.getForeignProfile = async (req, res) => {
 exports.getEditForm = async (req, res) => {
   if (req.isAuthenticated()) {
     user = await profileModel.getUserByID(req.user.id);
-    console.log('getedit', user)
     if (user.username === req.params.username) {
         res.render("partials/editProfileForm", {layout: false, user: req.user});
     } else {

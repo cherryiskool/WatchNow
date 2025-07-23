@@ -24,7 +24,7 @@ exports.getUserSubscribedVideos = (userID) => {
 			FROM videos \
 			JOIN users ON videos.uploaderId = users.id \
             JOIN subscribed ON videos.uploaderId = subscribed.subscribedToId \
-            WHERE subscribed.subscriberId = 1 \
+            WHERE subscribed.subscriberId = ? \
             ORDER BY views DESC', [ userID ], 
         (err, videos) => {
             // failure check

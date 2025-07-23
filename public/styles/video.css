@@ -1,0 +1,46 @@
+.videoPlayerContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.videoPlayer {
+    border-radius: 10px;
+    max-width: 60%;
+}
+
+#videoPageTitle {
+    font-weight: bold;
+}
+
+.videoMetaDataContainer {
+    display: flex;
+    gap: 10px;
+}
+
+.pfpUnderVideo {
+    width: 25px;
+    height: 25px;
+    border-radius: 50px;
+}
+
+.videoUsernameUnderVideo {
+    font-weight: bold;
+    text-decoration: none;
+    color: white;
+}
+
+.donateButton {
+    font-weight: bold;
+    background-color: darkgrey;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    padding: 5px;
+}
+
+.donateButton:hover {
+    cursor: pointer;
+    background-color: grey;
+}
+

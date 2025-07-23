@@ -14,9 +14,9 @@ exports.saveVideoToDB = (videoTitle, userID, videoFilename, description) => {
 exports.getVideoAndUserByFileName = (filename) => {
     return new Promise((resolve, reject) => {
         db.get('SELECT videos.id as "videoId", videos.title as "title",\
-            videos.description as "description",\
-            videos.views as "views", users.id as "userId", users.username as "username",\
-            users.walletAddress as "walletAddress"  \
+            videos.description as "description", videos.fileName, \
+            videos.views as "views", videos.contractAddress, users.id as "userId", users.username as "username",\
+            users.pfp  \
             FROM videos \
             JOIN users ON videos.uploaderId = users.id \
             WHERE fileName = ?', [ filename ], (err, vUser) => {
@@ -69,5 +69,15 @@ exports.saveReactedToVideo = (reactID, originalID) => {
                 // failure check
                 resolve(row);
             })
+    })
+}
+
+exports.saveContractAddressToVideo = (videoId, contractAddress) => {
+    return new Promise((resolve, reject) => {
+        db.run("UPDATE videos SET contractAddress = ? WHERE id = ?", 
+            [ contractAddress, videoId ]), (err, row) => {
+                // failure check
+                resolve(row);
+            }
     })
 }

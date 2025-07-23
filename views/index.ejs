@@ -1,3 +1,5 @@
+<!-- home page -->
+
 
 <h1 class="subsectionTitles">Popular</h1>
 <!-- iterate over the all the files sent and create a thumbnail for each video which links to the actual video -->
@@ -53,7 +55,7 @@
     hx-swap="outerHTML swap: 1s" 
     >&lt</button>
 
-    <% if(subbedVideos) { %>
+    <% if(subbedVideos == []) { %>
         <% for(let i = subIndex; i < subIndex + 3; i++) { %>
             <div class="videoCard">
                 <a href="/videos/watch/<%= subbedVideos[i].fileName %>">

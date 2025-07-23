@@ -7,12 +7,14 @@ exports.getHomePage = async (req, res) => {
     let newestVideos;
 
     popularVideos = await homeModel.getAllVideosViewOrder();
-    subbedVideos = await homeModel.getUserSubscribedVideos(req.user.id);
+    if(req.isAuthenticated()){
+        subbedVideos = await homeModel.getUserSubscribedVideos(req.user.id);
+    }
+    else {
+        subbedVideos = [];
+    }
     newestVideos = await homeModel.getNewestUploads();
 
-    
-
-    console.log("Video Panormas", popularVideos, subbedVideos, newestVideos)
     res.render('index', {popularVideos: popularVideos, popIndex: 0, newestVideos: newestVideos, newIndex: 0, subbedVideos: subbedVideos, subIndex: 0})
 }
 
@@ -21,14 +23,12 @@ exports.forwardPopularVideos = async (req, res) => {
     direction = req.params.direction;
     index = Number(req.params.index);
 
-
-
     // get the subsection the user wants to update
     if(subsection === 'popular') {
         Videos = await homeModel.getAllVideosViewOrder(); 
     }
     else if(subsection === 'recommended') {
-        Videos = await homeModel.getUserSubscribedVideos();
+        Videos = await homeModel.getUserSubscribedVideos(req.user.id);
     } else {
         Videos = await homeModel.getNewestUploads();
     }
@@ -64,7 +64,7 @@ exports.forwardPopularVideos = async (req, res) => {
         res.render('partials/subscribedPanorama', {subIndex: index, subbedVideos: Videos,layout: false})
     } 
     else {
-        res.render('partials/newPanorama', {newIndex: index,newestVideos: Videos, layout: false})
+        res.render('partials/newPanorama', {newIndex: index, newestVideos: Videos, layout: false})
     }
     
 }

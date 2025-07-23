@@ -1,0 +1,13 @@
+#donateForm {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 25px;
+    gap: 10px;
+    background-color: grey;
+    border: 1px solid black;
+    border-radius: 25px;
+}

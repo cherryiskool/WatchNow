@@ -67,7 +67,10 @@ exports.unSetSub = (subscriberID, channelID) => {
 // either the statement needs to be changed or the database id variables need to be renamed
 exports.getUserAndVidsByUsername = (username) => {
     return new Promise((resolve, reject) => {
-        db.all('SELECT * FROM users \
+        db.all('SELECT users.id as "userId", users.username as "username",\
+         users.walletAddress as "walletAddress", users.bio as "bio", \
+         users.banner as "banner", users.pfp as "pfp", videos.id as "videoID",\
+          videos.title as "title", videos.filename as "filename", videos.views, videos.dateOfUpload FROM users \
             JOIN videos ON users.id = videos.uploaderId \
             WHERE users.username = ?', 
         [ username ], (err, user) => {
