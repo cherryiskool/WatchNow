@@ -8,7 +8,7 @@ nav {
     top: 0;
     left: 0;
     width: 100%;
-    height: 50px;
+    /* height: 50px; */
     /* ensures it overlaps everything */
     z-index: 9999;
     /* makes it a flexbox container */
@@ -16,10 +16,10 @@ nav {
     /* puts the links at the end */
     justify-content: flex-end;
     align-items: center;
-    padding: 10px;
+    padding-right: 10px;
     margin-right: 10px;
     border-bottom: 1px solid grey;
-    gap: 10px;
+    /* gap: 10px; */
 
     font-size: 16px;
 }
@@ -28,7 +28,13 @@ nav {
     text-decoration: none;
     color: white;
     font-weight: bolder;
+    padding: 10px;
 }
+
+.navbarLinks:hover {
+    background-color: grey;
+}
+
 
 #logOutButton {
     background-color: transparent;
@@ -39,6 +45,9 @@ nav {
 
 }
 
+
+
 #logOutButton:hover {
     cursor: pointer;
+    background-color: grey;
 }
