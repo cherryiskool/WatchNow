@@ -1,10 +1,28 @@
-<h1>Register Below</h1>
-<form action='/register/attempt' method="POST">
-    <label>Username</label>
-    <input type="text" name="username">
-    <label>Email</label>
-    <input type="email" name="email">
-    <label>Password</label>
-    <input type="password" name="password">
-    <button type="submit">Register</button>
-</form>
+<div class="containerForLoginPage">
+    <h1>Register Below</h1>
+    <form class="containerForLoginForm" action='/register/attempt' method="POST">
+        <div>
+            <label class="loginInputLabels">Username</label>
+        </div>
+        <div>
+            <input class="loginInputs" type="text" name="username">
+        </div>
+        <div>
+            <label class="loginInputLabels">Email</label>
+        </div>
+        <div>
+            <input class="loginInputs" type="email" name="email">
+        </div>
+        <div>
+            <label class="loginInputLabels">Password</label>
+        </div>
+        <div>
+            <input class="loginInputs" type="password" name="password">       
+        </div>
+        <div class="loginPageSubmitButtonContainer">
+            <button class="loginPageSubmitButton" type="submit">Register</button>
+        </div>
+
+    </form>
+</div>
+

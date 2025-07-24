@@ -11,6 +11,29 @@
     gap: 10px;
 }
 
+.loginInputLabels {
+    font-weight: 600;
+}
+
+.loginInputs {
+    border: none;
+    background-color: lightgrey;
+    padding: 5px;
+    border-radius: 25px;
+}
+
+.loginInputs:focus {
+    background-color: rgb(158, 158, 158);
+    border: none;
+    outline: none;
+}
+
+.loginInputs:hover {
+    background-color: rgb(158, 158, 158);
+    border: none;
+    outline: none;
+}
+
 .loginPageSubmitButtonContainer {
     padding-top: 10px;
     align-self: center;
@@ -19,11 +42,28 @@
 .loginPageSubmitButton {
     padding: 5px;
     font-weight: bold;
-    background-color: white;
+    background-color: lightgrey;
     border: none;
     border-radius: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .loginPageSubmitButton:hover {
-    background-color: grey;
+    background-color: rgb(158, 158, 158);
+}
+
+#uploadForm { 
+    display: flex;
+    flex-direction: column-reverse;
+    gap:5px;
+}
+
+.reactedToInputFormButtons {
+    align-self: flex-start;
+}
+
+.plusMinusButtonContainer {
+    display: flex;
+    gap: 5px;
 }

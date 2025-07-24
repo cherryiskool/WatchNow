@@ -1,26 +1,56 @@
 <!-- POST form to upload video -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.2.7-rc.0/web3.min.js"></script>
 
+<div class="containerForLoginPage">
+<form class="containerForLoginForm" id="uploadVideoForm" onsubmit="return deployContract(event)" method="POST" action="/videos/upload" enctype="multipart/form-data">
+  <!-- file input -->
+  <div >
+    <label class="loginInputLabels" for="video">Video File</label>
+  </div>
 
-<form onsubmit="return deployContract(event)" method="POST" action="/videos/upload" enctype="multipart/form-data">
-    <input type="file" name="video" required> 
-    <label for="videoTitle">Video Title</label>
-    <input type="text" name="videoTitle" id="videoTitle" required>
-    <label for="description">Description</label>
-    <input type="text" name="description">
-    <label for="reactTerms">React Terms (Percentage cut you would like from someone reacting to your video)</label>
-    <input type="text" id="percentageCut">
-    <div id="reactedToInputFormLocation">
+  <div>
+  <input class="loginInputs" type="file" name="video" required> 
+  </div>
+  
+  <div>
+    <label class="loginInputLabels" for="videoTitle">Video Title</label>
+  </div>
+  <div>
+        <input class="loginInputs" type="text" name="videoTitle" id="videoTitle" required>
+  </div>    
+  <div>
+    <label class="loginInputLabels" for="description">Description</label>
+  </div>
+  <div>
+    <input class="loginInputs" type="text" name="description">
+  </div>    
+  <div>
+    <label class="loginInputLabels" for="reactTerms">React Terms (Percentage cut you would like from someone reacting to your video)</label>
+  </div>
+  <div>
+    <input class="loginInputs" type="text" id="percentageCut" required>
+  </div>    
+
+  <div id="reactedToInputFormLocation">
+    <div class="loginInputLabels">
       <p>Reacted To?</p>
-      <button hx-get="/videos/upload/reactedToInputForm"
-        hx-target="#reactedToInputFormLocation"
-        hx-swap="innerHTML">Yes</button>
     </div>
-    <input type="submit">
+
+    <button class="loginPageSubmitButton" hx-get="/videos/upload/reactedToInputForm"
+      hx-target="#reactedToInputFormLocation"
+      hx-swap="innerHTML">Yes</button>
+  </div>
 </form>
 
-<button onclick="connectMetamask()">CONNECT TO METAMASK</button><br>
-<button onclick="deployContract()">deployContract</button><br>
+  <div class="loginInputLabels">
+    <p id="userArea">Status: Not connected to Metamask | Please Connect to MetaMask to Submit Video and Deploy Smart Contract</p>
+  </div>
 
-<p id="userArea">Status: Not connected to Metamask</p>
+  <div class="loginPageSubmitButtonContainer">
+    <button class="loginPageSubmitButton" onclick="connectMetamask()">CONNECT TO METAMASK</button>
+  </div>
+
+  <input class="loginPageSubmitButton" form="uploadVideoForm" type="submit">
+</div>
+
 <script src="/scripts/uploadSmartContract.js"></script>

@@ -1,16 +1,33 @@
-<label for="reactedTo" >Reacted to</label>
-<input type="text" name="reactedTo" id="reactedTo" class="reactedTo">
-<!-- button to delete this form -->
-<button hx-delete="/videos/upload/reactedToInputForm"
-hx-target="#reactedToInputFormLocation"
-hx-swap="innerHTML">X</button>
+<label class="loginInputLabels" for="reactedTo" >Reacted to:</label>
+
+
 <div id="uploadForm">
-    <!-- button to decrease inputs down to 1 -->
-    <button hx-delete="/videos/upload/reactedToInput"
-    hx-target="previous"
-    hx-swap="outerHTML">-</button>
+
+    <input class="loginInputs" type="text" name="reactedTo" id="reactedTo" class="reactedTo">
+    
+
+     <div class="plusMinusButtonContainer">
+            <!-- button to decrease inputs down to 1 -->
+    <div class="loginPageSubmitButtonContainer reactedToInputFormButtons">
+        <button class="loginPageSubmitButton" hx-delete="/videos/upload/reactedToInput"
+        hx-target="previous .reactedTo"
+        hx-swap="outerHTML">-</button>
+    </div>
     <!-- button to increase inputs -->
-    <button hx-get="/videos/upload/reactedToInput"
-    hx-target="#uploadForm"
-    hx-swap="afterbegin">+</button>
+    <div class="loginPageSubmitButtonContainer reactedToInputFormButtons">
+        <button class="loginPageSubmitButton" hx-get="/videos/upload/reactedToInput"
+        hx-target="#uploadForm"
+        hx-swap="afterbegin">+</button>
+    </div>
+
+     </div>
+     <div class="loginPageSubmitButtonContainer reactedToInputFormButtons">
+             <!-- button to delete this form -->
+<button class="loginPageSubmitButton" hx-delete="/videos/upload/reactedToInputForm"
+hx-target="#reactedToInputFormLocation"
+hx-swap="innerHTML">Did Not React</button>
+     </div>
+
+
+
 </div>
