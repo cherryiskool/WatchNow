@@ -72,10 +72,10 @@ exports.saveReactedToVideo = (reactID, originalID) => {
     })
 }
 
-exports.saveContractAddressToVideo = (videoId, contractAddress) => {
+exports.saveContractAddressToVideo = (filename, contractAddress) => {
     return new Promise((resolve, reject) => {
-        db.run("UPDATE videos SET contractAddress = ? WHERE id = ?", 
-            [ contractAddress, videoId ]), (err, row) => {
+        db.run("UPDATE videos SET contractAddress = ? WHERE fileName = ?", 
+            [ contractAddress, filename ]), (err, row) => {
                 // failure check
                 resolve(row);
             }

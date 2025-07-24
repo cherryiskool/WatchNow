@@ -47,6 +47,6 @@ router.delete('/upload/reactedToInput', videoController.deleteReactedToInput)
 // gets the contract address of related video
 router.get('/upload/reactedToContractAddress/:filename', videoController.getContractAddressOfVideo)
 
-router.post('upload/reactedToContractAddress/:')
+router.post('/upload/reactedToContractAddress/:filename/:contractAddress', videoController.setContractAddressOfVideo)
 
 module.exports = router;

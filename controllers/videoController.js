@@ -20,19 +20,19 @@ exports.uploadVideo = async (req, res) => {
         req.body.description);
     
     console.log(req.body.reactedTo)
-    if(req.body.reactedTo) {
+    // if(req.body.reactedTo) {
 
-        for(i in req.body.reactedTo) {
-            let indexOfUrl = req.body.reactedTo[i].indexOf("watch/");
-            let reactedToFileName = req.body.reactedTo[i].slice(indexOfUrl + 6);
-            console.log('reactedFileName', reactedToFileName)
-            videoJustSavedID = await videoModel.getVideoIDByFileName(video.filename);
-            reactVideoID = await videoModel.getVideoIDByFileName(reactedToFileName);
-            console.log('video just saved',videoJustSavedID.videoID, reactVideoID);
+    //     for(i in req.body.reactedTo) {
+    //         let indexOfUrl = req.body.reactedTo[i].indexOf("watch/");
+    //         let reactedToFileName = req.body.reactedTo[i].slice(indexOfUrl + 6);
+    //         console.log('reactedFileName', reactedToFileName)
+    //         videoJustSavedID = await videoModel.getVideoIDByFileName(video.filename);
+    //         reactVideoID = await videoModel.getVideoIDByFileName(reactedToFileName);
+    //         console.log('video just saved',videoJustSavedID.videoID, reactVideoID);
 
-            await videoModel.saveReactedToVideo(videoJustSavedID.videoID, reactVideoID.videoID);
-        }
-    }
+    //         await videoModel.saveReactedToVideo(videoJustSavedID.videoId, reactVideoID.videoId);
+    //     }
+    // }
 
     // returns filename to client so that the contract address can be set when the contract is deployed
     res.json({filename: video.filename})
@@ -128,5 +128,14 @@ exports.getContractAddressOfVideo = async (req, res) => {
 }
 
 exports.setContractAddressOfVideo = async (req, res) => {
-
+    try{
+        filename = req.params.filename;
+        contractAddress = req.params.contractAddress;
+        console.log("stuff that should work after deployment", filename, "more shurtt", contractAddress)
+        await videoModel.saveContractAddressToVideo(filename, contractAddress);
+        res.json({success: true, message: 'Contract Address Saved'})
+    }
+    catch (err) {
+        res.status(500).json({success: false, error: 'Contract Address Saving Failed'})
+    }
 }

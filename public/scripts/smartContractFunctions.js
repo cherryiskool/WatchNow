@@ -28,9 +28,14 @@ let account;
           "type": "address[]"
         },
         {
-          "internalType": "uint8[]",
+          "internalType": "uint256[]",
           "name": "_reactedToContractsPercentageCuts",
-          "type": "uint8[]"
+          "type": "uint256[]"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_percentageCut",
+          "type": "uint256"
         }
       ],
       "stateMutability": "nonpayable",
@@ -48,9 +53,28 @@ let account;
       "name": "percentageCut",
       "outputs": [
         {
-          "internalType": "uint8",
+          "internalType": "uint256",
           "name": "",
-          "type": "uint8"
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "reactedToContracts",
+      "outputs": [
+        {
+          "internalType": "address payable",
+          "name": "",
+          "type": "address"
         }
       ],
       "stateMutability": "view",
@@ -67,9 +91,9 @@ let account;
       "name": "reactedToContractsPercentageCuts",
       "outputs": [
         {
-          "internalType": "uint8",
+          "internalType": "uint256",
           "name": "",
-          "type": "uint8"
+          "type": "uint256"
         }
       ],
       "stateMutability": "view",
@@ -89,10 +113,18 @@ let account;
       "type": "function"
     }
   ];
-            const Address = "0xF3645F7dE75E3A6e61aB2Fabdc831239C242f95c"; // Contract Address
+            let indexOfUrl = String(window.location.pathname).indexOf("watch/");
+            let reactedToFileName = String(window.location.pathname).slice(indexOfUrl + 6);
+            let req = await fetch( `/videos/upload/reactedToContractAddress/${reactedToFileName}`) 
+            const Address = await req.json(); // Contract Address
             window.web3 =  await new Web3(window.ethereum);
             window.contract =  new window.web3.eth.Contract(ABI, Address);
-            document.getElementById("contractArea").innerHTML = "Connected to Contract"; // calling the elementID above
+            document.getElementById("contractArea").innerHTML = `Connected to Contract ${Address}`; // calling the elementID above
+            x = await window.contract.methods.percentageCut().call();
+            // y = await window.contract.methods.reactedToContractsPercentageCuts(0).call();
+            z = await window.contract.methods.videoTitle().call();
+            // v = await window.contract.methods.reactedToContracts(0).call();
+            console.log('muthafuckaaa', x, z)
         }
 
         // send eth function
@@ -100,8 +132,11 @@ let account;
         const applyContractTermsToDonation = async () => {
             const amount = document.getElementById("depositInput").value *1000000000000000000; // have to multiply by this much
             // console.log(amount, '%= walletAddresses %>')
-            receivingWallets = '<%= walletAddresses %>'.split(",")
-            console.log('The receiving address is anything after this :',receivingWallets);
-            console.log('The from wallet address is anything after this:', account)
-            await window.contract.methods.applyContractTermsToDonation().send({from: account, value: amount});
+            try {
+              await window.contract.methods.applyContractTermsToDonation().send({from: account, value: amount});
+
+            }
+            catch (err) {
+              console.log(err)
+            }
         }
