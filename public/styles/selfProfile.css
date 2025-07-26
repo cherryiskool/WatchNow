@@ -1,5 +1,13 @@
 /* videos/index.ejs */
 
+.profilePageContainer {
+    padding-left: 200px;
+    padding-right: 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
 .profileRow {
     display: flex;
 }
@@ -25,6 +33,13 @@
     height: 100px;
     width: 100px;
     border-radius: 15px;
+}
+
+.banner {
+    height: 100px;
+    width:fit-content;
+    align-self: center;
+    border-radius: 25px;
 }
 
 .profileBioContainer {

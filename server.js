@@ -29,8 +29,10 @@ app.set('layout', 'layouts/layout');
 app.use(expressLayouts);
 
 app.use(methodOverride('_method'));
+
 // tells express to use this directory for files
 app.use(express.static('public'));
+
 // allows for server to parse through http requests - req.body etc.
 app.use(express.urlencoded({limit: '10mb', extended: false}));
 

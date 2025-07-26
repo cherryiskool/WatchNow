@@ -18,21 +18,6 @@ exports.uploadVideo = async (req, res) => {
         req.user.id,
         video.filename,
         req.body.description);
-    
-    console.log(req.body.reactedTo)
-    // if(req.body.reactedTo) {
-
-    //     for(i in req.body.reactedTo) {
-    //         let indexOfUrl = req.body.reactedTo[i].indexOf("watch/");
-    //         let reactedToFileName = req.body.reactedTo[i].slice(indexOfUrl + 6);
-    //         console.log('reactedFileName', reactedToFileName)
-    //         videoJustSavedID = await videoModel.getVideoIDByFileName(video.filename);
-    //         reactVideoID = await videoModel.getVideoIDByFileName(reactedToFileName);
-    //         console.log('video just saved',videoJustSavedID.videoID, reactVideoID);
-
-    //         await videoModel.saveReactedToVideo(videoJustSavedID.videoId, reactVideoID.videoId);
-    //     }
-    // }
 
     // returns filename to client so that the contract address can be set when the contract is deployed
     res.json({filename: video.filename})

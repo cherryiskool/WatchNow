@@ -1,5 +1,10 @@
 <!-- selfProfile.css -->
 
+<div class="profilePageContainer">
+<% if (user[0].banner) { %>
+    <img class="banner rightColumn" src="/banners/<%= user[0].banner %>">
+<% } %>
+
 <div class="profileRow">
     <h1 class="leftColumn"><%= locals.username %></h1>
 
@@ -15,9 +20,7 @@
     <img class="profilePicture" src="/profilePictures/<%= user[0].pfp %>">
 <% } %>
 
-<% if (user[0].banner) { %>
-    <img class="rightColumn" src="/banners/<%= user[0].banner %>">
-<% } %>
+
 </div>
 
 <div class="profileBioContainer">
@@ -69,5 +72,5 @@
 <div id="editFormContainer">
 
 </div>
-
+</div>
 <script type="text/javascript" src="/scripts/profile.js"></script>

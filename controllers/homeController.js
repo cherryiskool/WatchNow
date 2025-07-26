@@ -14,7 +14,6 @@ exports.getHomePage = async (req, res) => {
         subbedVideos = [];
     }
     newestVideos = await homeModel.getNewestUploads();
-
     res.render('index', {popularVideos: popularVideos, popIndex: 0, newestVideos: newestVideos, newIndex: 0, subbedVideos: subbedVideos, subIndex: 0})
 }
 
@@ -22,7 +21,7 @@ exports.forwardPopularVideos = async (req, res) => {
     subsection = req.params.subsection;
     direction = req.params.direction;
     index = Number(req.params.index);
-
+    
     // get the subsection the user wants to update
     if(subsection === 'popular') {
         Videos = await homeModel.getAllVideosViewOrder(); 
@@ -32,7 +31,6 @@ exports.forwardPopularVideos = async (req, res) => {
     } else {
         Videos = await homeModel.getNewestUploads();
     }
-
     // if the user clicked the forward button
     if(direction === 'forward') {
         // if there are more than 3 videos left
