@@ -5,7 +5,7 @@ exports.getLoginPage = (req, res) => {
   if (req.isAuthenticated()) {
     res.redirect('/');
   } else {
-    res.render('authentication/login/index');
+    res.render('authentication/login/index', {pageTitle: 'Login to WatchNow'});
   }
 }
 
@@ -14,7 +14,7 @@ exports.getRegisterPage = (req, res) => {
   if (req.isAuthenticated()) {
     res.redirect('/');
   } else {
-    res.render('authentication/register/index')
+    res.render('authentication/register/index', {pageTitle: 'Register to WatchNow'})
   }
 
    

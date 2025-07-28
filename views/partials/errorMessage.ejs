@@ -1,5 +1,5 @@
 <!-- will be used later to display error messages -->
 
-<% if (locals.errorMessage != null) { %> 
-<%= errorMessage %>
+<% if (messages.error) { %> 
+<p class="errorMessage"><%= messages.error %></p>
 <% } %>

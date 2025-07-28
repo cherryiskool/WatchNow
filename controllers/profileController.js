@@ -7,7 +7,7 @@ exports.getOwnProfile = async (req, res) => {
         user = await profileModel.getUserAndVidsByID(req.user.id)
         if (user[0].username === req.params.username) {
 
-          res.render('profile/index', {user: user});
+          res.render('profile/index', {user: user, pageTitle: `${req.user.username} Profile Page`});
           
         } else {
           res.redirect('/')
@@ -85,28 +85,32 @@ exports.getForeignProfile = async (req, res) => {
   username = req.params.username;
 
     foreignUser = await profileModel.getUserAndVidsByUsername(username);
-
-    subRow = await profileModel.checkSub(req.user.id, foreignUser[0].id)
-    // if this row exists it must mean that the user is subscribed
-    if (subRow) {
-    // return orignal row of the profile user details as well as all their videos
-    // return subbed to be false (protagonist user is  subscribed to profile user)
-    res.render('profile/foreignProfile', {user: foreignUser, subbed: true});
-    } 
-    
-    // if the row does not exist then the user is not subscribed
-    else {
-    // return orignal row of the profile user details as well as all their videos
-    // return subbed to be false (protagonist user is  subscribed to profile user)
-    res.render('profile/foreignProfile', {user: foreignUser, subbed: false});
+    if(req.isAuthenticated()) {
+      subRow = await profileModel.checkSub(req.user.id, foreignUser[0].id)
+      // if this row exists it must mean that the user is subscribed
+      if (subRow) {
+      // return orignal row of the profile user details as well as all their videos
+      // return subbed to be false (protagonist user is  subscribed to profile user)
+      res.render('profile/foreignProfile', {user: foreignUser, subbed: true, x: foreignUser, pageTitle: `${username} Profile Page`});
+      } 
+      
+      // if the row does not exist then the user is not subscribed
+      else {
+      // return orignal row of the profile user details as well as all their videos
+      // return subbed to be false (protagonist user is  subscribed to profile user)
+      res.render('profile/foreignProfile', {user: foreignUser, subbed: false, x: foreignUser, pageTitle: `${username} Profile Page`});
+      }
+    } else {
+      res.render('profile/foreignProfile', {user: foreignUser, subbed: false, x: foreignUser, pageTitle: `${username} Profile Page`});
     }
+
 }
 
 exports.getEditForm = async (req, res) => {
   if (req.isAuthenticated()) {
     user = await profileModel.getUserByID(req.user.id);
     if (user.username === req.params.username) {
-        res.render("partials/editProfileForm", {layout: false, user: req.user});
+        res.render("partials/editProfileForm", {layout: false, user: req.user, pageTitle: `${req.user.username} Profile Page`});
     } else {
         res.redirect('/')
     }

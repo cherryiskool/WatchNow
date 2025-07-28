@@ -11,7 +11,8 @@ router.get('/login', authController.getLoginPage);
 // will update with error message display
 router.post('/login/attempt', passport.authenticate('local', {
   successRedirect: '/',
-  failureRedirect: '/login'
+  failureRedirect: '/login',
+  failureFlash: true
 }));
 
 router.get('/register', authController.getRegisterPage);

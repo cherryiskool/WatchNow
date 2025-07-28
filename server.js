@@ -75,4 +75,7 @@ app.use('/videos', videosRouter);
 app.use('/', profileRouter);
 
 // allows for there to be a set port or for it to be set to 3000 by default
-app.listen(process.env.PORT || 3000);
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+  console.log('Server started:', port)
+});

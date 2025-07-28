@@ -5,7 +5,7 @@ exports.getUploadPage = (req, res) => {
     if (req.isAuthenticated() == false) {
         res.redirect('/login')
     } else {
-        res.render('videos/upload');
+        res.render('videos/upload', {pageTitle: 'Upload Video'});
     }
 
 };
@@ -52,7 +52,7 @@ exports.watchVideo = async (req, res) => {
         }
         // if the person reacted to a video in their video get the reacted to video creators wallet address as well
         await videoModel.incrementViewCounter(vUser.videoId);
-        res.render('videos/video', {user: vUser, subbed: subbed, x: vUser});
+        res.render('videos/video', {user: vUser, subbed: subbed, x: vUser, pageTitle: `${vUser.title}`});
     }         
     // if the user is not logged in
     else {
@@ -60,7 +60,7 @@ exports.watchVideo = async (req, res) => {
         subbed = false;
         // if the video is not a react video
         videoModel.incrementViewCounter(vUser.videoId);
-        res.render('videos/video', {user: vUser, subbed: subbed, x: vUser});
+        res.render('videos/video', {user: vUser, subbed: subbed, x: vUser, pageTitle: `${vUser.title}`});
         
         // if the video is a react video
 
@@ -75,7 +75,7 @@ exports.getDonationForm = async (req, res) => {
     let title = vUser.title;
     let username = vUser.username;
         res.render("partials/donateForm",{title: title, creatorUsername: username,
-                filename: filename, layout:false})
+                filename: filename, layout:false, pageTitle: `${title}`})
         
 }
 
@@ -84,15 +84,15 @@ exports.removeDonationForm = (req, res) => {
 }
 
 exports.getReactedToInputForm = (req, res) => {
-    res.render('partials/reactedToInputForm', {layout: false});
+    res.render('partials/reactedToInputForm', {layout: false, pageTitle: 'Upload Video'});
 }
 
 exports.revertReactedToInputForm = (req, res) => {
-    res.render('partials/defaultReactedToInput', {layout: false});
+    res.render('partials/defaultReactedToInput', {layout: false, pageTitle: 'Upload Video'});
 }
 
 exports.getReactedToInput = (req, res) => {
-    res.render('partials/reactedToInput', {layout: false});
+    res.render('partials/reactedToInput', {layout: false, pageTitle: 'Upload Video'});
 }
 
 exports.deleteReactedToInput = (req, res) => {
