@@ -41,13 +41,6 @@ contract VideoReactTerms {
                 // transfer
                 uint256 top = msg.value*reactedToContractsPercentageCuts[i];
                 uint256 bottom = reactedToContracts.length*100;
-                // the value of the message divided by how much original content is used, multiplied by the percentage cut
-                // eg. Vincent reacts to Viktoria (percentage cut 40%) and Cherry (percentage cut 20%) and Nikita donates 10 eth to Vincent
-                // (10/2)*0.4 = 2 is sent to Viktoria
-                // (10/2)*0.6 = 3 is sent to Vincent
-                // (10/2)*0.2 = 1 is sent to Cherry
-                // (10/2)*0.8 = 4 is sent to Vincent
-
             
                 ReactedToVideoTerms(reactedToContracts[i]).applyContractTermsToDonation{value: top/bottom}();
             

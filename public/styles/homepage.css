@@ -7,14 +7,9 @@
    display: flex; 
    justify-content: space-around;
    gap: 5vh;
-   flex-basis: 33%;
 }
 
-@media (max-width: 900px) {
-    .videoPanorama {
-        flex-wrap: wrap;
-    }
-}
+
 
 .backAndForwardButton {
     align-self: center;
@@ -36,15 +31,39 @@
     padding-bottom: 20px;
 }
 
+.videoContainer {
+    display: flex;
+    /* max-width: 500px; */
+    /* flex-basis: 250px; */
+    max-height: 250px;
+    max-width: 440px;
+    aspect-ratio: 2;
+}
 /* .videoCardPairs {
 } */
+@media (max-width: 900px) {
+    .videoPanorama {
+        flex-wrap: wrap;
+        flex-direction: column;
+    }
+
+    .videoContainer {
+        max-width: 100%;
+        max-height: 100%;
+    }
+}
+
+.videoLinks {
+    height: 100%;
+    width: 100%;
+}
 
 .videoThumbnail {
-    height: auto;
+    height: 100%;
     width: 100%;
     border-radius: 25px;
-    flex-shrink: 1;
     overflow: hidden;
+    object-fit: fill;
 }
 
 .homePageVideoTitle {

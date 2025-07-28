@@ -123,34 +123,36 @@ const deployContract = async (event) => {
         // gets the video title from the form
         const videoTitle = String(document.getElementById("videoTitle").value)
 
-
         // gets the links to the reacted to videos
         let reactedToLinks = document.getElementsByClassName("reactedTo");
 
         // creates array to store contracts of reacted to videos
         let reactedToContracts = []
         let reactedToContractsCuts = []
+
+        console.log("ReactedToLinks",reactedToLinks)
         // for every reacted to link
         for(const reactedToLink of reactedToLinks) {
             // get the filename of the video they linked to
-            let indexOfUrl = String(reactedToLink.value).indexOf("watch/");
-            let reactedToFileName = String(reactedToLink.value).slice(indexOfUrl + 6);
+            if(reactedToLink.value !== "") {
+              let indexOfUrl = String(reactedToLink.value).indexOf("watch/");
+              let reactedToFileName = String(reactedToLink.value).slice(indexOfUrl + 6);
 
-            // request the contract address of their video
-            let req = await fetch( `/videos/upload/reactedToContractAddress/${reactedToFileName}`)
-            let contractAddress = await req.json();
-            window.contract =  new window.web3.eth.Contract(ABI, contractAddress);
-
-            let contractCut = await window.contract.methods.percentageCut().call();
-            // add the contract address to the reacted to contracts 
-            // so later we can put this in the reaction smart contract
-            reactedToContracts.push(contractAddress);
-            reactedToContractsCuts.push(contractCut);
-            console.log("reacted To Contracts",reactedToContracts);
-            console.log("reacted To poops", reactedToContractsCuts);
+              // request the contract address of their video
+              let req = await fetch( `/videos/upload/reactedToContractAddress/${reactedToFileName}`)
+              let contractAddress = await req.json();
+              console.log("contractAddress", contractAddress)
+              window.contract =  new window.web3.eth.Contract(ABI, contractAddress);
+              let contractCut = await window.contract.methods.percentageCut().call();
+              // add the contract address to the reacted to contracts 
+              // so later we can put this in the reaction smart contract
+              reactedToContracts.push(contractAddress);
+              reactedToContractsCuts.push(contractCut);
+              console.log("entered this")
+            }
 
         }
-
+        console.log(reactedToContracts)
         // manually do the post request
         // allows me to retrieve the videoFilename easier and control the flow easier
         // may put this after the contract creation??

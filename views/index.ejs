@@ -11,17 +11,26 @@
     hx-target="#popularPanorama"
     hx-swap="outerHTML swap: 1s" 
     >&lt</button>
+    
+    <% if(popularVideos.length < 3) { %>
+    <%    forLoopMaxPop = popularVideos.length; %>
+    <% } else { %>
+    <%    forLoopMaxPop = popIndex + 3; %>
+    <% } %>
+
 
     <!-- have to figure out why popular videos returns an empty array rather than nothing -->
     <% if(popularVideos.length > 0) {%>
-        <% for(let i = popIndex;i < popIndex + 3; i++) { %>
+        <% for(let i = popIndex;i < forLoopMaxPop; i++) { %>
             <div class="videoCard">
                 <div class="blackBars"></div>
-                <a href="/videos/watch/<%= popularVideos[i].fileName %>">
-                    <video height="400" width="400" class="videoThumbnail">
-                        <source src="/videos/<%= popularVideos[i].fileName %>">
-                    </video>
-                </a>
+                <div class="videoContainer">
+                    <a class="videoLinks" href="/videos/watch/<%= popularVideos[i].fileName %>">
+                        <video height="400" width="400" class="videoThumbnail">
+                            <source src="/videos/<%= popularVideos[i].fileName %>">
+                        </video>
+                    </a>
+                </div>
                 <p class="homePageVideoTitle"><%= popularVideos[i].title %></p>
                 <div class="videoCardPairs">
                     <img src="/profilePictures/<%= popularVideos[i].pfp %>" class="pfpUnderVideo" ></img>
@@ -44,6 +53,7 @@
 
 </div>
 
+<% if(subbedVideos.length > 0) { %>
 <h1 class="subsectionTitles">Recommended</h1>
 
 <div class="videoPanorama" id="recommendedPanorama">
@@ -62,11 +72,13 @@
     <% } %>
         <% for(let i = subIndex; i < forLoopMax; i++) { %>
             <div class="videoCard">
-                <a href="/videos/watch/<%= subbedVideos[i].fileName %>">
-                    <video height="400" width="400" class="videoThumbnail">
-                        <source src="/videos/<%= subbedVideos[i].fileName %>">
-                    </video>
-                </a>
+                <div class="videoContainer">
+                    <a class="videoLinks" href="/videos/watch/<%= subbedVideos[i].fileName %>">
+                        <video height="400" width="400" class="videoThumbnail">
+                            <source src="/videos/<%= subbedVideos[i].fileName %>">
+                        </video>
+                    </a>
+                </div>
                 <p class="homePageVideoTitle"><%= subbedVideos[i].title %></p>
                 <div class="videoCardPairs">
                     <img src="/profilePictures/<%= subbedVideos[i].pfp %>" class="pfpUnderVideo" ></img>
@@ -86,6 +98,8 @@
     hx-swap="outerHTML swap: 1s">&gt</button>
 
 </div>
+<% } %>
+
 
 <h1 class="subsectionTitles">New Uploads</h1>
 
@@ -98,16 +112,24 @@
     hx-swap="outerHTML swap: 1s" 
     >&lt</button>
 
+    <% if(newestVideos.length < 3) { %>
+    <%    forLoopMaxNew = newestVideos.length; %>
+    <% } else { %>
+    <%    forLoopMaxNew = newIndex + 3; %>
+    <% } %>
+
     <% if(newestVideos.length > 0) { %>
-        <% for(let i = newIndex; i < newIndex + 3; i++) { %>
+        <% for(let i = newIndex; i < forLoopMaxNew; i++) { %>
             <div class="videoCard">
                 <div class="blackBars"></div>
 
-                <a href="/videos/watch/<%= newestVideos[i].fileName %>">
-                    <video height="400" width="400" class="videoThumbnail">
-                        <source src="/videos/<%= newestVideos[i].fileName %>">
-                    </video>
-                </a>
+                <div class="videoContainer">
+                    <a class="videoLinks" href="/videos/watch/<%= newestVideos[i].fileName %>">
+                        <video height="400" width="400" class="videoThumbnail">
+                            <source src="/videos/<%= newestVideos[i].fileName %>">
+                        </video>
+                    </a>
+                </div>
                 <p class="homePageVideoTitle"><%= newestVideos[i].title %></p>
                 <div class="videoCardPairs">
                     <img src="/profilePictures/<%= newestVideos[i].pfp %>" class="pfpUnderVideo" ></img>

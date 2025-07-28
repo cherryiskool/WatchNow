@@ -121,17 +121,16 @@ let account;
             window.contract =  new window.web3.eth.Contract(ABI, Address);
             document.getElementById("contractArea").innerHTML = `Connected to Contract ${Address}`; // calling the elementID above
             x = await window.contract.methods.percentageCut().call();
-            // y = await window.contract.methods.reactedToContractsPercentageCuts(0).call();
+            y = await window.contract.methods.reactedToContractsPercentageCuts(0).call();
             z = await window.contract.methods.videoTitle().call();
-            // v = await window.contract.methods.reactedToContracts(0).call();
-            console.log('muthafuckaaa', x, z)
+            v = await window.contract.methods.reactedToContracts(0).call();
+            console.log('muthafuckaaa', x, z, y, v)
         }
 
         // send eth function
         // takes amount and multiplies it (to send Eth rather than Wei)
         const applyContractTermsToDonation = async () => {
             const amount = document.getElementById("depositInput").value *1000000000000000000; // have to multiply by this much
-            // console.log(amount, '%= walletAddresses %>')
             try {
               await window.contract.methods.applyContractTermsToDonation().send({from: account, value: amount});
 
@@ -140,3 +139,4 @@ let account;
               console.log(err)
             }
         }
+

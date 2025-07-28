@@ -7,14 +7,20 @@
     hx-swap="outerHTML swap: 1s" 
     >&lt</button>
 
-    <% if(subbedVideos) { %>
-        <% for(let i = subIndex; i < subIndex + 3; i++) { %>
+    <% if(subbedVideos.length < 3) { %>
+    <%    forLoopMax = subbedVideos.length; %>
+    <% } else { %>
+    <%    forLoopMax = subIndex + 3; %>
+    <% } %>
+        <% for(let i = subIndex; i < forLoopMax; i++) { %>
             <div class="videoCard">
-                <a href="/videos/watch/<%= subbedVideos[i].fileName %>">
-                    <video height="400" width="400" class="videoThumbnail">
-                        <source src="/videos/<%= subbedVideos[i].fileName %>">
-                    </video>
-                </a>
+                <div class="videoContainer">
+                    <a class="videoLinks" href="/videos/watch/<%= subbedVideos[i].fileName %>">
+                        <video height="400" width="400" class="videoThumbnail">
+                            <source src="/videos/<%= subbedVideos[i].fileName %>">
+                        </video>
+                    </a>
+                </div>
                 <p class="homePageVideoTitle"><%= subbedVideos[i].title %></p>
                 <div class="videoCardPairs">
                     <img src="/profilePictures/<%= subbedVideos[i].pfp %>" class="pfpUnderVideo" ></img>
@@ -26,7 +32,6 @@
                 </div>
             </div>
         <% } %>
-    <% } %>
 
     <!-- button to go forward on panorama -->
     <button class="backAndForwardButton" 

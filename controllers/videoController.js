@@ -37,7 +37,7 @@ exports.watchVideo = async (req, res) => {
     } else {
 
     // plus 1 as the database updates afterwards
-    let views = vUser.views + 1;
+    vUser.views = vUser.views + 1;
 
     let subbed;
     let subRow;
@@ -50,12 +50,9 @@ exports.watchVideo = async (req, res) => {
         } else {
             subbed = false;
         }
-        // reactVideo = await videoModel.getReactedToVideoData(reactedTo);
         // if the person reacted to a video in their video get the reacted to video creators wallet address as well
-        // let walletAddresses = [walletAddress, reactVideo.walletAddress];
         await videoModel.incrementViewCounter(vUser.videoId);
         res.render('videos/video', {user: vUser, subbed: subbed, x: vUser});
-
     }         
     // if the user is not logged in
     else {
@@ -77,10 +74,7 @@ exports.getDonationForm = async (req, res) => {
     vUser = await videoModel.getVideoAndUserByFileName(filename);
     let title = vUser.title;
     let username = vUser.username;
-    let walletAddress = vUser.walletAddress;
-    let reactedTo = vUser.reactedTo;
-    walletAddresses = [walletAddress]
-        res.render("partials/donateForm",{title: title, creatorUsername: username, walletAddresses: walletAddresses,
+        res.render("partials/donateForm",{title: title, creatorUsername: username,
                 filename: filename, layout:false})
         
 }
@@ -107,7 +101,6 @@ exports.deleteReactedToInput = (req, res) => {
 
 exports.getContractAddressOfVideo = async (req, res) => {
     filename = req.params.filename;
-    console.log("reactedToLinkspoopydoopy i want to die meme",filename)
     video = await videoModel.getVideoAndUserByFileName(filename);
     res.json(video.contractAddress);
 }

@@ -6,17 +6,26 @@
     hx-target="#popularPanorama"
     hx-swap="outerHTML swap: 1s" 
     >&lt</button>
+    
+    <% if(popularVideos.length < 3) { %>
+    <%    forLoopMaxPop = popularVideos.length; %>
+    <% } else { %>
+    <%    forLoopMaxPop = popIndex + 3; %>
+    <% } %>
+
 
     <!-- have to figure out why popular videos returns an empty array rather than nothing -->
     <% if(popularVideos.length > 0) {%>
-        <% for(let i = popIndex;i < popIndex + 3; i++) { %>
+        <% for(let i = popIndex;i < forLoopMaxPop; i++) { %>
             <div class="videoCard">
                 <div class="blackBars"></div>
-                <a href="/videos/watch/<%= popularVideos[i].fileName %>">
-                    <video height="400" width="400" class="videoThumbnail">
-                        <source src="/videos/<%= popularVideos[i].fileName %>">
-                    </video>
-                </a>
+                <div class="videoContainer">
+                    <a class="videoLinks" href="/videos/watch/<%= popularVideos[i].fileName %>">
+                        <video height="400" width="400" class="videoThumbnail">
+                            <source src="/videos/<%= popularVideos[i].fileName %>">
+                        </video>
+                    </a>
+                </div>
                 <p class="homePageVideoTitle"><%= popularVideos[i].title %></p>
                 <div class="videoCardPairs">
                     <img src="/profilePictures/<%= popularVideos[i].pfp %>" class="pfpUnderVideo" ></img>
