@@ -1,6 +1,7 @@
 <div class="containerForLoginPage">
     <h1>Log In Below</h1>
     <form class="containerForLoginForm" action='/login/attempt' method="POST">
+        <%- include('../../partials/errorMessage.ejs') %>
         <div>
             <label class="loginInputLabels">Email</label>
         </div>
@@ -16,6 +17,6 @@
         <div class="loginPageSubmitButtonContainer">
             <button class="loginPageSubmitButton" type="submit">Log In</button>
         </div>
-        
+        <a href="/register">No account? Register here!</a>
     </form>
 </div>

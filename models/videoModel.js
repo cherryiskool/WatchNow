@@ -81,3 +81,22 @@ exports.saveContractAddressToVideo = (filename, contractAddress) => {
             }
     })
 }
+
+exports.getVideosBarOne = (filename) => {
+    return new Promise((resolve, reject) => {
+        db.all('SELECT videos.id as "videoId", videos.title as "title",\
+            videos.description as "description", videos.fileName, \
+            videos.views as "views", videos.contractAddress, videos.dateOfUpload, \
+            users.id as "userId", users.username as "username",\
+            users.pfp \
+            FROM videos \
+            JOIN users ON videos.uploaderId = users.id \
+            WHERE NOT fileName = ? \
+            ORDER BY videos.views \
+			LIMIT 2',
+            [ filename ], (err, videos) => {
+                resolve(videos);
+            }
+        )
+    })
+}

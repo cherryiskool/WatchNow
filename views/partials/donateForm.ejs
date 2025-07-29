@@ -1,18 +1,24 @@
 <div id="donateForm">
+    
+    <div id="donateFormForeGround">
+        <button
+            hx-delete="/videos/watch/<%= filename %>/removeDonateForm"
+            hx-target="#donateForm"
+            hx-swap="outerHTML"
+            class="donateFormXButton">X</button>
+        <h3>Contract Details and Donations</h3>
+        <!-- button that allows user to connect to metamask/ prompts metamask to connect to the page -->
+        <p id="userArea">Status: Not connected to Metamask</p>
+        <button class="donateFormButton" onclick="connectMetamask()">CONNECT TO METAMASK</button>
+        <!-- connects the user to the contract -->
+        <p id="contractArea">Status: Not connected to Contract</p>
+        <p id="percentageCutDetail"></p>
+        <button class="donateFormButton" onclick="connectContract()">CONNECT TO CONTRACT</button>
+        <!-- basic donation functionality button -->
+        <input class="editProfileFormInputs" type="number" id="depositInput" placeholder="Enter Amount">
+        <button class="donateFormButton" onclick="applyContractTermsToDonation()">Send ether to <%= creatorUsername %></button>
+    </div>
 
-    <!-- button that allows user to connect to metamask/ prompts metamask to connect to the page -->
-    <button onclick="connectMetamask()">CONNECT TO METAMASK</button>
-    <p id="userArea">Status: Not connected to Metamask</p>
-    <!-- connects the user to the contract -->
-    <button onclick="connectContract()">CONNECT TO CONTRACT</button>
-    <p id="contractArea">Status: Not connected to Contract</p>
 
-    <!-- basic donation functionality button -->
-    <button onclick="applyContractTermsToDonation()">Send ether to <%= creatorUsername %></button>
-    <input type="number" id="depositInput" placeholder="Enter Amount">
 
-    <button 
-        hx-delete="/videos/watch/<%= filename %>/removeDonateForm"
-        hx-target="#donateForm"
-        hx-swap="outerHTML">X</button>
 </div>

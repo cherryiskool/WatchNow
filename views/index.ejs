@@ -31,10 +31,14 @@
                         </video>
                     </a>
                 </div>
-                <p class="homePageVideoTitle"><%= popularVideos[i].title %></p>
+                <a class="homePageVideoTitle" href="/videos/watch/<%= popularVideos[i].fileName %>">
+                    <p class="homePageVideoTitle"><%= popularVideos[i].title %></p>
+                </a>
                 <div class="videoCardPairs">
-                    <img src="/profilePictures/<%= popularVideos[i].pfp %>" class="pfpUnderVideo" ></img>
-                    <p class="usernameUnderVideo"><%= popularVideos[i].username %></p>
+                    <a class="usernameUnderVideo" href="/viewprofile/<%= popularVideos[i].username %>">
+                        <img src="/profilePictures/<%= popularVideos[i].pfp %>" class="pfpUnderVideo" ></img>
+                        <p class="usernameUnderVideo"><%= popularVideos[i].username %></p>
+                    </a>
                 </div>
                 <div class="videoCardPairs">
                     <p class="homepageViewsAndDate">Views: <%= popularVideos[i].views %></p>
@@ -79,10 +83,14 @@
                         </video>
                     </a>
                 </div>
-                <p class="homePageVideoTitle"><%= subbedVideos[i].title %></p>
+                <a class="homePageVideoTitle" href="/videos/watch/<%= subbedVideos[i].fileName %>">
+                    <p class="homePageVideoTitle"><%= subbedVideos[i].title %></p>
+                </a>
                 <div class="videoCardPairs">
-                    <img src="/profilePictures/<%= subbedVideos[i].pfp %>" class="pfpUnderVideo" ></img>
-                    <p class="usernameUnderVideo"><%= subbedVideos[i].username %></p>
+                    <a class="usernameUnderVideo" href="/viewprofile/<%= subbedVideos[i].username %>">
+                        <img src="/profilePictures/<%= subbedVideos[i].pfp %>" class="pfpUnderVideo" ></img>
+                        <p class="usernameUnderVideo"><%= subbedVideos[i].username %></p>
+                    </a>
                 </div>
                 <div class="videoCardPairs">
                     <p class="homepageViewsAndDate">Views: <%= subbedVideos[i].views %></p>
@@ -130,10 +138,14 @@
                         </video>
                     </a>
                 </div>
-                <p class="homePageVideoTitle"><%= newestVideos[i].title %></p>
+                <a class="homePageVideoTitle" href="/videos/watch/<%= newestVideos[i].fileName %>">
+                    <p class="homePageVideoTitle"><%= newestVideos[i].title %></p>
+                </a>
                 <div class="videoCardPairs">
-                    <img src="/profilePictures/<%= newestVideos[i].pfp %>" class="pfpUnderVideo" ></img>
-                    <p class="usernameUnderVideo"><%= newestVideos[i].username %></p>
+                    <a class="usernameUnderVideo" href="/viewprofile/<%= newestVideos[i].username %>">
+                        <img src="/profilePictures/<%= newestVideos[i].pfp %>" class="pfpUnderVideo" ></img>
+                        <p class="usernameUnderVideo"><%= newestVideos[i].username %></p>
+                    </a>
                 </div>
                 <div class="videoCardPairs">
                     <p class="homepageViewsAndDate">Views: <%= newestVideos[i].views %></p>

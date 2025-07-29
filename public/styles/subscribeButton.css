@@ -1,14 +1,19 @@
 .subscribeButton {
     font-weight: bold;
-    background-color: darkgrey;
+    background-color: rgb(254, 119, 67);
     border: none;
     border-radius: 5px;
-    color: white;
+    color: rgb(39, 63, 79);
     padding: 5px;
+    width: 51.52px;
 
 }
 
 .subscribeButton:hover {
     cursor: pointer;
+    background-color: rgb(68, 125, 155);
+}
+
+.subscribeButton:focus {
     background-color: grey;
 }

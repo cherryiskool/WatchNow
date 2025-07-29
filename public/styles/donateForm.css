@@ -1,4 +1,8 @@
 #donateForm {
+
+}
+
+#donateFormForeGround {
     display: flex;
     flex-direction: column;
     position: absolute;
@@ -7,7 +11,51 @@
     transform: translate(-50%, -50%);
     padding: 25px;
     gap: 10px;
-    background-color: grey;
-    border: 1px solid black;
+    background-color: rgb(68, 125, 155);
     border-radius: 25px;
+    box-shadow: 5px 5px 5px 5px grey;
+    /* font-size: 30px; */
+    min-height: 331px;
+    min-width: 580px;
+    color: rgb(215, 215, 215);
+    
+}
+
+.donateFormXButton {
+    align-self: flex-end;
+    font-weight: bold;
+    border-radius: 100px;
+    padding: 10px;
+    background-color: rgb(254, 119, 67);
+    color: rgb(39, 63, 79);
+    contain: size layout;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+}
+
+.donateFormXButton:hover {
+    cursor: pointer;
+    background-color: rgb(215, 215, 215);
+}
+
+.donateFormButton {
+    border: none;
+    background-color: rgb(254, 119, 67);
+    color: rgb(39, 63, 79);
+    padding: 5px;
+    border-radius: 25px;
+}
+
+.donateFormButton:focus {
+    background-color: rgb(158, 158, 158);
+    border: none;
+    outline: none;
+}
+
+.donateFormButton:hover {
+    background-color: rgb(215, 215, 215);
+    border: none;
+    outline: none;
 }

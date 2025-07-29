@@ -2,6 +2,7 @@
 
 <!-- user[0] because in GET /viewprofile/:username multiple rows are returned for each video
  user[0] = user[x] where x exists (though the video will be different) -->
+<%- include('../partials/errorMessage.ejs') %>
 
 <div class="profilePageContainer">
 <% if (user[0].banner) { %>

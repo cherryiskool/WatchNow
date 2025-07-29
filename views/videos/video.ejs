@@ -3,41 +3,74 @@
 
 <!-- video title -->
 
-<div class="videoPlayerContainer">
-  <video class="videoPlayer" controls>
-      <source src="/videos/<%= user.fileName %>">
-  </video>
-  <p id="videoPageTitle">
-    <%= user.title %>
-  </p>
-  <p>
-    <%= user.description %>
-  </p>
+<div class="videoPage">
+  <div class="videoPageLeftColumn">
+    <div class="videoPlayerContainer">
+      <video class="videoPlayer" controls>
+          <source src="/videos/<%= user.fileName %>">
+      </video>
+      <p id="videoPageTitle">
+        <%= user.title %>
+      </p>
+      <p>
+        <%= user.description %>
+      </p>
+  
+      <div class="videoMetaDataContainer">
+        <img class="pfpUnderVideo" src="/profilePictures/<%= user.pfp %>">
+  
+        <p>
+          <a class="videoUsernameUnderVideo" href="/viewprofile/<%= user.username %>"><%= user.username %></a>
+        </p>
+        <%- include('../partials/subscribeButton.ejs') %>
+  
+        <div>
+          <button class="donateButton" hx-get="/videos/watch/<%= user.fileName %>/donate"
+            hx-target="#donateFormContainer">Donate</button>
+        </div>
+        <p>
+          <%= user.views %> views
+        </p>
 
-  <div class="videoMetaDataContainer">
-    <img class="pfpUnderVideo" src="/profilePictures/<%= user.pfp %>">
-
-    <p>
-      <a class="videoUsernameUnderVideo" href="/viewprofile/<%= user.username %>"><%= user.username %></a>
-    </p>
-    <%- include('../partials/subscribeButton.ejs') %>
-
-    <div>
-      <button class="donateButton" hx-get="/videos/watch/<%= user.fileName %>/donate"
-        hx-target="#donateFormContainer">Donate</button>
+      </div>
     </div>
-    <p>
-      <%= user.views %> views
-    </p>
-    <p id="contractDetails">
-      
-    </p>
+  
+    <div id="donateFormContainer"></div>
   </div>
+  <div class="videoPageMiddleColumn">
+    <h2>
+      Recommended
+    </h2>
+  </div>
+  <div class="videoPageRightColumn">
+    <% for(let i = 0; i < 2; i++) { %>
+      <div class="videoCard">
+                <div class="blackBars"></div>
 
-</div>
-
-<div id="donateFormContainer">
-
+                <div class="videoContainer">
+                    <a class="videoLinks" href="/videos/watch/<%= recommendedVideos[i].fileName %>">
+                        <video height="400" width="400" class="videoThumbnail">
+                            <source src="/videos/<%= recommendedVideos[i].fileName %>">
+                        </video>
+                    </a>
+                </div>
+                <a class="homePageVideoTitle" href="/videos/watch/<%= recommendedVideos[i].fileName %>">
+                    <p class="homePageVideoTitle"><%= recommendedVideos[i].title %></p>
+                </a>
+                <div class="videoCardPairs">
+                    <a class="usernameUnderVideo" href="/viewprofile/<%= recommendedVideos[i].username %>">
+                        <img src="/profilePictures/<%= recommendedVideos[i].pfp %>" class="pfpUnderVideo" ></img>
+                        <p class="usernameUnderVideo"><%= recommendedVideos[i].username %></p>
+                    </a>
+                </div>
+                <div class="videoCardPairs">
+                    <p class="homepageViewsAndDate">Views: <%= recommendedVideos[i].views %></p>
+                    <p class="homepageViewsAndDate">Date Uploaded: <%= recommendedVideos[i].dateOfUpload %></p>
+                </div>
+                <div class="blackBars"></div>
+            </div>
+    <% } %>
+  </div>
 </div>
 
  <script  src="/scripts/smartContractFunctions.js"></script>

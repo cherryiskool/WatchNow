@@ -1,6 +1,6 @@
 nav {
-    background-color: rgb(37, 36, 36);
-    color: white;
+    background-color: rgb(254, 119, 67);
+    color: rgb(39, 63, 79);
     /* height of banner */
     height: auto;
     /* ensures that the navbar stays at the top when scrolling */
@@ -18,7 +18,7 @@ nav {
     align-items: center;
     padding-right: 10px;
     margin-right: 10px;
-    border-bottom: 1px solid grey;
+    /* border-bottom: 1px solid grey; */
     /* gap: 10px; */
 
     font-size: 16px;
@@ -26,28 +26,33 @@ nav {
 
 .navbarLinks {
     text-decoration: none;
-    color: white;
+    color: rgb(39, 63, 79);
     font-weight: bolder;
     padding: 10px;
 }
 
 .navbarLinks:hover {
-    background-color: grey;
+    background-color: rgb(68, 125, 155);
 }
 
+.navbarLinks:focus {
+    background-color: grey;
+}
 
 #logOutButton {
     background-color: transparent;
     border: none;
-    color: white;
+    color: rgb(39, 63, 79);
     font-weight: bolder;
     font-size: 16px;
 
 }
 
-
-
 #logOutButton:hover {
     cursor: pointer;
+    background-color: rgb(68, 125, 155);
+}
+
+#logOutButton:focus {
     background-color: grey;
 }

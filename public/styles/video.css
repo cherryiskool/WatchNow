@@ -1,12 +1,35 @@
+.videoPage {
+    display: flex;
+    gap:20px;
+}
+
+
+
+.videoPageLeftColumn {
+    flex-grow: 1;
+        max-width: 60%;
+}
+
 .videoPlayerContainer {
     display: flex;
     flex-direction: column;
     gap: 5px;
+    max-width: 100%;
+}
+
+@media (max-width: 1000px) {
+    .videoPage {
+        flex-direction: column;
+    }
+
+    .videoPageLeftColumn {
+        max-width: 100%;
+    }
 }
 
 .videoPlayer {
     border-radius: 10px;
-    max-width: 60%;
+    max-width: 100%;
 }
 
 #videoPageTitle {
@@ -27,20 +50,32 @@
 .videoUsernameUnderVideo {
     font-weight: bold;
     text-decoration: none;
-    color: black;
+    color: rgb(39, 63, 79);
 }
 
 .donateButton {
     font-weight: bold;
-    background-color: darkgrey;
+    background-color: rgb(254, 119, 67);
     border: none;
     border-radius: 5px;
-    color: white;
+    color: rgb(39, 63, 79);
     padding: 5px;
 }
 
 .donateButton:hover {
     cursor: pointer;
+    background-color: rgb(68, 125, 155);
+}
+
+.donateButton:focus {
     background-color: grey;
+}
+
+.videoPageMiddleColumn {
+    align-self: flex-start;
+}
+
+.videoPageRightColumn {
+    flex-shrink: 3;
 }
 
