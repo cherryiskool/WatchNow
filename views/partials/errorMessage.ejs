@@ -1,5 +1,9 @@
 <!-- will be used later to display error messages -->
 
 <% if (messages.error) { %> 
-<p class="errorMessage"><%= messages.error %></p>
+<p id="errorMessage"><%= messages.error %></p>
+<% } %>
+
+<% if (messages.message) { %> 
+<p id="messageMessage"><%= messages.message %></p>
 <% } %>

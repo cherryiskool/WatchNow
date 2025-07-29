@@ -51,7 +51,7 @@ exports.updateProfile = async (req, res) => {
 }
 
 exports.subscribe = async (req, res) => {
-  backURL = req.header('Referer') || '/'
+  // backURL = req.header('Referer') || '/'
   if (req.isAuthenticated()) {
     subscribedTo = req.params.username;
 
@@ -59,25 +59,24 @@ exports.subscribe = async (req, res) => {
     await profileModel.setSubDB(req.user.id, channelUser.id)
     // get the id of the user that the protagonist wants to subscribe to
     // set that they are subscribed only if it does not violate the necessity for both values to be unique as stated in db.js
-   
-    res.redirect(backURL)
+    res.render("partials/subscribeButton", {subscribeAction: 'unsubscribe', subscribeActionText: 'UnSub', x: {username: req.params.username}, pageTitle: req.params.username, layout: false})
+    // res.redirect(backURL)
   } 
-// need to display error message if they are not subscribed
+// need to display error message if they are not signed in
   else {
+    req.flash('error', 'Log in to Subscribe')
+    res.render("partials/subscribeButton", {subscribeAction: 'subscribe', subscribeActionText: 'Sub', x: {username: req.params.username}, pageTitle: req.params.username, layout: false})
   }
 }
 
 exports.unsubscribe = async (req, res) => {
-  backURL = req.header('Referer') || '/'
+  // backURL = req.header('Referer') || '/'
   if (req.isAuthenticated()) {
     subscribedTo = req.params.username;
     channel = await profileModel.getUserAndVidsByUsername(subscribedTo);
     await profileModel.unSetSub(req.user.id, channel[0].userId);
-    res.redirect(backURL)
-  }
-  // need to send an error to say they need to be logged in
-  else {
-
+    // res.redirect(backURL)
+    res.render("partials/subscribeButton", {subscribeAction: 'subscribe', subscribeActionText: 'Sub', x: {username: req.params.username}, pageTitle: req.params.username, layout: false})
   }
 }
 
@@ -91,17 +90,17 @@ exports.getForeignProfile = async (req, res) => {
       if (subRow) {
       // return orignal row of the profile user details as well as all their videos
       // return subbed to be false (protagonist user is  subscribed to profile user)
-      res.render('profile/foreignProfile', {user: foreignUser, subbed: true, x: foreignUser, pageTitle: `${username} Profile Page`});
+      res.render('profile/foreignProfile', {user: foreignUser, subscribeAction: 'unsubscribe', subscribeActionText: 'UnSub', x: foreignUser[0], pageTitle: `${username} Profile Page`});
       } 
       
       // if the row does not exist then the user is not subscribed
       else {
       // return orignal row of the profile user details as well as all their videos
       // return subbed to be false (protagonist user is  subscribed to profile user)
-      res.render('profile/foreignProfile', {user: foreignUser, subbed: false, x: foreignUser, pageTitle: `${username} Profile Page`});
+      res.render('profile/foreignProfile', {user: foreignUser, subscribeAction: 'subscribe', subscribeActionText: 'Sub', x: foreignUser[0], pageTitle: `${username} Profile Page`});
       }
     } else {
-      res.render('profile/foreignProfile', {user: foreignUser, subbed: false, x: foreignUser, pageTitle: `${username} Profile Page`});
+      res.render('profile/foreignProfile', {user: foreignUser, subscribeAction: 'subscribe', subscribeActionText: 'Sub', x: foreignUser[0], pageTitle: `${username} Profile Page`});
     }
 
 }

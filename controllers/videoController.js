@@ -41,18 +41,23 @@ exports.watchVideo = async (req, res) => {
 
     let subbed;
     let subRow;
+
     // if the user is authenticated
     if (req.isAuthenticated()){
         subRow = await profileModel.checkSub(req.user.id, vUser.userId)
 
+        let subscribeAction;
+        let subscribeActionText;
         if(subRow) {
-            subbed = true;
+            subscribeAction = 'unsubscribe';
+            subscribeActionText = 'UnSub';
         } else {
-            subbed = false;
+            subscribeAction = 'subscribe';
+            subscribeActionText = 'Sub'
         }
         // if the person reacted to a video in their video get the reacted to video creators wallet address as well
         await videoModel.incrementViewCounter(vUser.videoId);
-        res.render('videos/video', {user: vUser, subbed: subbed, x: vUser, pageTitle: `${vUser.title}`});
+        res.render('videos/video', {user: vUser, subscribeAction: subscribeAction, subscribeActionText: subscribeActionText, x: vUser, pageTitle: `${vUser.title}`});
     }         
     // if the user is not logged in
     else {
@@ -60,7 +65,7 @@ exports.watchVideo = async (req, res) => {
         subbed = false;
         // if the video is not a react video
         videoModel.incrementViewCounter(vUser.videoId);
-        res.render('videos/video', {user: vUser, subbed: subbed, x: vUser, pageTitle: `${vUser.title}`});
+        res.render('videos/video', {user: vUser, subscribeAction: 'subscribe', subscribeActionText: 'Sub', x: vUser, pageTitle: `${vUser.title}`});
         
         // if the video is a react video
 

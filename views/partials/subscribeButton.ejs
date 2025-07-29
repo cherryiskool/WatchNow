@@ -3,13 +3,9 @@
 
 <% array = x %>
 
- <% if(subbed == false) { %>
-    <form action="/subscribe/<%= x.username %>" method="POST">
-        <button class="subscribeButton" type="submit">Sub</button>
-    </form>
-
-<% } else { %>
-    <form action="/unsubscribe/<%= x.username %>" method="POST">
-        <button class="subscribeButton" type="submit">UnSub</button>
-    </form>
-<% } %>
+<div id="subscribeButtonContainer">
+    <button class="subscribeButton"
+    hx-post="/<%= subscribeAction %>/<%= x.username %>"
+    hx-target="#subscribeButtonContainer"
+    hx-swap="outerHTML"><%= subscribeActionText %></button>
+</div>
