@@ -3,30 +3,55 @@
 <!-- user[0] because in GET /viewprofile/:username multiple rows are returned for each video
  user[0] = user[x] where x exists (though the video will be different) -->
 
-<h1><%= user[0].username %></h1>
-
- <% if (user[0].pfp) { %>
-    <img src="/profilePictures/<%= user[0].pfp %>">
-<% } %>
-
+<div class="profilePageContainer">
 <% if (user[0].banner) { %>
-    <img src="/banners/<%= user[0].banner %>">
+    <img class="banner rightColumn" src="/banners/<%= user[0].banner %>">
 <% } %>
 
-<h2>Biography</h2>
-<p><%= user[0].bio %></p>
+<div class="profileRow">
+    <h1 class="leftColumn"><%= user[0].username %></h1>
+</div>
 
-<%- include('../partials/subscribeButton.ejs') %>
-
-<h1>Videos</h1>
-<!-- loops over all videos (since multiple videos would cause multiple user rows)
- creates a link for each of them and displays info corresponing to each video -->
-
- <% for(let i = 0;i < user.length; i++) { %>
-    <a href="/videos/watch/<%= user[i].fileName%>">
-        <h3><%= user[i].title %></h3>
-        <video height="400" width="400">
-            <source src="/videos/<%= user[i].fileName %>">
-        </video>
-    </a>
+<div class="profileRow">
+<% if (user[0].pfp) { %>
+    <img class="profilePicture" src="/profilePictures/<%= user[0].pfp %>">
 <% } %>
+
+    <%- include('../partials/subscribeButton.ejs') %>
+</div>
+
+<div class="profileBioContainer">
+    <h2>Biography</h2>
+    <p class="profileBio"><%= user[0].bio %></p>
+</div>
+
+
+
+<h2>Videos</h2>
+
+<!--  -->
+<div class="videoPanorama">
+<% if (user[0].filename) { %>
+<% for(let i = 0;i < user.length; i++) { %>
+            <div class="videoCard">
+                <div class="blackBars"></div>
+                <a href="/videos/watch/<%= user[i].filename %>">
+                    <video height="400" width="400" class="videoThumbnail">
+                        <source src="/videos/<%= user[i].filename %>">
+                    </video>
+                </a>
+                <p class="homePageVideoTitle"><%= user[i].title %></p>
+                <div class="videoCardPairs">
+                    <img src="/profilePictures/<%= user[i].pfp %>" class="pfpUnderVideo" ></img>
+                    <p class="usernameUnderVideo"><%= user[i].username %></p>
+                </div>
+                <div class="videoCardPairs">
+                    <p class="homepageViewsAndDate">Views: <%= user[i].views %></p>
+                    <p class="homepageViewsAndDate">| Date Uploaded: <%= user[i].dateOfUpload %></p>
+                </div>
+                <div class="blackBars"></div>
+            </div>
+
+<% } %>
+<% } %>
+</div>
