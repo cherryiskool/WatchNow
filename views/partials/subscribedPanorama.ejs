@@ -21,10 +21,14 @@
                         </video>
                     </a>
                 </div>
-                <p class="homePageVideoTitle"><%= subbedVideos[i].title %></p>
+                <a class="homePageVideoTitle" href="/videos/watch/<%= subbedVideos[i].fileName %>">
+                    <p class="homePageVideoTitle"><%= subbedVideos[i].title %></p>
+                </a>
                 <div class="videoCardPairs">
-                    <img src="/profilePictures/<%= subbedVideos[i].pfp %>" class="pfpUnderVideo" ></img>
-                    <p class="usernameUnderVideo"><%= subbedVideos[i].username %></p>
+                    <a class="usernameUnderVideo" href="/viewprofile/<%= subbedVideos[i].username %>">
+                        <img src="/profilePictures/<%= subbedVideos[i].pfp %>" class="pfpUnderVideo" ></img>
+                        <p class="usernameUnderVideo"><%= subbedVideos[i].username %></p>
+                    </a>
                 </div>
                 <div class="videoCardPairs">
                     <p class="homepageViewsAndDate">Views: <%= subbedVideos[i].views %></p>

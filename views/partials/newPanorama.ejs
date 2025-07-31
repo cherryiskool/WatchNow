@@ -25,10 +25,14 @@
                         </video>
                     </a>
                 </div>
-                <p class="homePageVideoTitle"><%= newestVideos[i].title %></p>
+                <a class="homePageVideoTitle" href="/videos/watch/<%= newestVideos[i].fileName %>">
+                    <p class="homePageVideoTitle"><%= newestVideos[i].title %></p>
+                </a>
                 <div class="videoCardPairs">
-                    <img src="/profilePictures/<%= newestVideos[i].pfp %>" class="pfpUnderVideo" ></img>
-                    <p class="usernameUnderVideo"><%= newestVideos[i].username %></p>
+                    <a class="usernameUnderVideo" href="/viewprofile/<%= newestVideos[i].username %>">
+                        <img src="/profilePictures/<%= newestVideos[i].pfp %>" class="pfpUnderVideo" ></img>
+                        <p class="usernameUnderVideo"><%= newestVideos[i].username %></p>
+                    </a>
                 </div>
                 <div class="videoCardPairs">
                     <p class="homepageViewsAndDate">Views: <%= newestVideos[i].views %></p>

@@ -26,10 +26,14 @@
                         </video>
                     </a>
                 </div>
-                <p class="homePageVideoTitle"><%= popularVideos[i].title %></p>
+                <a class="homePageVideoTitle" href="/videos/watch/<%= popularVideos[i].fileName %>">
+                    <p class="homePageVideoTitle"><%= popularVideos[i].title %></p>
+                </a>
                 <div class="videoCardPairs">
-                    <img src="/profilePictures/<%= popularVideos[i].pfp %>" class="pfpUnderVideo" ></img>
-                    <p class="usernameUnderVideo"><%= popularVideos[i].username %></p>
+                    <a class="usernameUnderVideo" href="/viewprofile/<%= popularVideos[i].username %>">
+                        <img src="/profilePictures/<%= popularVideos[i].pfp %>" class="pfpUnderVideo" ></img>
+                        <p class="usernameUnderVideo"><%= popularVideos[i].username %></p>
+                    </a>
                 </div>
                 <div class="videoCardPairs">
                     <p class="homepageViewsAndDate">Views: <%= popularVideos[i].views %></p>
