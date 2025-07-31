@@ -1,90 +1,67 @@
 db = require('./db');
 
-exports.saveVideoToDB = (videoTitle, userID, videoFilename, description) => {
-    return new Promise((resolve, reject) => {
-        db.run('INSERT INTO videos (title, uploaderId, fileName, description,\
-             views, dateOfUpload) VALUES (?, ?, ?, ?, 0, datetime("now"))', 
-            [videoTitle, userID, videoFilename, description], (err, row) => {
-                // failure check
-                resolve(row);
-            })
-    })
+exports.saveVideoToDB = async (videoTitle, userID, videoFilename, description) => {
+    
+        return await db.query('INSERT INTO videos (title, uploaderId, fileName, description,\
+             views, dateOfUpload) VALUES (?, ?, ?, ?, 0, NOW())', 
+            [videoTitle, userID, videoFilename, description])
+
 }
 
-exports.getVideoAndUserByFileName = (filename) => {
-    return new Promise((resolve, reject) => {
-        db.get('SELECT videos.id as "videoId", videos.title as "title",\
+exports.getVideoAndUserByFileName = async (filename) => {
+    
+        return await db.query('SELECT videos.id as "videoId", videos.title as "title",\
             videos.description as "description", videos.fileName, \
             videos.views as "views", videos.contractAddress, users.id as "userId", users.username as "username",\
             users.pfp  \
             FROM videos \
             JOIN users ON videos.uploaderId = users.id \
-            WHERE fileName = ?', [ filename ], (err, vUser) => {
-                // failure check
-                resolve(vUser);
-            })
-    })
+            WHERE fileName = ?', [ filename ])
+
 } 
 
-exports.incrementViewCounter = (videoId) => {
-    return new Promise((resolve, reject) => {
-        db.run('UPDATE videos SET views = views + 1 WHERE id = ?', [ videoId ], 
-            (err, row) => {
-                // failure check
-                resolve(row);
-            }
+exports.incrementViewCounter = async (videoId) => {
+    
+        return await db.query('UPDATE videos SET views = views + 1 WHERE id = ?', [ videoId ]
         )
-    }) 
+
 
 }
 
 // for now only gets one react video have to change that later
-exports.getReactedToVideoData = (reactedToFileName) => {
-    return new Promise((resolve, reject) => {
-        db.get('SELECT * FROM users \
+exports.getReactedToVideoData = async (reactedToFileName) => {
+    
+        return await db.query('SELECT * FROM users \
             JOIN videos ON users.id = videos.uploaderId \
-            WHERE fileName = ?', [ reactedToFileName ], 
-        (err, video) => {
-            // failure check
-            resolve(video);
-        })
-    })
+            WHERE fileName = ?', [ reactedToFileName ])
+
 }
 
-exports.getVideoIDByFileName = (filename) => {
-    return new Promise ((resolve, reject) => {
-        db.get('SELECT videos.id as "videoID" FROM videos WHERE fileName = ?',
-            [ filename ], (err, video) => {
-                // failure check
-                resolve(video);
-            }
+exports.getVideoIDByFileName = async (filename) => {
+
+        return await db.query('SELECT videos.id as "videoID" FROM videos WHERE fileName = ?',
+            [ filename ]
         )
-    })
+
 }
 
-exports.saveReactedToVideo = (reactID, originalID) => {
-    return new Promise((resolve, reject) => {
-        db.run('INSERT OR IGNORE into reactedTo (reactId, originalId) VALUES (?, ?)', 
-            [ reactID, originalID ], (err, row) => {
-                // failure check
-                resolve(row);
-            })
-    })
+exports.saveReactedToVideo = async (reactID, originalID) => {
+    
+        return await db.query('INSERT IGNORE into reactedTo (reactId, originalId) VALUES (?, ?)', 
+            [ reactID, originalID ])
+
 }
 
-exports.saveContractAddressToVideo = (filename, contractAddress) => {
-    return new Promise((resolve, reject) => {
-        db.run("UPDATE videos SET contractAddress = ? WHERE fileName = ?", 
-            [ contractAddress, filename ]), (err, row) => {
-                // failure check
-                resolve(row);
-            }
-    })
+exports.saveContractAddressToVideo = async (filename, contractAddress) => {
+    
+        return await db.query("UPDATE videos SET contractAddress = ? WHERE fileName = ?", 
+            [ contractAddress, filename ])
+
 }
 
-exports.getVideosBarOne = (filename) => {
-    return new Promise((resolve, reject) => {
-        db.all('SELECT videos.id as "videoId", videos.title as "title",\
+exports.getVideosBarOne = async (filename) => {
+    
+        return await db.query('SELECT videos.id as "videoId", videos.title as "title",\
             videos.description as "description", videos.fileName, \
             videos.views as "views", videos.contractAddress, videos.dateOfUpload, \
             users.id as "userId", users.username as "username",\
@@ -94,9 +71,7 @@ exports.getVideosBarOne = (filename) => {
             WHERE NOT fileName = ? \
             ORDER BY videos.views \
 			LIMIT 2',
-            [ filename ], (err, videos) => {
-                resolve(videos);
-            }
+            [ filename ]
         )
-    })
+
 }

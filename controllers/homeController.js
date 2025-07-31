@@ -6,14 +6,14 @@ exports.getHomePage = async (req, res) => {
     let subbedVideos;
     let newestVideos;
 
-    popularVideos = await homeModel.getAllVideosViewOrder();
+    [popularVideos] = await homeModel.getAllVideosViewOrder();
     if(req.isAuthenticated()){
-        subbedVideos = await homeModel.getUserSubscribedVideos(req.user.id);
+        [subbedVideos] = await homeModel.getUserSubscribedVideos(req.user.id);
     }
     else {
         subbedVideos = [];
     }
-    newestVideos = await homeModel.getNewestUploads();
+    [newestVideos] = await homeModel.getNewestUploads();
     res.render('index', {popularVideos: popularVideos, popIndex: 0, newestVideos: newestVideos, newIndex: 0, subbedVideos: subbedVideos, subIndex: 0, pageTitle: 'Home'})
 }
 
@@ -24,12 +24,12 @@ exports.forwardPopularVideos = async (req, res) => {
     
     // get the subsection the user wants to update
     if(subsection === 'popular') {
-        Videos = await homeModel.getAllVideosViewOrder(); 
+        [Videos] = await homeModel.getAllVideosViewOrder(); 
     }
     else if(subsection === 'recommended') {
-        Videos = await homeModel.getUserSubscribedVideos(req.user.id);
+        [Videos] = await homeModel.getUserSubscribedVideos(req.user.id);
     } else {
-        Videos = await homeModel.getNewestUploads();
+        [Videos] = await homeModel.getNewestUploads();
     }
     // if the user clicked the forward button
     if(direction === 'forward') {
@@ -39,7 +39,7 @@ exports.forwardPopularVideos = async (req, res) => {
         }
         // if there are not more than 3 videos then increase the index by the amount left 
         else {
-            index = Videos.length - 3
+            index = Math.max(Videos.length - 3, 0)
         }
     } 
     // if the user clicked the backward button

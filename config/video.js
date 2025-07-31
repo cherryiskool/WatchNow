@@ -6,7 +6,6 @@ const videoStorage = multer.diskStorage({
         cb(null, './public/videos')
     },
     filename: (req, file, cb) => {
-        console.log(file);
         cb(null, Date.now() + path.extname(file.originalname))
     }
 })

@@ -22,7 +22,7 @@ exports.getRegisterPage = (req, res) => {
 
 exports.registerUser = async (req, res) => {
     try {
-        authModel.registerUserToDB(req.body.username, req.body.email, req.body.password)
+        await authModel.registerUserToDB(req.body.username, req.body.email, req.body.password)
         res.redirect('/login');
     } catch (err) {
         res.redirect('/register');

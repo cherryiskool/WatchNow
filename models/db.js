@@ -1,47 +1,13 @@
-const sqlite3 = require('sqlite3');
+// const sqlite3 = require('sqlite3');
+const mysql2 = require('mysql2');
+// require('dotenv').config();
 
-// open database
-const db = new sqlite3.Database('./models/users.db')
-
-// run the following code in order
-db.serialize(function() {
-    // create users table
-    db.run("CREATE TABLE IF NOT EXISTS users ( \
-        id INTEGER PRIMARY KEY, \
-        username TEXT UNIQUE, \
-        email TEXT UNIQUE, \
-        hashedPassword TEXT, \
-        walletAddress TEXT, \
-        bio TEXT, \
-        banner TEXT, \
-        pfp TEXT \
-    )");
-    
-    // here the videos table
-    db.run("CREATE TABLE IF NOT EXISTS videos ( \
-        id INTEGER PRIMARY KEY, \
-        title TEXT, \
-        uploaderId INTEGER, \
-        fileName TEXT UNIQUE, \
-        description TEXT, \
-        views INTEGER, \
-        dateOfUpload TEXT, \
-        contractAddress TEXT, \
-        FOREIGN KEY(uploaderId) references users(id) \
-    )");
-
-    db.run("CREATE TABLE IF NOT EXISTS subscribed ( \
-        subscriberId INTEGER, \
-        subscribedToId INTEGER, \
-        UNIQUE(subscriberId, subscribedToId) \
-    )");
-
-    db.run("CREATE TABLE IF NOT EXISTS reactedTo ( \
-        reactId INTEGER, \
-        originalId INTEGER, \
-        UNIQUE(reactId, originalId) \
-    )");
-});
+const pool = mysql2.createPool({
+    host: process.env.MYSQL_HOST,
+    user: process.env.MYSQL_USER,
+    password: process.env.MYSQL_PASSWORD,
+    database: process.env.MYSQL_DATABASE
+}).promise();
 
 // allows other files to access/run this one
-module.exports = db;
+module.exports = pool;

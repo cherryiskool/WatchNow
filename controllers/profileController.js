@@ -4,7 +4,7 @@ exports.getOwnProfile = async (req, res) => {
 
     if (req.isAuthenticated()) {
            
-        user = await profileModel.getUserAndVidsByID(req.user.id)
+        [user] = await profileModel.getUserAndVidsByID(req.user.id)
         if (user[0].username === req.params.username) {
 
           res.render('profile/index', {user: user, pageTitle: `${req.user.username} Profile Page`});
@@ -27,7 +27,7 @@ exports.updateProfile = async (req, res) => {
     let pfpFileName;
     // there may be a better way to do this
     // this makes sure not to set user details as empty if they did not want to change anything
-    walletAddress = req.body.walletAddress;
+
 
     // if the file upload is empty then set the new pfp to be the old one
     if(!req.files.pfp) {
@@ -45,7 +45,7 @@ exports.updateProfile = async (req, res) => {
     
     console.log('pfpFilename', pfpFileName);
     console.log('bannerFilename', bannerFileName);
-    await profileModel.updateUserDetails(walletAddress, bio, bannerFileName, pfpFileName, req.user.id)
+    await profileModel.updateUserDetails(bio, bannerFileName, pfpFileName, req.user.id)
 
     res.redirect(`/myprofile/${req.user.username}`)
 }
@@ -55,8 +55,8 @@ exports.subscribe = async (req, res) => {
   if (req.isAuthenticated()) {
     subscribedTo = req.params.username;
 
-    channelUser = await profileModel.getUserByUsername(subscribedTo)
-    await profileModel.setSubDB(req.user.id, channelUser.id)
+    [channelUser] = await profileModel.getUserByUsername(subscribedTo)
+    await profileModel.setSubDB(req.user.id, channelUser[0].id)
     // get the id of the user that the protagonist wants to subscribe to
     // set that they are subscribed only if it does not violate the necessity for both values to be unique as stated in db.js
     res.render("partials/subscribeButton", {subscribeAction: 'unsubscribe', subscribeActionText: 'UnSub', x: {username: req.params.username}, pageTitle: req.params.username, layout: false})
@@ -73,7 +73,7 @@ exports.unsubscribe = async (req, res) => {
   // backURL = req.header('Referer') || '/'
   if (req.isAuthenticated()) {
     subscribedTo = req.params.username;
-    channel = await profileModel.getUserAndVidsByUsername(subscribedTo);
+    [channel] = await profileModel.getUserAndVidsByUsername(subscribedTo);
     await profileModel.unSetSub(req.user.id, channel[0].userId);
     // res.redirect(backURL)
     res.render("partials/subscribeButton", {subscribeAction: 'subscribe', subscribeActionText: 'Sub', x: {username: req.params.username}, pageTitle: req.params.username, layout: false})
@@ -83,9 +83,9 @@ exports.unsubscribe = async (req, res) => {
 exports.getForeignProfile = async (req, res) => {
   username = req.params.username;
 
-    foreignUser = await profileModel.getUserAndVidsByUsername(username);
+    [foreignUser] = await profileModel.getUserAndVidsByUsername(username);
     if(req.isAuthenticated()) {
-      subRow = await profileModel.checkSub(req.user.id, foreignUser[0].id)
+      [subRow] = await profileModel.checkSub(req.user.id, foreignUser[0].id)
       // if this row exists it must mean that the user is subscribed
       if (subRow) {
       // return orignal row of the profile user details as well as all their videos
@@ -107,8 +107,8 @@ exports.getForeignProfile = async (req, res) => {
 
 exports.getEditForm = async (req, res) => {
   if (req.isAuthenticated()) {
-    user = await profileModel.getUserByID(req.user.id);
-    if (user.username === req.params.username) {
+    [user] = await profileModel.getUserByID(req.user.id);
+    if (user[0].username === req.params.username) {
         res.render("partials/editProfileForm", {layout: false, user: req.user, pageTitle: `${req.user.username} Profile Page`});
     } else {
         res.redirect('/')
@@ -121,8 +121,8 @@ exports.getEditForm = async (req, res) => {
 
 exports.removeEditForm = async (req, res) => {
     if (req.isAuthenticated()) {
-        user = await profileModel.getUserByID(req.user.id);
-        if (user.username === req.params.username) {
+        [user] = await profileModel.getUserByID(req.user.id);
+        if (user[0].username === req.params.username) {
             res.send('');
         } else {
             res.redirect('/')

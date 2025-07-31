@@ -8,7 +8,16 @@ const expressLayouts = require('express-ejs-layouts');
 const passport = require('passport');
 const flash = require('express-flash')
 const session = require('express-session')
-const SQLiteStore = require('connect-sqlite3')(session)
+const MySQLStore = require('express-mysql-session')(session)
+
+const options = {
+  host: process.env.MYSQL_HOST,
+  user: process.env.MYSQL_USER,
+  password: process.env.MYSQL_PASSWORD,
+  database: process.env.MYSQL_DATABASE
+}
+
+const sessionStore = new MySQLStore(options);
 
 // routes for respective routers
 const indexRouter = require('./routes/index');
@@ -44,7 +53,7 @@ app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
-  store: new SQLiteStore({db: 'sessions.db', dir: './models'})
+  store: sessionStore
 }))
 
 
@@ -59,11 +68,10 @@ require('./config/passport');
 // in headers.ejs i use it to make dynamic navbar links (checks that youre signed in etc.)
 app.use(function(req, res, next) {
   try {
-    res.locals.username = req.user.username
-    res.locals.userWallet = req.user.walletAddress
-    console.log('User Logged In', req.user)
+    res.locals.username = req.user.username;
+    console.log('User Logged In, ID:', req.user.id);
   } catch {
-    console.log('User Not Logged In')
+    console.log('User Not Logged In');
   }
   next();
 })

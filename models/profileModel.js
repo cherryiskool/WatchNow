@@ -1,102 +1,76 @@
 db = require('./db');
 
-exports.getUserAndVidsByID = (id) => {
-    return new Promise((resolve, reject) => {
+exports.getUserAndVidsByID = async (id) => {
+    
     // has to be left join in the case that the user has no videos  
-    db.all('SELECT users.id as "userId", users.username as "username",\
-         users.walletAddress as "walletAddress", users.bio as "bio", \
+    return await db.query('SELECT users.id as "userId", users.username as "username",\
+        users.bio as "bio", \
          users.banner as "banner", users.pfp as "pfp", videos.id as "videoID",\
           videos.title as "title", videos.filename as "filename", videos.views, videos.dateOfUpload \
           FROM users\
           LEFT JOIN videos ON users.id = videos.uploaderId \
-          WHERE users.id = ?', [ id ], 
-          (err, user) => {
-            resolve(user);
-            // have to add failure checks here
-          })
-    })
+          WHERE users.id = ?', [ id ])
+
 
 }
 
-exports.updateUserDetails = (walletAddress, bio, bannerFileName, pfpFileName, userID) => {
-    return new Promise((resolve, reject) => {
-    db.run('UPDATE users SET walletAddress = ?, bio = ?, banner = ?, pfp = ? WHERE id = ?', [
-      walletAddress,
+exports.updateUserDetails = async (bio, bannerFileName, pfpFileName, userID) => {
+    
+    return await db.query('UPDATE users SET  bio = ?, banner = ?, pfp = ? WHERE id = ?', [
       bio,
       bannerFileName,
       pfpFileName,
       userID
-    ], (err, user) => {
-        // have to add success and failure checks here
-        resolve(user)
-    })
-    })
+    ])
+
 }
 
-exports.getUserByUsername = (username) => {
-    return new Promise((resolve, reject) => {
-        db.get('SELECT * FROM users WHERE username = ?', [ username ], (err, user) => {
-            resolve(user);
-            // have to add failure checks here
-        })
-    })
+exports.getUserByUsername = async (username) => {
+    
+        return await db.query('SELECT * FROM users WHERE username = ?', [ username ])
+
 }
 
 //  need to disallow subbing to yourself
-exports.setSubDB = (subscriberID, channelID) => {
-    return new Promise((resolve, reject) => {
-        db.run('INSERT OR IGNORE INTO subscribed (subscriberId, subscribedToId) VALUES (?, ?)',
-            [subscriberID, channelID], (err, user) => {
-                // have to add success and error checks here
-                resolve(user);
-            })
-    })
+exports.setSubDB = async (subscriberID, channelID) => {
+    
+        return await db.query('INSERT IGNORE INTO subscribed (subscriberId, subscribedToId) VALUES (?, ?)',
+            [subscriberID, channelID])
+
 }
 
-exports.unSetSub = (subscriberID, channelID) => {
-    return new Promise((resolve, reject) => {
-        db.run('DELETE FROM subscribed WHERE subscriberId = ? and subscribedToId = ?',
-            [subscriberID, channelID], (err, row) => {
-                // failure check
-                resolve(row)
-            }
+exports.unSetSub = async (subscriberID, channelID) => {
+    
+        return await db.query('DELETE FROM subscribed WHERE subscriberId = ? and subscribedToId = ?',
+            [subscriberID, channelID]
         )
-    })
+
 }
 
 // either the statement needs to be changed or the database id variables need to be renamed
-exports.getUserAndVidsByUsername = (username) => {
-    return new Promise((resolve, reject) => {
-        db.all('SELECT users.id as "userId", users.username as "username",\
-         users.walletAddress as "walletAddress", users.bio as "bio", \
+exports.getUserAndVidsByUsername = async (username) => {
+    
+        return await db.query('SELECT users.id as "userId", users.username as "username",\
+         users.bio as "bio", \
          users.banner as "banner", users.pfp as "pfp", videos.id as "videoID",\
           videos.title as "title", videos.filename as "filename", videos.views, videos.dateOfUpload FROM users \
             JOIN videos ON users.id = videos.uploaderId \
             WHERE users.username = ?', 
-        [ username ], (err, user) => {
-            // failure check needed
-            resolve(user);
-        })
-    })
+        [ username ])
+
 }
 
 
-exports.checkSub = (subscriberID, channelID) => {
-    return new Promise((resolve, reject) => {
-        db.get('SELECT * FROM subscribed WHERE subscriberId = ? and subscribedToId = ?',
-            [subscriberID, channelID], (err, row) => {
-                // failure check needed
-                resolve(row);
-            }
+exports.checkSub = async (subscriberID, channelID) => {
+    
+        return await db.query('SELECT * FROM subscribed WHERE subscriberId = ? and subscribedToId = ?',
+            [subscriberID, channelID]
         )
-    })
+
 }
 
-exports.getUserByID = (userID) => {
-    return new Promise((resolve, reject) => {
-        db.get('SELECT * FROM users WHERE id = ?', [ userID ], (err, user) => {
-            // failure check needed
-            resolve(user);
-        })
-    })
+exports.getUserByID = async (userID) => {
+    
+        return await db.query('SELECT * FROM users WHERE id = ?', [ userID ])
+
 }

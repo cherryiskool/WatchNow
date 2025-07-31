@@ -7,7 +7,6 @@ const storage = multer.diskStorage({
       console.log(file.fieldname)
 
       if (file.fieldname === 'pfp') { 
-        console.log('suo')
         cb(null, './public/profilePictures')
       } 
       else if (file.fieldname === 'banner') {
@@ -16,7 +15,6 @@ const storage = multer.diskStorage({
 
     },
     filename: (req, file, cb) => {
-        console.log(file);
         cb(null, Date.now() + path.extname(file.originalname))
     }
 })
