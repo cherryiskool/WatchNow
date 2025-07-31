@@ -50,4 +50,6 @@ router.get('/upload/reactedToContractAddress/:filename', videoController.getCont
 // update video with contract address
 router.post('/upload/reactedToContractAddress/:filename/:contractAddress', videoController.setContractAddressOfVideo)
 
+router.get('/:subsection', videoController.getSubsectionVideos);
+
 module.exports = router;

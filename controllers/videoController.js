@@ -1,5 +1,8 @@
 const videoModel = require('../models/videoModel');
-const profileModel = require('../models/profileModel')
+const profileModel = require('../models/profileModel');
+
+// used for the subsections (no point in rewriting code)
+const homeModel = require('../models/homeModel');
 
 exports.getUploadPage = (req, res) => {
     if (req.isAuthenticated() == false) {
@@ -122,4 +125,28 @@ exports.setContractAddressOfVideo = async (req, res) => {
     catch (err) {
         res.status(500).json({success: false, error: 'Contract Address Saving Failed'})
     }
+}
+
+exports.getSubsectionVideos = async (req, res) => {
+    subsection = req.params.subsection;
+    let pageVideos;
+    if (subsection == 'popular') {
+        pageVideos = await homeModel.getAllVideosViewOrder();
+    }
+    else if (subsection == 'recommended' && req.isAuthenticated()) {
+        pageVideos = await homeModel.getUserSubscribedVideos();
+    }
+    else if (subsection == 'recommended' && req.isAuthenticated() == false) {
+        req.flash('error', 'Sign in to see Recommended Videos');
+        res.redirect('/login');
+    }
+    else if (subsection == 'new') {
+        pageVideos = await homeModel.getNewestUploads(1);
+    }
+    else {
+        req.flash('error', 'Invalid Page');
+        res.redirect('/')
+    }
+
+    res.render('videos/subsection', {pageVideos: pageVideos, pageTitle: subsection[0].toUpperCase()+subsection.slice(1) });
 }

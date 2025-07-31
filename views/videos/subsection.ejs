@@ -1,0 +1,87 @@
+<a class="subsectionTitles" href="/videos/<%= pageTitle %>">
+    <h1 class="subsectionTitles"><%= pageTitle %></h1>
+</a>
+
+<div class="videoPanorama subsectionPage">
+    <% for(let i = 0; i < pageVideos.length; i = i + 3) { %>
+
+            <div class="subsectionRow">
+                <div class="videoCard" id="videoCardSubsection">
+                    <div class="blackBars"></div>
+                    <div class="videoContainer">
+                        <a class="videoLinks" href="/videos/watch/<%= pageVideos[i].fileName %>">
+                            <video height="400" width="400" class="videoThumbnail">
+                                <source src="/videos/<%= pageVideos[i].fileName %>">
+                            </video>
+                        </a>
+                    </div>
+                    <a class="homePageVideoTitle" href="/videos/watch/<%= pageVideos[i].fileName %>">
+                        <p class="homePageVideoTitle"><%= pageVideos[i].title %></p>
+                    </a>
+                    <div class="videoCardPairs">
+                        <a class="usernameUnderVideo" href="/viewprofile/<%= pageVideos[i].username %>">
+                            <img src="/profilePictures/<%= pageVideos[i].pfp %>" class="pfpUnderVideo" ></img>
+                            <p class="usernameUnderVideo"><%= pageVideos[i].username %></p>
+                        </a>
+                    </div>
+                    <div class="videoCardPairs">
+                        <p class="homepageViewsAndDate">Views: <%= pageVideos[i].views %></p>
+                        <p class="homepageViewsAndDate">Date Uploaded: <%= pageVideos[i].dateOfUpload %></p>
+                    </div>
+                    <div class="blackBars"></div>
+                </div>
+                <% if (i + 1 < pageVideos.length) { %>
+                <div class="videoCard" id="videoCardSubsection">
+                    <div class="blackBars"></div>
+                    <div class="videoContainer">
+                        <a class="videoLinks" href="/videos/watch/<%= pageVideos[i + 1].fileName %>">
+                            <video height="400" width="400" class="videoThumbnail">
+                                <source src="/videos/<%= pageVideos[i + 1].fileName %>">
+                            </video>
+                        </a>
+                    </div>
+                    <a class="homePageVideoTitle" href="/videos/watch/<%= pageVideos[i + 1].fileName %>">
+                        <p class="homePageVideoTitle"><%= pageVideos[i + 1].title %></p>
+                    </a>
+                    <div class="videoCardPairs">
+                        <a class="usernameUnderVideo" href="/viewprofile/<%= pageVideos[i + 1].username %>">
+                            <img src="/profilePictures/<%= pageVideos[i + 1].pfp %>" class="pfpUnderVideo" ></img>
+                            <p class="usernameUnderVideo"><%= pageVideos[i + 1].username %></p>
+                        </a>
+                    </div>
+                    <div class="videoCardPairs">
+                        <p class="homepageViewsAndDate">Views: <%= pageVideos[i + 1].views %></p>
+                        <p class="homepageViewsAndDate">Date Uploaded: <%= pageVideos[i + 1].dateOfUpload %></p>
+                    </div>
+                    <div class="blackBars"></div>
+                </div>
+                <% } %>
+                <% if(i + 2 < pageVideos.length) { %>
+                <div class="videoCard" id="videoCardSubsection">
+                    <div class="blackBars"></div>
+                    <div class="videoContainer">
+                        <a class="videoLinks" href="/videos/watch/<%= pageVideos[i + 2].fileName %>">
+                            <video height="400" width="400" class="videoThumbnail">
+                                <source src="/videos/<%= pageVideos[i + 2].fileName %>">
+                            </video>
+                        </a>
+                    </div>
+                    <a class="homePageVideoTitle" href="/videos/watch/<%= pageVideos[i + 2].fileName %>">
+                        <p class="homePageVideoTitle"><%= pageVideos[i + 2].title %></p>
+                    </a>
+                    <div class="videoCardPairs">
+                        <a class="usernameUnderVideo" href="/viewprofile/<%= pageVideos[i + 2].username %>">
+                            <img src="/profilePictures/<%= pageVideos[i + 2].pfp %>" class="pfpUnderVideo" ></img>
+                            <p class="usernameUnderVideo"><%= pageVideos[i + 2].username %></p>
+                        </a>
+                    </div>
+                    <div class="videoCardPairs">
+                        <p class="homepageViewsAndDate">Views: <%= pageVideos[i + 2].views %></p>
+                        <p class="homepageViewsAndDate">Date Uploaded: <%= pageVideos[i + 2].dateOfUpload %></p>
+                    </div>
+                    <div class="blackBars"></div>
+                </div>
+            </div>
+        <% } %>
+    <% } %>
+</div>

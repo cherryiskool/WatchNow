@@ -1,0 +1,113 @@
+.videoCard {
+    flex-shrink: 1;
+    padding-left: 10px;
+    padding-right: 10px;
+    flex-grow: 1;
+
+    /* made this a flex box just so i could have a gap in between the divs */
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    /* just some space from the popular, recommended and new upload titles*/
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.videoContainer {
+    display: flex;
+    /* max-width: 500px; */
+    /* flex-basis: 250px; */
+    max-height: 250px;
+    max-width: 440px;
+    aspect-ratio: 2;
+}
+
+@media (max-width: 1000px) {
+    .videoContainer {
+    max-width: 100%;
+    max-height: 100%;
+    }
+}
+
+.videoLinks {
+    height: 100%;
+    width: 100%;
+}
+
+.videoThumbnail {
+    height: 100%;
+    width: 100%;
+    border-radius: 25px;
+    overflow: hidden;
+    object-fit: fill;
+}
+
+.homePageVideoTitle {
+    font-weight:550;
+    text-decoration: none;
+    color: rgb(39, 63, 79);
+}
+
+.homePageVideoTitle:hover {
+    color: rgb(68, 125, 155);
+}
+
+.usernameUnderVideo{
+    font-weight: lighter;
+    font-size: 15px;
+    text-decoration: none;
+    color: rgb(254, 119, 67);
+    display: flex;
+    gap: 5px;
+}
+
+.usernameUnderVideo:hover {
+    color: rgb(68, 125, 155);
+}
+
+.homepageViewsAndDate {
+    font-size: 14px;
+}
+
+.videoCardPairs {
+    display: flex;
+    gap: 5px;
+}
+
+.pfpUnderVideo {
+    width: 25px;
+    height: 25px;
+    border-radius: 50px;
+}
+
+.usernameUnderVideo {
+    align-self: center;
+}
+
+/* subsection.ejs */
+
+#videoCardSubsection {
+     flex-basis: 33%;
+}
+
+.subsectionRow {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.subsectionPage {
+    display: flex;
+    flex-direction: column;
+}
+
+@media (max-width: 1000px) {
+    .subsectionPage {
+        display: block;
+    }
+
+    .subsectionRow {
+        flex-direction: column;
+        display: block;
+    }
+}

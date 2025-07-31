@@ -1,12 +1,19 @@
 .subsectionTitles {
     border-bottom: 1px solid grey;
     /* border-top: 1px solid grey; */
+    text-decoration: none;
+    color: rgb(39, 63, 79);
+}
+
+.subsectionTitles:hover {
+    color:rgb(68, 125, 155)
 }
 
 .videoPanorama {
    display: flex; 
    justify-content: space-around;
    gap: 5vh;
+   flex-shrink: 3;
 }
 
 
@@ -22,6 +29,7 @@
     font-weight: bold;
     background-color: rgb(39, 63, 79);
     color: rgb(254, 119, 67);
+    flex-shrink: 0;
 }
 
 .backAndForwardButton:hover {
@@ -33,95 +41,28 @@
     background-color: grey;
 }
 
-.videoCard {
-    flex-shrink: 1;
-    padding-left: 10px;
-    padding-right: 10px;
-    flex-grow: 1;
 
-    /* made this a flex box just so i could have a gap in between the divs */
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
 
-    /* just some space from the popular, recommended and new upload titles*/
-    padding-top: 20px;
-    padding-bottom: 20px;
-}
 
-.videoContainer {
-    display: flex;
-    /* max-width: 500px; */
-    /* flex-basis: 250px; */
-    max-height: 250px;
-    max-width: 440px;
-    aspect-ratio: 2;
-}
 /* .videoCardPairs {
 } */
 @media (max-width: 1000px) {
     .videoPanorama {
         flex-wrap: wrap;
         flex-direction: column;
+        display: block;
+        padding-top: 10px;
+        padding-bottom: 10px;
     }
 
-    .videoContainer {
-        max-width: 100%;
-        max-height: 100%;
+    .backAndForwardButton {
+        left: 50%;
+        position: relative;
+        transform: translate(-50%, 0);
+    }
+
+    .videoCard {
+
     }
 }
 
-.videoLinks {
-    height: 100%;
-    width: 100%;
-}
-
-.videoThumbnail {
-    height: 100%;
-    width: 100%;
-    border-radius: 25px;
-    overflow: hidden;
-    object-fit: fill;
-}
-
-.homePageVideoTitle {
-    font-weight:550;
-    text-decoration: none;
-    color: rgb(39, 63, 79);
-}
-
-.homePageVideoTitle:hover {
-    color: rgb(68, 125, 155);
-}
-
-.usernameUnderVideo{
-    font-weight: lighter;
-    font-size: 15px;
-    text-decoration: none;
-    color: rgb(254, 119, 67);
-    display: flex;
-    gap: 5px;
-}
-
-.usernameUnderVideo:hover {
-    color: rgb(68, 125, 155);
-}
-
-.homepageViewsAndDate {
-    font-size: 14px;
-}
-
-.videoCardPairs {
-    display: flex;
-    gap: 5px;
-}
-
-.pfpUnderVideo {
-    width: 25px;
-    height: 25px;
-    border-radius: 50px;
-}
-
-.usernameUnderVideo {
-    align-self: center;
-}
