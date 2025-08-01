@@ -12,13 +12,13 @@ const db = require('../models/db');
 videoController = require('../controllers/videoController');
 
 // for now videos just shares all the videos on the server
-router.get('/', 
-    (req, res) => {
-    fs.readdir('./public/videos', (err, files) => {
-        res.render('videos/', { files });
-    })
+// router.get('/', 
+//     (req, res) => {
+//     fs.readdir('./public/videos', (err, files) => {
+//         res.render('videos/', { files });
+//     })
 
-});
+// });
 
 // gets page for video upload
 router.get('/upload', videoController.getUploadPage)
@@ -51,5 +51,9 @@ router.get('/upload/reactedToContractAddress/:filename', videoController.getCont
 router.post('/upload/reactedToContractAddress/:filename/:contractAddress', videoController.setContractAddressOfVideo)
 
 router.get('/:subsection', videoController.getSubsectionVideos);
+
+router.get('/search/:searchQuery', videoController.getSearchResults);
+
+router.post('/search/query', videoController.postSearchResults);
 
 module.exports = router;

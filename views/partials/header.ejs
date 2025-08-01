@@ -3,6 +3,12 @@
         <div class="navbarLogoContainer">
             <img src="/pageImages/WatchNowLogoBig.png" class="navbarLogo">
         </div>
+        <form class="navbarSearch" method="POST" action="/videos/search/query" enctype="application/x-www-form-urlencoded">
+            <input class="searchInput" type="text" id="search" name="searchQuery">
+            <button type="submit">
+                <img class="searchIcon" src="/pageImages/search.png">
+            </button>
+        </form>
         <a href="/" class="navbarLinks">Home</a>
         <!-- if this variable doesnt exist it means the user is not logged in
          there may be a cleaner/ more proper way to do this -->
@@ -19,7 +25,5 @@
             </form>
         <% } %>
         <a href="/about"class="navbarLinks">About</a>
-
-
     </nav>
 </header>

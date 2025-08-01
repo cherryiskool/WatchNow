@@ -151,3 +151,36 @@ exports.getSubsectionVideos = async (req, res) => {
 
     res.render('videos/subsection', {pageVideos: pageVideos, pageTitle: subsection[0].toUpperCase()+subsection.slice(1) });
 }
+
+exports.getSearchResults = async (req, res) => {
+    searchQuery = req.params.searchQuery;
+
+    [pageVideos] = await homeModel.getAllVideosViewOrder();
+    let searchVideos = [];
+    let nonSearchVideos =[];
+    let finalVideos =[];
+    for(let x of pageVideos) {
+        if (x.title.toUpperCase().match(searchQuery.toUpperCase()) != null){
+
+            console.log('x.title',x.title.toUpperCase(), 'searchQuery', searchQuery.toUpperCase(),'match result',x.title.toUpperCase().match(searchQuery.toUpperCase()))
+
+            searchVideos.push(x);
+
+            console.log('Match!', x.title);
+
+        } else {
+            nonSearchVideos.push(x);
+        }
+    }
+
+    finalVideos = searchVideos.concat(nonSearchVideos);
+
+    console.log('final videos', finalVideos);
+
+    res.render('videos/search', {pageVideos: finalVideos, pageTitle: searchQuery});
+}
+
+exports.postSearchResults = (req, res) => {
+    searchQuery = req.body.searchQuery;
+    res.redirect(`/videos/search/${searchQuery}`)
+}
