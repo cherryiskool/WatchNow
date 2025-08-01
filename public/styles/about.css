@@ -1,0 +1,29 @@
+.aboutTitleAndLogo {
+    display: flex;
+    gap: 20px;
+}
+
+.aboutLogo {
+    height: 128px;
+    margin-right: auto;
+}
+
+.aboutContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    gap: 30px;
+}
+
+.aboutTitle {
+    align-self: center;
+}
+
+.aboutText {
+    padding-left: 20%;
+    padding-right:20%;
+    width: 100%;
+    padding-bottom: 20px
+}

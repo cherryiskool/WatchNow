@@ -23,7 +23,8 @@ const sessionStore = new MySQLStore(options);
 const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth');
 const videosRouter = require('./routes/videos');
-const profileRouter = require('./routes/profile')
+const profileRouter = require('./routes/profile');
+const aboutRouter = require('./routes/about');
 
 // will be used later to have PUT and UPDATE 
 const methodOverride = require('method-override');
@@ -81,6 +82,7 @@ app.use('/', indexRouter);
 app.use('/', authRouter);
 app.use('/videos', videosRouter);
 app.use('/', profileRouter);
+app.use('/', aboutRouter);
 
 // allows for there to be a set port or for it to be set to 3000 by default
 const port = process.env.PORT || 3000;

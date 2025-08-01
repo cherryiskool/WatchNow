@@ -1,5 +1,8 @@
 <header>
     <nav>
+        <div class="navbarLogoContainer">
+            <img src="/pageImages/WatchNowLogoBig.png" class="navbarLogo">
+        </div>
         <a href="/" class="navbarLinks">Home</a>
         <!-- if this variable doesnt exist it means the user is not logged in
          there may be a cleaner/ more proper way to do this -->
@@ -11,11 +14,11 @@
         <!-- if the user is logged in then display the profile page -->
         <% if (locals.username) { %>
             <a href="/myprofile/<%= locals.username %>"class="navbarLinks">Profile</a>
-            <form action="/logout" method="post"> 
+            <form class="logout" action="/logout" method="post"> 
                 <button class="logout navbarLinks" type="submit"class="navbarLinks" id="logOutButton">Log Out</button>
             </form>
         <% } %>
-
+        <a href="/about"class="navbarLinks">About</a>
 
 
     </nav>
