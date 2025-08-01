@@ -2,10 +2,10 @@
     <h1 class="subsectionTitles"><%= pageTitle %></h1>
 </a>
 
-<div class="videoPanorama subsectionPage">
+<div class="subsectionPage">
     <% for(let i = 0; i < pageVideos.length; i = i + 3) { %>
 
-            <div class="subsectionRow">
+            <div class="videoPanorama subsectionRow">
                 <div class="videoCard videoCardSubsection">
                     <div class="blackBars"></div>
                     <div class="videoContainer">
@@ -56,7 +56,9 @@
                     <div class="blackBars"></div>
                 </div>
                 <% } else {%>
+                <% if (i + 2 > pageVideos.length) { %>
                 <%- include('../partials/subsectionWhiteSpace.ejs') %>
+                <% } %>
                 <%- include('../partials/subsectionWhiteSpace.ejs') %>
                 <% } %>
                 <% if(i + 2 < pageVideos.length) { %>
@@ -85,8 +87,7 @@
                     <div class="blackBars"></div>
                 </div>
             </div>
-        <% } else { %>
-                <%- include('../partials/subsectionWhiteSpace.ejs') %>
         <% } %>
+
     <% } %>
 </div>

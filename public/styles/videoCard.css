@@ -110,6 +110,10 @@
         flex-direction: column;
         display: block;
     }
+
+    .hiddenCard {
+        display: none;
+    }
 }
 
 /* panoramaWhiteSpace */
