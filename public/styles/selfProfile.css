@@ -8,7 +8,22 @@
     gap: 10px;
 }
 
+@media (max-width:1000px) {
+    .profilePageContainer{    
+        padding-left: 10%;
+        padding-right: 10%;
+    }
+}
+
+/* @media (max-width:1000px) {
+    .profilePageContainer{    
+        padding-left: 150px;
+        padding-right: 150px;
+    }
+} */
+
 .profileRow {
+    padding-top: 20px;
     display: flex;
     gap: 10px;
 }

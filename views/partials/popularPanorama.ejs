@@ -44,6 +44,15 @@
         <% } %>
     <% } %>
 
+    <% if(popularVideos.length - popIndex == 2) { %>
+        <%- include('panoramaWhiteSpacePopular.ejs') %>
+        <%- include('panoramaWhiteSpacePopular.ejs') %>
+    <% } else if (popularVideos.length - popIndex == 1) { %>
+        <%- include('panoramaWhiteSpacePopular.ejs') %>
+    <% } %>
+
+
+
     <!-- button to go forward on panorama -->
     <button class="backAndForwardButton" 
     hx-get="/home/popular/forward/<%= popIndex %>"

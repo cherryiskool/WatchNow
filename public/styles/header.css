@@ -2,7 +2,7 @@ nav {
     background-color: rgb(254, 119, 67);
     color: rgb(39, 63, 79);
     /* height of banner */
-    height: auto;
+    min-height: 50px;
     /* ensures that the navbar stays at the top when scrolling */
     position: fixed;
     top: 0;
@@ -16,12 +16,35 @@ nav {
     /* puts the links at the end */
     justify-content: flex-end;
     align-items: center;
-    padding-right: 10px;
-    margin-right: 10px;
+    /* padding-right: 10px; */
+    padding-left: 20px;
+    /* margin-right: 10px; */
     /* border-bottom: 1px solid grey; */
     /* gap: 10px; */
 
     font-size: 16px;
+}
+
+.navbarLogoContainer {
+    padding: 5px;
+        margin-left: 0;
+    margin-right: auto;
+
+        align-self: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+}
+
+.navbarLogo {
+    height: 40px;
+    width: 40px;
+    align-self: flex-start;
+
+    padding: 5px;
+    background-color: white;
+    /* border-radius: 50px; */
+
 }
 
 .navbarLinks {
@@ -29,6 +52,12 @@ nav {
     color: rgb(39, 63, 79);
     font-weight: bolder;
     padding: 10px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* flex-shrink: 1; */
+    min-height: 50px;
 }
 
 .navbarLinks:hover {
@@ -55,4 +84,36 @@ nav {
 
 #logOutButton:focus {
     background-color: grey;
+}
+
+@media (max-width: 500px) {
+    nav {
+        flex-direction: column;
+        position: absolute;
+        padding-left: 0;
+
+
+    }
+    body {
+        padding-top: 230px;
+    }
+
+    .navbarLogoContainer {
+        display:none;
+    }
+
+    .navbarLinks {
+        border-bottom: solid black 1px;
+        width: 100%;
+        align-items: center;
+        min-height: 0;
+    }
+
+    .logout {
+        width: 100%;
+    }
+
+    #logOutButton {
+         border-bottom: solid black 1px;
+    }
 }

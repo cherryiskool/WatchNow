@@ -1,0 +1,22 @@
+<div class="videoCard hiddenCard" hidden>
+    <div class="videoContainer">
+        <a class="videoLinks" href="/videos/watch/<%= subbedVideos[subIndex].fileName %>">
+            <video height="400" width="400" class="videoThumbnail">
+                <source src="/videos/<%= subbedVideos[subIndex].fileName %>">
+            </video>
+        </a>
+    </div>
+    <a class="homePageVideoTitle" href="/videos/watch/<%= subbedVideos[subIndex].fileName %>">
+        <p class="homePageVideoTitle"><%= subbedVideos[subIndex].title %></p>
+    </a>
+    <div class="videoCardPairs">
+        <a class="usernameUnderVideo" href="/viewprofile/<%= subbedVideos[subIndex].username %>">
+            <img src="/profilePictures/<%= subbedVideos[subIndex].pfp %>" class="pfpUnderVideo" ></img>
+            <p class="usernameUnderVideo"><%= subbedVideos[subIndex].username %></p>
+        </a>
+    </div>
+    <div class="videoCardPairs">
+        <p class="homepageViewsAndDate">Views: <%= subbedVideos[subIndex].views %></p>
+        <p class="homepageViewsAndDate">Date Uploaded: <%= subbedVideos[subIndex].dateOfUpload %></p>
+    </div>
+</div>

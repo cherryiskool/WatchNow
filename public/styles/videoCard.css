@@ -87,13 +87,13 @@
 
 /* subsection.ejs */
 
-#videoCardSubsection {
+.videoCardSubsection {
      flex-basis: 33%;
 }
 
 .subsectionRow {
     display: flex;
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
 }
 
 .subsectionPage {
@@ -111,3 +111,8 @@
         display: block;
     }
 }
+
+/* panoramaWhiteSpace */
+
+.hiddenCard {
+    visibility: hidden;}

@@ -1,0 +1,22 @@
+<div class="videoCard hiddenCard" hidden>
+    <div class="videoContainer">
+        <a class="videoLinks" href="/videos/watch/<%= popularVideos[popIndex].fileName %>">
+            <video height="400" width="400" class="videoThumbnail">
+                <source src="/videos/<%= popularVideos[popIndex].fileName %>">
+            </video>
+        </a>
+    </div>
+    <a class="homePageVideoTitle" href="/videos/watch/<%= popularVideos[popIndex].fileName %>">
+        <p class="homePageVideoTitle"><%= popularVideos[popIndex].title %></p>
+    </a>
+    <div class="videoCardPairs">
+        <a class="usernameUnderVideo" href="/viewprofile/<%= popularVideos[popIndex].username %>">
+            <img src="/profilePictures/<%= popularVideos[popIndex].pfp %>" class="pfpUnderVideo" ></img>
+            <p class="usernameUnderVideo"><%= popularVideos[popIndex].username %></p>
+        </a>
+    </div>
+    <div class="videoCardPairs">
+        <p class="homepageViewsAndDate">Views: <%= popularVideos[popIndex].views %></p>
+        <p class="homepageViewsAndDate">Date Uploaded: <%= popularVideos[popIndex].dateOfUpload %></p>
+    </div>
+</div>

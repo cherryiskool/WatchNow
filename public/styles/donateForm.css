@@ -15,9 +15,11 @@
     border-radius: 25px;
     box-shadow: 5px 5px 5px 5px grey;
     /* font-size: 30px; */
-    min-height: 331px;
-    min-width: 580px;
+    /* min-height: 331px;
+    min-width: 580px; */
+    z-index: 10000000000;
     color: rgb(215, 215, 215);
+    position: fixed;
     
 }
 

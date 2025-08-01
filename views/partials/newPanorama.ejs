@@ -43,6 +43,13 @@
         <% } %>
     <% } %>
 
+    <% if(newestVideos.length - newIndex == 1) { %>
+        <%- include('panoramaWhiteSpaceNew.ejs') %>
+        <%- include('panoramaWhiteSpaceNew.ejs') %>
+    <% } else if (newestVideos.length - newIndex == 2) { %>
+        <%- include('panoramaWhiteSpaceNew.ejs') %>
+    <% } %>
+
     <!-- button to go forward on panorama -->
     <button class="backAndForwardButton" 
     hx-get="/home/new/forward/<%= newIndex %>"

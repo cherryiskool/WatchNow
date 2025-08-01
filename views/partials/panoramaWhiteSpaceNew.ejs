@@ -1,0 +1,22 @@
+<div class="videoCard hiddenCard" hidden>
+    <div class="videoContainer">
+        <a class="videoLinks" href="/videos/watch/<%= newestVideos[newIndex].fileName %>">
+            <video height="400" width="400" class="videoThumbnail">
+                <source src="/videos/<%= newestVideos[newIndex].fileName %>">
+            </video>
+        </a>
+    </div>
+    <a class="homePageVideoTitle" href="/videos/watch/<%= newestVideos[newIndex].fileName %>">
+        <p class="homePageVideoTitle"><%= newestVideos[newIndex].title %></p>
+    </a>
+    <div class="videoCardPairs">
+        <a class="usernameUnderVideo" href="/viewprofile/<%= newestVideos[newIndex].username %>">
+            <img src="/profilePictures/<%= newestVideos[newIndex].pfp %>" class="pfpUnderVideo" ></img>
+            <p class="usernameUnderVideo"><%= newestVideos[newIndex].username %></p>
+        </a>
+    </div>
+    <div class="videoCardPairs">
+        <p class="homepageViewsAndDate">Views: <%= newestVideos[newIndex].views %></p>
+        <p class="homepageViewsAndDate">Date Uploaded: <%= newestVideos[newIndex].dateOfUpload %></p>
+    </div>
+</div>

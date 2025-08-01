@@ -34,6 +34,7 @@ exports.watchVideo = async (req, res) => {
     let vUser;
     [vUser] = await videoModel.getVideoAndUserByFileName(filename);
     recommendedVideos = await videoModel.getVideosBarOne(filename);
+    console.log('get videos bar one', recommendedVideos)
     // if there are no rows for the video asked for (this is if people try to search a non existent video by url)
     if (!vUser[0]) {
         res.redirect('/')
@@ -60,7 +61,7 @@ exports.watchVideo = async (req, res) => {
         }
         // if the person reacted to a video in their video get the reacted to video creators wallet address as well
         await videoModel.incrementViewCounter(vUser[0].videoId);
-        res.render('videos/video', {user: vUser[0], subscribeAction: subscribeAction, subscribeActionText: subscribeActionText, x: vUser[0], pageTitle: `${vUser[0].title}`, recommendedVideos: recommendedVideos});
+        res.render('videos/video', {user: vUser[0], subscribeAction: subscribeAction, subscribeActionText: subscribeActionText, x: vUser[0], pageTitle: `${vUser[0].title}`, recommendedVideos: recommendedVideos.slice(0,2)[0]});
     }         
     // if the user is not logged in
     else {
@@ -68,7 +69,8 @@ exports.watchVideo = async (req, res) => {
         subbed = false;
         // if the video is not a react video
         await videoModel.incrementViewCounter(vUser[0].videoId);
-        res.render('videos/video', {user: vUser[0], subscribeAction: 'subscribe', subscribeActionText: 'Sub', x: vUser[0], pageTitle: `${vUser[0].title}`, recommendedVideos: recommendedVideos});
+        console.log(recommendedVideos.slice(0,2))
+        res.render('videos/video', {user: vUser[0], subscribeAction: 'subscribe', subscribeActionText: 'Sub', x: vUser[0], pageTitle: `${vUser[0].title}`, recommendedVideos: recommendedVideos.slice(0,2)[0]});
         
         // if the video is a react video
 

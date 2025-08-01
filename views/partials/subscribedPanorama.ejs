@@ -36,6 +36,12 @@
                 </div>
             </div>
         <% } %>
+    <% if(subbedVideos.length - subIndex == 1) { %>
+        <%- include('panoramaWhiteSpaceSubbed.ejs') %>
+        <%- include('panoramaWhiteSpaceSubbed.ejs') %>
+    <% } else if (subbedVideos.length - subIndex == 2) { %>
+        <%- include('panoramaWhiteSpaceSubbed.ejs') %>
+    <% } %>
 
     <!-- button to go forward on panorama -->
     <button class="backAndForwardButton" 

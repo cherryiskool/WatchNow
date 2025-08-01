@@ -14,7 +14,7 @@ exports.getHomePage = async (req, res) => {
         subbedVideos = [];
     }
     [newestVideos] = await homeModel.getNewestUploads();
-    res.render('index', {popularVideos: popularVideos, popIndex: 0, newestVideos: newestVideos, newIndex: 0, subbedVideos: subbedVideos, subIndex: 0, pageTitle: 'Home'})
+    res.render('index', {popularVideos: popularVideos, popIndex: 0, newestVideos: newestVideos, newIndex: 0, subbedVideos: subbedVideos, subIndex: 0, pageTitle: 'WatchNow'})
 }
 
 exports.forwardPopularVideos = async (req, res) => {
@@ -56,13 +56,13 @@ exports.forwardPopularVideos = async (req, res) => {
 
     // used to render subsection specific data
     if(subsection === 'popular') {
-        res.render('partials/popularPanorama', {popIndex: index, popularVideos: Videos, layout: false, pageTitle: 'Home'})
+        res.render('partials/popularPanorama', {popIndex: index, popularVideos: Videos, layout: false, pageTitle: 'WatchNow'})
     }
     else if(subsection === 'recommended') {
-        res.render('partials/subscribedPanorama', {subIndex: index, subbedVideos: Videos,layout: false, pageTitle: 'Home'})
+        res.render('partials/subscribedPanorama', {subIndex: index, subbedVideos: Videos,layout: false, pageTitle: 'WatchNow'})
     } 
     else {
-        res.render('partials/newPanorama', {newIndex: index, newestVideos: Videos, layout: false, pageTitle: 'Home'})
+        res.render('partials/newPanorama', {newIndex: index, newestVideos: Videos, layout: false, pageTitle: 'WatchNow'})
     }
     
 }
