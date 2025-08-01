@@ -160,7 +160,7 @@ exports.getSearchResults = async (req, res) => {
     let nonSearchVideos =[];
     let finalVideos =[];
     for(let x of pageVideos) {
-        if (x.title.toUpperCase().match(searchQuery.toUpperCase()) != null){
+        if ((x.title.toUpperCase() + x.username.toUpperCase()).match(searchQuery.toUpperCase()) != null){
 
             console.log('x.title',x.title.toUpperCase(), 'searchQuery', searchQuery.toUpperCase(),'match result',x.title.toUpperCase().match(searchQuery.toUpperCase()))
 
