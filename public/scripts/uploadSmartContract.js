@@ -157,6 +157,17 @@ const deployContract = async (event) => {
         // allows me to retrieve the videoFilename easier and control the flow easier
         // may put this after the contract creation??
         // or in the case that contract creation fails have the database delete the video
+
+
+
+        // get the percentage cut the creator wants
+        const percentageCut = Number(document.getElementById("percentageCut").value)
+        // deploy the contract with all the relevant variables
+        const deployment = await window.contract.deploy({
+            data: bytecode,
+            arguments:[videoTitle, reactedToContracts, reactedToContractsCuts, percentageCut]
+        }).send({from: account, gas: 6000000})
+
         const videoData = new FormData(event.target);
 
         const upload = await fetch('/videos/upload', {
@@ -165,15 +176,6 @@ const deployContract = async (event) => {
         });
 
         const videoFilename = await upload.json();
-
-        console.log("videoFilename",videoFilename)
-        // get the percentage cut the creator wants
-        const percentageCut = Number(document.getElementById("percentageCut").value)
-        // deploy the contract with all the relevant variables
-        const deployment = await window.contract.deploy({
-            data: bytecode,
-            arguments:[videoTitle, reactedToContracts, reactedToContractsCuts, percentageCut]
-        }).send({from: account, gas: 6000000})
 
         // may change the POST to send the data through body rather than the url
         // ^ not strictly necessary as no private data is used
@@ -185,6 +187,6 @@ const deployContract = async (event) => {
     // in case of error log error
     // later will add some alert thingy
     catch (err) {
-        console.log(err);
+        alert(err);
     }
 }
