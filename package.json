@@ -16,6 +16,7 @@
     "nodemon": "^3.1.10"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.859.0",
     "bcrypt": "^6.0.0",
     "body-parser": "^2.2.0",
     "connect-sqlite3": "^0.9.15",

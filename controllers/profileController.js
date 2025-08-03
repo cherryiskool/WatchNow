@@ -7,7 +7,7 @@ exports.getOwnProfile = async (req, res) => {
         [user] = await profileModel.getUserAndVidsByID(req.user.id)
         if (user[0].username === req.params.username) {
 
-          res.render('profile/index', {user: user, pageTitle: `${req.user.username} Profile Page`});
+          res.render('profile/index', {user: user, pageVideos: user, pageTitle: `${req.user.username} Profile Page`});
           
         } else {
           res.redirect('/')
@@ -85,22 +85,30 @@ exports.getForeignProfile = async (req, res) => {
 
     [foreignUser] = await profileModel.getUserAndVidsByUsername(username);
     if(req.isAuthenticated()) {
-      [subRow] = await profileModel.checkSub(req.user.id, foreignUser[0].id)
+
+      if(req.user.id == Number(foreignUser[0].userId)) {
+        res.redirect(`/myprofile/${req.user.username}`);
+        return;
+      }
+
+      console.log(Number(req.user.id), Number(foreignUser[0].userId));
+
+      let [subRow] = await profileModel.checkSub(req.user.id, foreignUser[0].userId)
       // if this row exists it must mean that the user is subscribed
-      if (subRow) {
+      if (subRow[0] != null) {
       // return orignal row of the profile user details as well as all their videos
       // return subbed to be false (protagonist user is  subscribed to profile user)
-      res.render('profile/foreignProfile', {user: foreignUser, subscribeAction: 'unsubscribe', subscribeActionText: 'UnSub', x: foreignUser[0], pageTitle: `${username} Profile Page`});
+      res.render('profile/foreignProfile', {user: foreignUser, pageVideos: foreignUser, subscribeAction: 'unsubscribe', subscribeActionText: 'UnSub', x: foreignUser[0], pageTitle: `${username} Profile Page`});
       } 
       
       // if the row does not exist then the user is not subscribed
       else {
       // return orignal row of the profile user details as well as all their videos
       // return subbed to be false (protagonist user is  subscribed to profile user)
-      res.render('profile/foreignProfile', {user: foreignUser, subscribeAction: 'subscribe', subscribeActionText: 'Sub', x: foreignUser[0], pageTitle: `${username} Profile Page`});
+      res.render('profile/foreignProfile', {user: foreignUser, pageVideos: foreignUser,subscribeAction: 'subscribe', subscribeActionText: 'Sub', x: foreignUser[0], pageTitle: `${username} Profile Page`});
       }
     } else {
-      res.render('profile/foreignProfile', {user: foreignUser, subscribeAction: 'subscribe', subscribeActionText: 'Sub', x: foreignUser[0], pageTitle: `${username} Profile Page`});
+      res.render('profile/foreignProfile', {user: foreignUser, pageVideos: foreignUser,subscribeAction: 'subscribe', subscribeActionText: 'Sub', x: foreignUser[0], pageTitle: `${username} Profile Page`});
     }
 
 }

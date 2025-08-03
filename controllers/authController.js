@@ -25,6 +25,7 @@ exports.registerUser = async (req, res) => {
         await authModel.registerUserToDB(req.body.username, req.body.email, req.body.password)
         res.redirect('/login');
     } catch (err) {
+        req.flash('error', 'User Details Taken');
         res.redirect('/register');
   }
 }

@@ -159,6 +159,8 @@ const deployContract = async (event) => {
         // or in the case that contract creation fails have the database delete the video
 
 
+        
+        document.getElementById("userArea").innerHTML = 'Please wait for your contract to deploy before leaving this page.'
 
         // get the percentage cut the creator wants
         const percentageCut = Number(document.getElementById("percentageCut").value)
@@ -183,6 +185,8 @@ const deployContract = async (event) => {
         await fetch(`/videos/upload/reactedToContractAddress/${videoFilename.filename}/${deployment.options.address}`, {
             method: 'POST'
         });
+
+        document.getElementById("userArea").innerHTML = 'Video successfully uploaded!'
     } 
     // in case of error log error
     // later will add some alert thingy

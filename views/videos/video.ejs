@@ -45,7 +45,7 @@
   <% if(recommendedVideos.length != 0) { %>
   <div class="videoPageRightColumn">
 
-    <% for(let i = 0; i < 2; i++) { %>
+    <% for(let i = 0; i < Math.min(recommendedVideos.length, 2); i++) { %>
       <div class="videoCard">
                 <div class="blackBars"></div>
 

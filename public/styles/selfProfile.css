@@ -38,11 +38,17 @@
     border: none;
     width: 50px;
     font-weight: bold;
+    color: rgb(39, 63, 79);
+    background-color: rgb(254, 119, 67);
 }
 
 #editProfileButton:hover {
-    background-color: darkgrey;
+    background-color: rgb(68, 125, 155);
     cursor: pointer;
+}
+
+#editProfileButton:focus {
+    background-color: rgb(158, 158, 158);
 }
 
 .profilePicture {
@@ -88,7 +94,9 @@
     gap: 40px;
         border: 1px solid grey;
         border-radius: 50px;
-    background-color: white;
+        background-color: rgb(68, 125, 155);
+        box-shadow: 2px 2px 2px 2px grey;
+        color: rgb(215, 215, 215);
     padding: 25px;
 }
 
@@ -106,7 +114,8 @@
 .editProfileFormInputs {
     border: none;
     border-radius: 50px;
-    background-color: lightgrey;
+    background-color: rgb(254, 119, 67);
+    color: rgb(39, 63, 79);
     /* margin-right: 0;
     margin-left: auto; */
     font-size: 16px;
@@ -116,10 +125,13 @@
 
 #bio {
     height: fit-content;
+    background-color: rgb(215, 215, 215);
 }
 
 .editProfileFormSubmitButtonContainer {
     align-self: center;
+        cursor: pointer;
+    background-color: rgb(215, 215, 215);
 }
 
 .editProfileFormSubmitButton {
@@ -139,7 +151,8 @@
     font-weight: bold;
     border-radius: 100px;
     padding: 10px;
-    color: black;
+        background-color: rgb(254, 119, 67);
+    color: rgb(39, 63, 79);
     contain: size layout;
     display: flex;
     justify-content: center;
@@ -150,6 +163,6 @@
 .editProfileFormXButton:hover {
     cursor: pointer;
 
-    background-color: darkgrey;
+    background-color: rgb(215, 215, 215);;
     transition: 0.1s;
 }

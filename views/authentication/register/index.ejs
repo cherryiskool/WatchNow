@@ -1,6 +1,7 @@
 <div class="containerForLoginPage">
     <h1>Register Below</h1>
     <form class="containerForLoginForm" action='/register/attempt' method="POST">
+        <%- include('../../partials/errorMessage.ejs') %>
         <div>
             <label class="loginInputLabels">Username</label>
         </div>

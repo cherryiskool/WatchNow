@@ -53,9 +53,29 @@ nav {
     justify-content: center;
 }
 
+.navbarSearchSubmit {
+    border: none;
+    padding-right: 5px;
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
+}
+
+.navbarSearchSubmit:hover {
+    background-color: rgb(68, 125, 155);
+    
+}
+
+
 .searchInput {
     width: 50%;
     padding-left: 5px;
+            border: none;
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
+}
+
+.searchInput:focus {
+    outline: none;
 }
 
 .searchIcon {
@@ -132,5 +152,12 @@ nav {
 
     #logOutButton {
          border-bottom: solid black 1px;
+    }
+
+    .navbarSearch {
+        padding: 3px;
+        justify-content: center;
+        border-bottom: solid black 1px;
+        width: 100%;
     }
 }
