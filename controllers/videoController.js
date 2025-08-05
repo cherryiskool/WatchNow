@@ -112,7 +112,12 @@ exports.deleteReactedToInput = (req, res) => {
 exports.getContractAddressOfVideo = async (req, res) => {
     filename = req.params.filename;
     [video] = await videoModel.getVideoAndUserByFileName(filename);
-    res.json(video[0].contractAddress);
+    console.log(video[0] == null)
+    if (video[0] != null) {
+        res.json({success: true, address: video[0].contractAddress});
+    } else {
+        res.status(500).json({success: false, error: 'Video Does Not Exist'})
+    }
 }
 
 exports.setContractAddressOfVideo = async (req, res) => {
@@ -136,17 +141,27 @@ exports.getSubsectionVideos = async (req, res) => {
     }
     else if (subsection == 'recommended' && req.isAuthenticated()) {
         [pageVideos] = await homeModel.getUserSubscribedVideos(req.user.id);
+        if (pageVideos = []) {
+            req.flash('error', 'Error no recommended videos')
+            res.redirect('/')
+            return
+        }
     }
+    // cant access recommended if they are not signed in
     else if (subsection == 'recommended' && req.isAuthenticated() == false) {
         req.flash('error', 'Sign in to see Recommended Videos');
         res.redirect('/login');
+        return
     }
     else if (subsection == 'new') {
-        [pageVideos] = await homeModel.getNewestUploads(1);
+        [pageVideos] = await homeModel.getNewestUploads();
     }
-    else {
+    else
+        // page doesnt exist
+        {
         req.flash('error', 'Invalid Page');
         res.redirect('/')
+        return
     }
 
     res.render('videos/subsection', {pageVideos: pageVideos, pageTitle: subsection[0].toUpperCase()+subsection.slice(1) });
@@ -159,8 +174,11 @@ exports.getSearchResults = async (req, res) => {
     let searchVideos = [];
     let nonSearchVideos =[];
     let finalVideos =[];
+
+    // for every video
     for(let x of pageVideos) {
-        if ((x.title.toUpperCase() + x.username.toUpperCase()).match(searchQuery.toUpperCase()) != null){
+        // if the search matches the title or the username add it to the search videos
+        if ((x.title.toUpperCase()).match(searchQuery.toUpperCase()) != null || (x.username.toUpperCase()).match(searchQuery.toUpperCase()) != null){
 
             console.log('x.title',x.title.toUpperCase(), 'searchQuery', searchQuery.toUpperCase(),'match result',x.title.toUpperCase().match(searchQuery.toUpperCase()))
 
@@ -169,13 +187,13 @@ exports.getSearchResults = async (req, res) => {
             console.log('Match!', x.title);
 
         } else {
+            // else add it to non search videos
             nonSearchVideos.push(x);
         }
     }
 
+    // final array is related videos on top of unrelated videos
     finalVideos = searchVideos.concat(nonSearchVideos);
-
-    console.log('final videos', finalVideos);
 
     res.render('videos/search', {pageVideos: finalVideos, pageTitle: searchQuery});
 }

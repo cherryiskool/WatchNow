@@ -51,7 +51,6 @@ exports.updateProfile = async (req, res) => {
 }
 
 exports.subscribe = async (req, res) => {
-  // backURL = req.header('Referer') || '/'
   if (req.isAuthenticated()) {
     subscribedTo = req.params.username;
 
@@ -66,6 +65,7 @@ exports.subscribe = async (req, res) => {
   else {
     req.flash('error', 'Log in to Subscribe')
     res.render("partials/subscribeButton", {subscribeAction: 'subscribe', subscribeActionText: 'Sub', x: {username: req.params.username}, pageTitle: req.params.username, layout: false})
+    return
   }
 }
 
@@ -90,8 +90,6 @@ exports.getForeignProfile = async (req, res) => {
         res.redirect(`/myprofile/${req.user.username}`);
         return;
       }
-
-      console.log(Number(req.user.id), Number(foreignUser[0].userId));
 
       let [subRow] = await profileModel.checkSub(req.user.id, foreignUser[0].userId)
       // if this row exists it must mean that the user is subscribed

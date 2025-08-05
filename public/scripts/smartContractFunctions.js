@@ -18,6 +18,11 @@ const connectContract = async () => {
       "inputs": [
         {
           "internalType": "string",
+          "name": "_channelName",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
           "name": "_videoTitle",
           "type": "string"
         },
@@ -45,6 +50,19 @@ const connectContract = async () => {
       "name": "applyContractTermsToDonation",
       "outputs": [],
       "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "channelName",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
       "type": "function"
     },
     {
@@ -120,8 +138,6 @@ const connectContract = async () => {
     window.web3 =  await new Web3(window.ethereum);
     window.contract =  new window.web3.eth.Contract(ABI, Address);
     document.getElementById("contractArea").innerHTML = `Connected to Contract ${Address}`; // calling the elementID above
-    x = await window.contract.methods.percentageCut().call();
-    document.getElementById("percentageCutDetail").innerHTML = `Percentage Cut of any revenue your reaction makes: ${x}%`
 
 }
 
@@ -130,6 +146,7 @@ const connectContract = async () => {
 const applyContractTermsToDonation = async () => {
     const amount = document.getElementById("depositInput").value *1000000000000000000; // have to multiply by this much
     try {
+      
       await window.contract.methods.applyContractTermsToDonation().send({from: account, value: amount});
 
     }

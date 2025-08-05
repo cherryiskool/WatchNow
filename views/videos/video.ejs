@@ -5,6 +5,7 @@
 
 <div class="videoPage">
   <div class="videoPageLeftColumn">
+    <%- include('../partials/errorMessage.ejs') %>
     <div class="videoPlayerContainer">
       <video class="videoPlayer" controls>
           <source src="/videos/<%= user.fileName %>">

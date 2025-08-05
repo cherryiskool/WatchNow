@@ -27,7 +27,7 @@ passport.use(new LocalStrategy({usernameField: 'email'}, async function verify(e
       } else {
         // cb failure returns false and a message
         console.log('incorrect');
-        return cb(null, false, { message: 'Incorrect Password'});
+        return cb(null, false, { message: 'Incorrect Details'});
       }
     } catch (err) {
         return cb(err)
@@ -47,7 +47,9 @@ passport.deserializeUser(async function(id, cb) {
   try {
     if (user[0]) {
       return cb(null, user[0]);
-    } else {
+    } 
+    // this had to be added in case deserialisation fails (the else statement specifically)
+    else {
       return cb(null, false);
     }
   } catch (err) {
@@ -55,7 +57,7 @@ passport.deserializeUser(async function(id, cb) {
     return cb(err);
 
   }
-    // this had to be added in case deserialisation fails (the else statement specifically)
+
 
 
 

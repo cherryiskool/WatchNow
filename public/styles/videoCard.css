@@ -12,6 +12,7 @@
     /* just some space from the popular, recommended and new upload titles*/
     padding-top: 20px;
     padding-bottom: 20px;
+    align-items: center;
 }
 
 .videoContainer {
@@ -113,6 +114,10 @@
 
     .hiddenCard {
         display: none;
+    }
+
+    .videoCard {
+        align-items: normal;
     }
 }
 

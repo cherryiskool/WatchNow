@@ -10,7 +10,7 @@ interface ReactedToVideoTerms {
 contract VideoReactTerms {
     // saves the title of the video to the blockchain
     string public videoTitle;
-
+    string public channelName;
     // whole number percentage cut as solidity cannot store decimals
     // public to allow solidity to automatically create a getter function
     // ^ will be used when this conctract is sent money from other contracts
@@ -23,8 +23,9 @@ contract VideoReactTerms {
     uint256[] public reactedToContractsPercentageCuts;
 
     // when a smart contract is created it is created with the video title, address of the video owner, the contracts of the videos the user reacted to and their cuts saved permanently
-    constructor(string memory _videoTitle, address payable[] memory _reactedToContracts, uint256[] memory _reactedToContractsPercentageCuts, uint256 _percentageCut) {
+    constructor(string memory _channelName, string memory _videoTitle, address payable[] memory _reactedToContracts, uint256[] memory _reactedToContractsPercentageCuts, uint256 _percentageCut) {
         uploader = payable(msg.sender);
+        channelName = _channelName;
         videoTitle = _videoTitle;
         reactedToContracts = _reactedToContracts;
         reactedToContractsPercentageCuts = _reactedToContractsPercentageCuts;

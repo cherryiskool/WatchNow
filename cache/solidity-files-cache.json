@@ -36,6 +36,42 @@
         "ReactedToVideoTerms",
         "VideoReactTerms"
       ]
+    },
+    "C:\\Users\\Vincent\\Python_Projects\\NCI_WebDev\\WatchNow - Original\\Contracts\\Token.sol": {
+      "lastModificationDate": 1754309648457,
+      "contentHash": "919fdc21cf1672d795eace55afdf33cd",
+      "sourceName": "Contracts/Token.sol",
+      "solcConfig": {
+        "version": "0.8.0",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.8.0"
+      ],
+      "artifacts": [
+        "ReactedToVideoTerms",
+        "VideoReactTerms"
+      ]
     }
   }
 }

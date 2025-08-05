@@ -45,7 +45,7 @@ exports.forwardPopularVideos = async (req, res) => {
     // if the user clicked the backward button
     else {
         // if there are at least three videos left go back three
-        if(index - 3 >= 3) {
+        if(index - 3 >= 0) {
             index = index - 3;
         } 
         // if there arent then just go back to index 0

@@ -28,6 +28,7 @@ const aboutRouter = require('./routes/about');
 
 // will be used later to have PUT and UPDATE 
 const methodOverride = require('method-override');
+const bodyParser = require('body-parser');
 
 // allows for variables to be written into ejs pages
 app.set('view engine', 'ejs');
@@ -45,7 +46,8 @@ app.use(express.static('public'));
 
 // allows for server to parse through http requests - req.body etc.
 app.use(express.urlencoded({limit: '10mb', extended: false}));
-
+app.use(express.json());
+app.use(bodyParser.json())
 
 app.use(flash())
 

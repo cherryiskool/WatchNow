@@ -35,3 +35,7 @@ exports.logOut = (req, res) => {
     res.redirect('/');
   })
 }
+
+exports.getSessionUserUsername = (req, res) => {
+  res.json(req.user.username);
+}

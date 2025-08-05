@@ -20,7 +20,7 @@ module.exports = {
   networks: {
     sepolia : {
       url: endpoint,
-      accounts : [`0x${privateKey}`]
+      accounts : [privateKey]
     }
   },
 	etherscan: {

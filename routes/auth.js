@@ -22,7 +22,7 @@ router.post('/register/attempt', authController.registerUser)
 // this logs the user out
 router.post('/logout', authController.logOut);
 
-
+router.get('/getSessionUsername', authController.getSessionUserUsername);
 
 
 module.exports = router;
