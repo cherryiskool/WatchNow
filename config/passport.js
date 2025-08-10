@@ -40,10 +40,8 @@ passport.serializeUser(function(user, cb) {
 
 // function that uses the id from serialize user to get the user object
 // allows me to call req.user.walletAddress etc.
-passport.deserializeUser(async function(id, cb) {
-  // console.log(id);
-  [user] = await db.query('SELECT * FROM users WHERE id = ?', [ id.id ])
-
+passport.deserializeUser(async function(user, cb) {
+  [user] = await db.query('SELECT * FROM users WHERE id = ?', [ user.id ])
   try {
     if (user[0]) {
       return cb(null, user[0]);
@@ -53,14 +51,9 @@ passport.deserializeUser(async function(id, cb) {
       return cb(null, false);
     }
   } catch (err) {
-
     return cb(err);
-
   }
-
-
-
-
 });
 
 module.exports = passport
+

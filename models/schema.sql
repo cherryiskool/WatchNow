@@ -1,10 +1,10 @@
 -- schema, i run this from the terminal/mysqlserver app
+-- this is for the elastic beanstalk instance
+DROP DATABASE IF EXISTS watchnowdb;
 
-DROP DATABASE IF EXISTS watchNow;
+CREATE DATABASE IF NOT EXISTS watchnowdb;
 
-CREATE DATABASE IF NOT EXISTS watchNow;
-
-USE watchNow;
+USE watchnowdb;
 
 CREATE TABLE IF NOT EXISTS users (
     id INT(50) AUTO_INCREMENT, 
@@ -35,14 +35,3 @@ CREATE TABLE IF NOT EXISTS subscribed (
     subscribedToId INT(50), 
     UNIQUE(subscriberId, subscribedToId) 
 );
-
-CREATE TABLE IF NOT EXISTS reactedTo ( 
-    reactId INT(50), 
-    originalId INT(50), 
-    UNIQUE(reactId, originalId) 
-);
-
-SELECT * FROM users;
-SELECT * FROM videos;
-SELECT * FROM reactedTo;
-SELECT * FROM subscribed;

@@ -1,24 +1,10 @@
 const express = require('express');
-// const multer = require('multer');
 const router = express.Router();
-// const path = require('path');
-const fs = require('fs');
-const flash = require('express-flash');
 
-const upload = require('../config/video')
+const { upload } = require('../config/video')
 
 // runs the db file which creates the database
-const db = require('../models/db');
 videoController = require('../controllers/videoController');
-
-// for now videos just shares all the videos on the server
-// router.get('/', 
-//     (req, res) => {
-//     fs.readdir('./public/videos', (err, files) => {
-//         res.render('videos/', { files });
-//     })
-
-// });
 
 // gets page for video upload
 router.get('/upload', videoController.getUploadPage)

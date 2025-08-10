@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const db = require('../models/db');
 const profileController = require('../controllers/profileController');
-const upload = require('../config/pfpBanner');
+const { upload } = require('../config/pfpBanner');
 
 // this gets the current users profile
 router.get('/myprofile/:username', profileController.getOwnProfile);

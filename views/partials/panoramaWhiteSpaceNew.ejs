@@ -2,7 +2,7 @@
     <div class="videoContainer">
         <a class="videoLinks" href="/videos/watch/<%= newestVideos[newIndex].fileName %>">
             <video height="400" width="400" class="videoThumbnail">
-                <source src="/videos/<%= newestVideos[newIndex].fileName %>">
+                <source src="https://bucketwatchnow.s3.us-east-1.amazonaws.com/videos/<%= newestVideos[newIndex].fileName %>">
             </video>
         </a>
     </div>
@@ -11,7 +11,7 @@
     </a>
     <div class="videoCardPairs">
         <a class="usernameUnderVideo" href="/viewprofile/<%= newestVideos[newIndex].username %>">
-            <img src="/profilePictures/<%= newestVideos[newIndex].pfp %>" class="pfpUnderVideo" ></img>
+            <img src="https://bucketwatchnow.s3.us-east-1.amazonaws.com/profilePictures/<%= newestVideos[newIndex].pfp %>" class="pfpUnderVideo"></img>
             <p class="usernameUnderVideo"><%= newestVideos[newIndex].username %></p>
         </a>
     </div>

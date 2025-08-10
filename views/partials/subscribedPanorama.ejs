@@ -17,7 +17,7 @@
                 <div class="videoContainer">
                     <a class="videoLinks" href="/videos/watch/<%= subbedVideos[i].fileName %>">
                         <video height="400" width="400" class="videoThumbnail">
-                            <source src="/videos/<%= subbedVideos[i].fileName %>">
+                            <source src="https://bucketwatchnow.s3.us-east-1.amazonaws.com/videos/<%= subbedVideos[i].fileName %>">
                         </video>
                     </a>
                 </div>
@@ -26,13 +26,13 @@
                 </a>
                 <div class="videoCardPairs">
                     <a class="usernameUnderVideo" href="/viewprofile/<%= subbedVideos[i].username %>">
-                        <img src="/profilePictures/<%= subbedVideos[i].pfp %>" class="pfpUnderVideo" ></img>
+                        <img src="https://bucketwatchnow.s3.us-east-1.amazonaws.com/profilePictures/<%= subbedVideos[i].pfp %>" class="pfpUnderVideo"  alt="<%= subbedVideos[0].username %> Profile Picture"></img>
                         <p class="usernameUnderVideo"><%= subbedVideos[i].username %></p>
                     </a>
                 </div>
                 <div class="videoCardPairs">
                     <p class="homepageViewsAndDate">Views: <%= subbedVideos[i].views %></p>
-                    <p class="homepageViewsAndDate">Date Uploaded: <%= subbedVideos[i].dateOfUpload %></p>
+                    <p class="homepageViewsAndDate">| Date Uploaded: <%= subbedVideos[i].dateOfUpload %></p>
                 </div>
             </div>
         <% } %>

@@ -8,7 +8,7 @@
     <%- include('../partials/errorMessage.ejs') %>
     <div class="videoPlayerContainer">
       <video class="videoPlayer" controls>
-          <source src="/videos/<%= user.fileName %>">
+          <source src="https://bucketwatchnow.s3.us-east-1.amazonaws.com/videos/<%= user.fileName %>">
       </video>
       <p id="videoPageTitle">
         <%= user.title %>
@@ -18,7 +18,7 @@
       </p>
   
       <div class="videoMetaDataContainer">
-        <img class="pfpUnderVideo" src="/profilePictures/<%= user.pfp %>">
+        <img class="pfpUnderVideo" src="https://bucketwatchnow.s3.us-east-1.amazonaws.com/profilePictures/<%= user.pfp %>" alt="<%= user.username %> profile picture">
   
         <p>
           <a class="videoUsernameUnderVideo" href="/viewprofile/<%= user.username %>"><%= user.username %></a>
@@ -53,7 +53,7 @@
                 <div class="videoContainer">
                     <a class="videoLinks" href="/videos/watch/<%= recommendedVideos[i].fileName %>">
                         <video height="400" width="400" class="videoThumbnail">
-                            <source src="/videos/<%= recommendedVideos[i].fileName %>">
+                            <source src="https://bucketwatchnow.s3.us-east-1.amazonaws.com/videos/<%= recommendedVideos[i].fileName %>">
                         </video>
                     </a>
                 </div>
@@ -62,7 +62,7 @@
                 </a>
                 <div class="videoCardPairs">
                     <a class="usernameUnderVideo" href="/viewprofile/<%= recommendedVideos[i].username %>">
-                        <img src="/profilePictures/<%= recommendedVideos[i].pfp %>" class="pfpUnderVideo" ></img>
+                        <img src="https://bucketwatchnow.s3.us-east-1.amazonaws.com/profilePictures/<%= recommendedVideos[i].pfp %>" class="pfpUnderVideo" alt="<%= recommendedVideos[i].username %> profile picture"></img>
                         <p class="usernameUnderVideo"><%= recommendedVideos[i].username %></p>
                     </a>
                 </div>

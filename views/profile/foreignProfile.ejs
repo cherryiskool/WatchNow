@@ -6,7 +6,7 @@
 
 <div class="profilePageContainer">
 <% if (user[0].banner) { %>
-    <img class="banner rightColumn" src="/banners/<%= user[0].banner %>">
+    <img class="banner rightColumn" src="https://bucketwatchnow.s3.us-east-1.amazonaws.com/banners/<%= user[0].banner %>" alt="<%= user[0].username %> profile banner">
 <% } %>
 
 <div class="profileRow">
@@ -15,7 +15,7 @@
 
 <div class="profileRow">
 <% if (user[0].pfp) { %>
-    <img class="profilePicture" src="/profilePictures/<%= user[0].pfp %>">
+    <img class="profilePicture" src="https://bucketwatchnow.s3.us-east-1.amazonaws.com/profilePictures/<%= user[0].pfp %>" alt="<%= user[0].username %> profile picture">
 <% } %>
 
     <%- include('../partials/subscribeButton.ejs') %>
@@ -41,7 +41,7 @@
                     <div class="videoContainer">
                         <a class="videoLinks" href="/videos/watch/<%= pageVideos[i].fileName %>">
                             <video height="400" width="400" class="videoThumbnail">
-                                <source src="/videos/<%= pageVideos[i].fileName %>">
+                                <source src="https://bucketwatchnow.s3.us-east-1.amazonaws.com/videos/<%= pageVideos[i].fileName %>">
                             </video>
                         </a>
                     </div>
@@ -50,7 +50,7 @@
                     </a>
                     <div class="videoCardPairs">
                         <a class="usernameUnderVideo" href="/viewprofile/<%= pageVideos[i].username %>">
-                            <img src="/profilePictures/<%= pageVideos[i].pfp %>" class="pfpUnderVideo" ></img>
+                            <img src="https://bucketwatchnow.s3.us-east-1.amazonaws.com/profilePictures/<%= pageVideos[i].pfp %>" class="pfpUnderVideo" alt="<%= pageVideos[i].username %> profile picture under video"></img>
                             <p class="usernameUnderVideo"><%= pageVideos[i].username %></p>
                         </a>
                     </div>
@@ -66,7 +66,7 @@
                     <div class="videoContainer">
                         <a class="videoLinks" href="/videos/watch/<%= pageVideos[i + 1].fileName %>">
                             <video height="400" width="400" class="videoThumbnail">
-                                <source src="/videos/<%= pageVideos[i + 1].fileName %>">
+                                <source src="https://bucketwatchnow.s3.us-east-1.amazonaws.com/videos/<%= pageVideos[i + 1].fileName %>">
                             </video>
                         </a>
                     </div>
@@ -75,7 +75,7 @@
                     </a>
                     <div class="videoCardPairs">
                         <a class="usernameUnderVideo" href="/viewprofile/<%= pageVideos[i + 1].username %>">
-                            <img src="/profilePictures/<%= pageVideos[i + 1].pfp %>" class="pfpUnderVideo" ></img>
+                            <img src="https://bucketwatchnow.s3.us-east-1.amazonaws.com/profilePictures/<%= pageVideos[i + 1].pfp %>" class="pfpUnderVideo" alt="<%= pageVideos[i + 1].username %> profile picture"></img>
                             <p class="usernameUnderVideo"><%= pageVideos[i + 1].username %></p>
                         </a>
                     </div>
@@ -97,7 +97,7 @@
                     <div class="videoContainer">
                         <a class="videoLinks" href="/videos/watch/<%= pageVideos[i + 2].fileName %>">
                             <video height="400" width="400" class="videoThumbnail">
-                                <source src="/videos/<%= pageVideos[i + 2].fileName %>">
+                                <source src="https://bucketwatchnow.s3.us-east-1.amazonaws.com/videos/<%= pageVideos[i + 2].fileName %>">
                             </video>
                         </a>
                     </div>
@@ -106,7 +106,7 @@
                     </a>
                     <div class="videoCardPairs">
                         <a class="usernameUnderVideo" href="/viewprofile/<%= pageVideos[i + 2].username %>">
-                            <img src="/profilePictures/<%= pageVideos[i + 2].pfp %>" class="pfpUnderVideo" ></img>
+                            <img src="https://bucketwatchnow.s3.us-east-1.amazonaws.com/profilePictures/<%= pageVideos[i + 2].pfp %>" class="pfpUnderVideo" alt="<%= pageVideos[i + 2].username %> profile picture under video"></img>
                             <p class="usernameUnderVideo"><%= pageVideos[i + 2].username %></p>
                         </a>
                     </div>

@@ -2,7 +2,7 @@
     <div class="videoContainer">
         <a class="videoLinks" href="/videos/watch/<%= popularVideos[popIndex].fileName %>">
             <video height="400" width="400" class="videoThumbnail">
-                <source src="/videos/<%= popularVideos[popIndex].fileName %>">
+                <source src="https://bucketwatchnow.s3.us-east-1.amazonaws.com/videos/<%= popularVideos[popIndex].fileName %>">
             </video>
         </a>
     </div>
@@ -11,7 +11,7 @@
     </a>
     <div class="videoCardPairs">
         <a class="usernameUnderVideo" href="/viewprofile/<%= popularVideos[popIndex].username %>">
-            <img src="/profilePictures/<%= popularVideos[popIndex].pfp %>" class="pfpUnderVideo" ></img>
+            <img src="https://bucketwatchnow.s3.us-east-1.amazonaws.com/profilePictures/<%= popularVideos[popIndex].pfp %>" class="pfpUnderVideo"></img>
             <p class="usernameUnderVideo"><%= popularVideos[popIndex].username %></p>
         </a>
     </div>

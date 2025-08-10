@@ -43,9 +43,8 @@ app.use(methodOverride('_method'));
 
 // tells express to use this directory for files
 app.use(express.static('public'));
-
 // allows for server to parse through http requests - req.body etc.
-app.use(express.urlencoded({limit: '10mb', extended: false}));
+app.use(express.urlencoded({limit: '100000mb', extended: false}));
 app.use(express.json());
 app.use(bodyParser.json())
 

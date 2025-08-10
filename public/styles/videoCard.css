@@ -24,13 +24,6 @@
     aspect-ratio: 2;
 }
 
-@media (max-width: 1000px) {
-    .videoContainer {
-    max-width: 100%;
-    max-height: 100%;
-    }
-}
-
 .videoLinks {
     height: 100%;
     width: 100%;
@@ -103,6 +96,11 @@
 }
 
 @media (max-width: 1000px) {
+    .videoContainer {
+    max-width: 100%;
+    max-height: 100%;
+    }
+
     .subsectionPage {
         display: block;
     }

@@ -2,7 +2,7 @@
     <div class="videoContainer">
         <a class="videoLinks" href="/videos/watch/<%= subbedVideos[subIndex].fileName %>">
             <video height="400" width="400" class="videoThumbnail">
-                <source src="/videos/<%= subbedVideos[subIndex].fileName %>">
+                <source src="https://bucketwatchnow.s3.us-east-1.amazonaws.com/videos/<%= subbedVideos[subIndex].fileName %>">
             </video>
         </a>
     </div>
@@ -11,7 +11,7 @@
     </a>
     <div class="videoCardPairs">
         <a class="usernameUnderVideo" href="/viewprofile/<%= subbedVideos[subIndex].username %>">
-            <img src="/profilePictures/<%= subbedVideos[subIndex].pfp %>" class="pfpUnderVideo" ></img>
+            <img src="https://bucketwatchnow.s3.us-east-1.amazonaws.com/profilePictures/<%= subbedVideos[subIndex].pfp %>" class="pfpUnderVideo"></img>
             <p class="usernameUnderVideo"><%= subbedVideos[subIndex].username %></p>
         </a>
     </div>

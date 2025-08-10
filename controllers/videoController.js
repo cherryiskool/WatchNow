@@ -3,6 +3,10 @@ const profileModel = require('../models/profileModel');
 
 // used for the subsections (no point in rewriting code)
 const homeModel = require('../models/homeModel');
+const { S3, PutObjectCommand } = require('@aws-sdk/client-s3');
+const { v4: uuidv4 } = require('uuid');
+const path = require('path');
+const { s3 } = require('../config/video');
 
 exports.getUploadPage = (req, res) => {
     if (req.isAuthenticated() == false) {
@@ -14,19 +18,34 @@ exports.getUploadPage = (req, res) => {
 };
 
 exports.uploadVideo = async (req, res) => {
-    let video = req.file;
-    console.log("video", video)
-    await videoModel.saveVideoToDB(
-        req.body.videoTitle,
-        req.user.id,
-        video.filename,
-        req.body.description);
+    try {
+        let video = req.file;
+        console.log("video", video)
+        const fileType = path.extname(video.originalname);
+        const videoFilename = `${uuidv4()}${fileType}`
 
-    // returns filename to client so that the contract address can be set when the contract is deployed
-    res.json({filename: video.filename})
-    // put video details into database to query later
-    // res.send('Video Upload Successful');
-    // res.redirect('/videos/upload');
+        await videoModel.saveVideoToDB(
+            req.body.videoTitle,
+            req.user.id,
+            videoFilename,
+            req.body.description);
+
+        const params = {
+            Bucket: process.env.BUCKET_NAME,
+            Key: `videos/${videoFilename}`,
+            Body: video.buffer,
+            ContentType: video.mimetype,
+        }
+
+    
+        await s3.send(new PutObjectCommand(params));
+
+        // returns filename to client so that the contract address can be set when the contract is deployed
+        res.json({success: true, filename: videoFilename})
+    } catch (err) {
+        console.log('sending video error', err)
+        res.status(500).json({success: false, error: err})
+    }
 }
 
 exports.watchVideo = async (req, res) => {
@@ -37,6 +56,7 @@ exports.watchVideo = async (req, res) => {
     console.log('get videos bar one', recommendedVideos)
     // if there are no rows for the video asked for (this is if people try to search a non existent video by url)
     if (!vUser[0]) {
+        req.flash('error', 'Video not found')
         res.redirect('/')
     } else {
 
@@ -71,9 +91,6 @@ exports.watchVideo = async (req, res) => {
         await videoModel.incrementViewCounter(vUser[0].videoId);
         console.log(recommendedVideos.slice(0,2))
         res.render('videos/video', {user: vUser[0], subscribeAction: 'subscribe', subscribeActionText: 'Sub', x: vUser[0], pageTitle: `${vUser[0].title}`, recommendedVideos: recommendedVideos.slice(0,2)[0]});
-        
-        // if the video is a react video
-
     }
     }
 }
@@ -112,11 +129,11 @@ exports.deleteReactedToInput = (req, res) => {
 exports.getContractAddressOfVideo = async (req, res) => {
     filename = req.params.filename;
     [video] = await videoModel.getVideoAndUserByFileName(filename);
-    console.log(video[0] == null)
+    console.log(video)
     if (video[0] != null) {
         res.json({success: true, address: video[0].contractAddress});
     } else {
-        res.status(500).json({success: false, error: 'Video Does Not Exist'})
+        res.status(404).json({success: false, error: 'Video Does Not Exist'});
     }
 }
 
@@ -124,7 +141,7 @@ exports.setContractAddressOfVideo = async (req, res) => {
     try{
         filename = req.params.filename;
         contractAddress = req.params.contractAddress;
-        console.log("stuff that should work after deployment", filename, "more shurtt", contractAddress)
+        console.log('setting the contract back end', contractAddress);
         await videoModel.saveContractAddressToVideo(filename, contractAddress);
         res.json({success: true, message: 'Contract Address Saved'})
     }

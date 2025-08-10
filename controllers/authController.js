@@ -10,20 +10,17 @@ exports.getLoginPage = (req, res) => {
 }
 
 exports.getRegisterPage = (req, res) => {
-
   if (req.isAuthenticated()) {
     res.redirect('/');
   } else {
     res.render('authentication/register/index', {pageTitle: 'Register to WatchNow'})
   }
-
-   
 }
 
 exports.registerUser = async (req, res) => {
     try {
-        await authModel.registerUserToDB(req.body.username, req.body.email, req.body.password)
-        res.redirect('/login');
+      await authModel.registerUserToDB(req.body.username, req.body.email, req.body.password);
+      res.redirect('/login');
     } catch (err) {
         req.flash('error', 'User Details Taken');
         res.redirect('/register');
@@ -37,5 +34,15 @@ exports.logOut = (req, res) => {
 }
 
 exports.getSessionUserUsername = (req, res) => {
-  res.json(req.user.username);
+  try {
+    if(req.isAuthenticated()) {
+      console.log('userid memey', req.user.username)
+      res.json({success: true, channelName: req.user.username});
+    } else {
+      res.status(404).json({success: false, error: 'Error getting session user'});
+    }
+  } catch (err) {
+    res.status(500).json({success: false, error: 'Server error'})
+  }
+
 }

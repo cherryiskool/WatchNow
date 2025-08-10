@@ -133,11 +133,17 @@ const connectContract = async () => {
 
     let indexOfUrl = String(window.location.pathname).indexOf("watch/");
     let reactedToFileName = String(window.location.pathname).slice(indexOfUrl + 6);
-    let req = await fetch( `/videos/upload/reactedToContractAddress/${reactedToFileName}`) 
-    const Address = await req.json(); // Contract Address
+    let contractAddressRequest = await fetch( `/videos/upload/reactedToContractAddress/${reactedToFileName}`)
+    if (!contractAddressRequest.ok) {
+      throw new Error('Invalid react link');
+    }
+
+    let contractAddress = await contractAddressRequest.json();
+    contractAddress = contractAddress.address
+
     window.web3 =  await new Web3(window.ethereum);
-    window.contract =  new window.web3.eth.Contract(ABI, Address);
-    document.getElementById("contractArea").innerHTML = `Connected to Contract ${Address}`; // calling the elementID above
+    window.contract =  new window.web3.eth.Contract(ABI, contractAddress);
+    document.getElementById("contractArea").innerHTML = `Connected to Contract ${contractAddress}`; // calling the elementID above
 
 }
 
@@ -146,9 +152,7 @@ const connectContract = async () => {
 const applyContractTermsToDonation = async () => {
     const amount = document.getElementById("depositInput").value *1000000000000000000; // have to multiply by this much
     try {
-      
       await window.contract.methods.applyContractTermsToDonation().send({from: account, value: amount});
-
     }
     catch (err) {
       alert(err);

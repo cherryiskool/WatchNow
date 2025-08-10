@@ -1,4 +1,8 @@
 const profileModel = require('../models/profileModel');
+const { S3, PutObjectCommand } = require('@aws-sdk/client-s3');
+const { v4: uuidv4 } = require('uuid');
+const path = require('path');
+const { s3 } = require('../config/pfpBanner');
 
 exports.getOwnProfile = async (req, res) => {
 
@@ -33,19 +37,41 @@ exports.updateProfile = async (req, res) => {
     if(!req.files.pfp) {
       pfpFileName = req.user.pfp;
     } else {
-      pfpFileName = req.files.pfp[0].filename
+      const fileTypePfp = path.extname(req.files.pfp[0].originalname);
+      pfpFileName = `${uuidv4()}${fileTypePfp}`
     }
     // same as above
     if (!req.files.banner) {
       bannerFileName = req.user.banner;
     } else {
-      bannerFileName = req.files.banner[0].filename
+      const fileTypeBanner = path.extname(req.files.banner[0].originalname);
+      bannerFileName = `${uuidv4()}${fileTypeBanner}`
     }
     bio = req.body.bio
     
     console.log('pfpFilename', pfpFileName);
     console.log('bannerFilename', bannerFileName);
-    await profileModel.updateUserDetails(bio, bannerFileName, pfpFileName, req.user.id)
+    await profileModel.updateUserDetails(bio, bannerFileName, pfpFileName, req.user.id);
+
+    if(req.files.pfp) {
+      const paramsPfp = {
+          Bucket: process.env.BUCKET_NAME,
+          Key: `profilePictures/${pfpFileName}`,
+          Body: req.files.pfp[0].buffer,
+          ContentType: req.files.pfp[0].mimetype,
+      }
+      await s3.send(new PutObjectCommand(paramsPfp));
+    }
+
+    if(req.files.banner) {
+      const paramsBanner = {
+        Bucket: process.env.BUCKET_NAME,
+        Key: `banners/${bannerFileName}`,
+        Body: req.files.banner[0].buffer,
+        ContentType: req.files.banner[0].mimetype,
+      }      
+      await s3.send(new PutObjectCommand(paramsBanner));
+    }
 
     res.redirect(`/myprofile/${req.user.username}`)
 }
